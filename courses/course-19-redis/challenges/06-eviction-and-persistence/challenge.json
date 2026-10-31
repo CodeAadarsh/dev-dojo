@@ -1,0 +1,11 @@
+{
+  "slug": "06-eviction-and-persistence",
+  "title": "Eviction Policy & AOF Persistence",
+  "order": 6,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["eviction", "persistence", "config"],
+  "objective": "Configure the running Redis instance as a bounded cache: set a maxmemory ceiling, select the allkeys-lru eviction policy, and enable AOF persistence — all via CONFIG SET without restarting."
+}

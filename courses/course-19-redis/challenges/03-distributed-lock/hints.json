@@ -1,0 +1,5 @@
+[
+  "For acquire.sh: the command is `SET <key> <token> NX PX <ttl_ms>`. It returns the string `OK` on success and an empty string (nil) if the key already exists. Capture the output and compare with `[ \"$RESULT\" = \"OK\" ]`.",
+  "For release.sh: a plain `DEL` is wrong — it deletes the key regardless of who owns it. Use `redis-cli EVAL \"if redis.call('GET',KEYS[1])==ARGV[1] then return redis.call('DEL',KEYS[1]) else return 0 end\" 1 \"$KEY\" \"$TOKEN\"`. The Lua script returns 1 if it deleted the key, 0 if the token did not match.",
+  "The verifier checks four things in sequence: (1) acquire succeeds when the lock is free, (2) acquire fails when the lock is held, (3) release with the wrong token exits 1 and leaves the key intact, (4) release with the correct token exits 0 and removes the key. If step 3 exits 0, your release.sh is using DEL instead of the Lua compare-and-delete."
+]

@@ -1,0 +1,5 @@
+[
+  "Run EXPLAIN SELECT count(*) FROM ch06.events WHERE event_type = 'ERROR'; — look at the node type and the 'rows' estimate. The estimate is far off from reality (100 actual rows). Why might that be? Check SELECT reltuples FROM pg_class WHERE relname = 'events';",
+  "The planner's row estimates come from statistics collected by ANALYZE. Since autovacuum is disabled and ANALYZE was never run after the data load, reltuples = -1. Run: ANALYZE ch06.events; then re-run EXPLAIN — the estimate will fix itself. But the plan node might still be a Seq Scan.",
+  "Even with correct statistics, the planner needs an index to avoid the full table scan. Run: CREATE INDEX ON ch06.events(event_type); then run EXPLAIN again — the plan should switch from 'Seq Scan on events' to 'Index Scan'."
+]

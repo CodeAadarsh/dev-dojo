@@ -16,7 +16,7 @@ kube-dojo/
 └── CONTENT_SPEC.md  the authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (17 live)
+### Courses (19 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -37,6 +37,8 @@ kube-dojo/
 | 15 | FastAPI in Production | async APIs, Pydantic, pytest-judged | local + kind |
 | 16 | Security & Authentication | all auth types + OWASP, hands-on | local + kind |
 | 17 | The LGTM Stack, Operated | run Loki/Grafana/Tempo/Mimir | kind |
+| 18 | PostgreSQL: Internals & Practice | MVCC, WAL, indexes, planner, tuning | local (Docker) |
+| 19 | Redis: Internals & Practice | encodings, persistence, cluster, patterns | local (Docker) |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

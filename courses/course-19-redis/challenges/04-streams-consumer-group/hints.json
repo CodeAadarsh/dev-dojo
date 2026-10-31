@@ -1,0 +1,5 @@
+[
+  "Run 'XRANGE dojo:events - +' first to list all 5 entries and see their auto-generated IDs (format: <timestamp-ms>-<seq>). You need these IDs to call XACK at the end.",
+  "Create the group with: XGROUP CREATE dojo:events dojo-workers 0  — the '0' means 'deliver everything from the start of the stream'. Then read all undelivered entries as worker-1: XREADGROUP GROUP dojo-workers worker-1 COUNT 10 STREAMS dojo:events '>'  (the special '>' cursor means 'new entries not yet seen by this group'). After this, all 5 IDs are in the PEL.",
+  "After XREADGROUP, run 'XPENDING dojo:events dojo-workers - + 10' to see all 5 IDs in the PEL with their consumer and idle time. Pick any 4 IDs and run: XACK dojo:events dojo-workers <id1> <id2> <id3> <id4>  — leaving exactly 1 in the PEL. Run 'XPENDING dojo:events dojo-workers' (no range) to confirm the summary shows pending count = 1."
+]

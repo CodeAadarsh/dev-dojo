@@ -1,0 +1,11 @@
+{
+  "slug": "05-cache-aside",
+  "title": "Cache-Aside Pattern",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["caching", "patterns"],
+  "objective": "Implement the cache-aside pattern against a Redis-backed source of truth: detect a cache miss, populate the cache with a TTL, and demonstrate a subsequent cache hit."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "course-21-data-science-python",
+  "slug": "data-science-python",
+  "title": "Data Science with Python",
+  "order": 21,
+  "status": "coming-soon",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "24–32 h",
+  "prereqs": ["Python basics", "pip install numpy pandas scikit-learn matplotlib", "High-school stats helps"],
+  "tags": ["data-science", "python", "pandas", "numpy", "scikit-learn", "machine-learning", "statistics"],
+  "description": "End-to-end data science in Python: NumPy vectorization, pandas for wrangling & cleaning, exploratory analysis & visualization (matplotlib/seaborn), probability & statistics (distributions, hypothesis testing, confidence intervals), feature engineering, the scikit-learn workflow (regression, classification, clustering), model evaluation & cross-validation, pipelines & data-leakage avoidance, and a capstone — each step a runnable, pytest-checked exercise on real datasets."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "03-distributed-lock",
+  "title": "Distributed Lock with Lua Release",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["locking", "lua", "concurrency"],
+  "objective": "Implement a safe distributed lock: acquire with SET key token NX PX ttl, release with a Lua script that deletes the key only when the caller's token matches, preventing one holder from inadvertently releasing another's lock."
+}

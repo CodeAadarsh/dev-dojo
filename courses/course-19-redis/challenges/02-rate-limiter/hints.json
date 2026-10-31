@@ -1,0 +1,5 @@
+[
+  "The two Redis commands you need are `INCR rate:<user_id>` (returns the new count as a plain integer) and `EXPIRE rate:<user_id> 60 NX` (sets TTL only if no TTL exists yet). Call INCR first, EXPIRE second, in that order.",
+  "Capture the count with `COUNT=$(docker exec dojo-redis redis-cli INCR \"$KEY\")`. The `redis-cli` output is a bare integer string like `3` — compare it with `[ \"$COUNT\" -le \"$LIMIT\" ]`. Then call EXPIRE with NX and discard its output with `>/dev/null`.",
+  "The NX flag is what makes the window fixed: without it, `EXPIRE 60` on every request resets the clock to t+60 each time, so the key never expires and the counter never resets. With NX, the TTL is stamped once at count=1 and all subsequent EXPIRE calls are silent no-ops."
+]

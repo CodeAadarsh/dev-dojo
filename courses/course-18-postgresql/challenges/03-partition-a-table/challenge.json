@@ -1,0 +1,11 @@
+{
+  "slug": "03-partition-a-table",
+  "title": "Partition a Table by Month",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["partitioning"],
+  "objective": "Convert a monolithic events table to declarative RANGE partitioning by month with at least two partitions; inserts must route to the correct child partition automatically."
+}

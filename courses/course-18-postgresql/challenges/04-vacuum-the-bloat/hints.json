@@ -1,0 +1,5 @@
+[
+  "Look at pg_stat_user_tables: SELECT relname, n_live_tup, n_dead_tup, last_vacuum FROM pg_stat_user_tables WHERE schemaname = 'ch04'; — notice n_dead_tup is very large and last_vacuum is NULL.",
+  "The table has autovacuum disabled, so you must run VACUUM manually. There are three variants: VACUUM, VACUUM ANALYZE, and VACUUM FULL. Only one of them is right for routine maintenance without blocking the table.",
+  "Run: VACUUM ANALYZE ch04.events; — this reclaims dead tuple slots and updates the planner's statistics in one command, without acquiring an exclusive lock."
+]

@@ -1,0 +1,5 @@
+[
+  "Start with `docker exec -it dojo-redis redis-cli` to get an interactive shell. The single command you need is `ZADD key score member [score member ...]` — you can add all five players in one call: `ZADD dojo:leaderboard 5000 alice 3200 bob 7800 charlie 4500 diana 9100 eve`.",
+  "After ZADD, run `ZREVRANGE dojo:leaderboard 0 -1 WITHSCORES` to see the full ranking. Confirm the top two members are `eve` (9100) and `charlie` (7800). The verifier checks ZREVRANGE positions 0 and 1 by exact member name.",
+  "The verifier checks `ZREVRANK dojo:leaderboard alice` equals `2`. ZREVRANK is 0-indexed from the highest score: eve=0, charlie=1, alice=2. If alice is missing or has the wrong score, ZREVRANK returns an empty string and the check fails."
+]

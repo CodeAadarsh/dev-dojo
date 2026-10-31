@@ -1,0 +1,11 @@
+{
+  "slug": "04-vacuum-the-bloat",
+  "title": "VACUUM the Bloat",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["vacuum", "bloat", "maintenance"],
+  "objective": "Diagnose dead-tuple bloat caused by heavy UPDATE and DELETE churn, then run the right VACUUM to reclaim dead space and prove the cleanup with live pg_stat_user_tables data."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "04-streams-consumer-group",
+  "title": "Streams & Consumer Groups",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": ["streams", "consumer-groups"],
+  "objective": "Build a producer/consumer pipeline using Redis Streams: create a consumer group, consume events with XREADGROUP, and XACK processed entries — leaving exactly one unacknowledged in the PEL."
+}

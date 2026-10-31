@@ -1,0 +1,12 @@
+{
+  "id": "course-18-postgresql",
+  "slug": "postgresql",
+  "title": "PostgreSQL: Internals & Practice",
+  "order": 18,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "20–28 h",
+  "prereqs": ["SQL basics", "Docker (challenges spin up a local Postgres)", "psql or a Postgres client"],
+  "tags": ["postgresql", "sql", "databases", "mvcc", "indexing", "performance"],
+  "description": "PostgreSQL from the inside out and the hands-on down: MVCC & tuple visibility, the WAL, shared buffers & the background writer, VACUUM/autovacuum & bloat, the query planner & EXPLAIN ANALYZE, index types (B-tree/GIN/GiST/BRIN/Hash), TOAST, transactions & isolation levels, partitioning, replication & logical decoding, connection pooling, and real performance tuning — every topic paired with a runnable exercise against a local Postgres."
+}

@@ -1,0 +1,5 @@
+[
+  "Read the source hash first: 'HGETALL dojo:sot' shows all three products with their pipe-delimited values. The cache keys follow the pattern dojo:cache:product:{1,2,3} — you create these with SET.",
+  "For each product: (1) check EXISTS dojo:cache:product:N — returns 0 (miss) or 1 (hit); (2) on miss, read the source with HGET dojo:sot product:N; (3) populate the cache: SET dojo:cache:product:N \"<value>\" EX 60. The EX argument sets a TTL in seconds — it is required for the verifier.",
+  "After setting all 3 cache keys, verify each has a TTL: 'TTL dojo:cache:product:1' should return a positive integer. If it returns -1, you used plain SET without EX. Fix with: SET dojo:cache:product:1 \"Widget|9.99|tools\" EX 60 (the atomic form) — do not use a separate EXPIRE command."
+]

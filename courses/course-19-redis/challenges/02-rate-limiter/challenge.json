@@ -1,0 +1,11 @@
+{
+  "slug": "02-rate-limiter",
+  "title": "Fixed-Window Rate Limiter",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["rate-limiting", "atomicity"],
+  "objective": "Implement a fixed-window rate limiter using INCR + EXPIRE NX: allow exactly 5 requests per 60-second window per user, then block, and prove the limiter passes exactly 5 then blocks on request 6 and 7."
+}

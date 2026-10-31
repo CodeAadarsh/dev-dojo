@@ -1,0 +1,11 @@
+{
+  "slug": "02-isolation-anomaly",
+  "title": "Isolation Anomaly — Prevent the Lost Update",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": ["mvcc", "isolation", "transactions"],
+  "objective": "Two concurrent transactions silently clobber each other's writes; fix the read-modify-write pattern so both additions serialize correctly under a concurrent load test."
+}

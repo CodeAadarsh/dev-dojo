@@ -1,0 +1,11 @@
+{
+  "slug": "01-index-the-slow-query",
+  "title": "Index the Slow Query",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["indexing", "explain"],
+  "objective": "A full sequential scan is hammering a per-user orders query; add the right index so the planner switches to an Index Scan and the verifier confirms it via EXPLAIN (FORMAT JSON)."
+}

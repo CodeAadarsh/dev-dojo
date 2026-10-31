@@ -1,0 +1,5 @@
+[
+  "Check the current state first: 'CONFIG GET maxmemory' returns the byte limit (0 = unlimited), 'CONFIG GET maxmemory-policy' returns the eviction policy (default: noeviction), 'CONFIG GET appendonly' returns yes/no. All three need to be changed.",
+  "Apply in order: (1) CONFIG SET maxmemory 100mb — sets a 100 MiB ceiling (any non-zero value works); (2) CONFIG SET maxmemory-policy allkeys-lru — evict least recently used keys across all keys when the ceiling is hit; (3) CONFIG SET appendonly yes — enable the Append-Only File for persistence. Each CONFIG SET takes effect immediately with no restart needed.",
+  "After all three, run 'CONFIG GET maxmemory-policy' — it must return 'allkeys-lru' exactly. 'CONFIG GET maxmemory' returns the byte value (e.g. 104857600 for 100mb). 'CONFIG GET appendonly' must return 'yes'. If any returns the old value, re-run the CONFIG SET — check for typos in the policy name (it is 'allkeys-lru', not 'allkeys_lru' or 'lru')."
+]

@@ -1,0 +1,5 @@
+[
+  "Run EXPLAIN SELECT * FROM ch05.products WHERE attrs @> '{\"brand\":\"Nike\"}'; — notice it says 'Seq Scan'. The problem is no index exists on the jsonb column.",
+  "A regular B-tree index cannot index into a JSON document. Look up 'PostgreSQL GIN index jsonb' — the syntax is: CREATE INDEX <name> ON ch05.products USING gin(attrs);",
+  "After creating the GIN index, run ANALYZE ch05.products; to update statistics. Then run EXPLAIN again — the plan should switch from 'Seq Scan' to 'Bitmap Index Scan on <your_index_name>'."
+]

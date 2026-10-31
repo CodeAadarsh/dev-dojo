@@ -1,0 +1,1 @@
+["Check pg_indexes for a row on the orders table — what column does the slow query filter on?", "The syntax is: CREATE INDEX <name> ON orders(<column>);", "After creating the index run ANALYZE orders; so the planner sees fresh statistics, then re-run EXPLAIN (ANALYZE) to confirm the Node Type changed."]

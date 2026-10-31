@@ -1,0 +1,12 @@
+{
+  "id": "course-19-redis",
+  "slug": "redis",
+  "title": "Redis: Internals & Practice",
+  "order": 19,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "16–22 h",
+  "prereqs": ["Basic data structures", "Docker (challenges spin up a local Redis)", "redis-cli"],
+  "tags": ["redis", "caching", "data-structures", "persistence", "cluster", "streams"],
+  "description": "Redis under the hood and in practice: the single-threaded event loop, data-structure encodings (listpack/ziplist/hashtable/skiplist/intset), RDB vs AOF persistence, memory management & eviction policies, key expiration, replication & Sentinel, Cluster & hash slots, pub/sub & Streams, transactions (MULTI/WATCH) & Lua scripting, pipelining — each paired with hands-on patterns (caching, rate limiting, distributed locks, leaderboards, queues) against a local Redis."
+}

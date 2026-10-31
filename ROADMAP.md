@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**17 courses live · 109 modules · 126 challenges — all complete.**
+**19 courses live · 123 modules · 138 challenges — all complete (+ 2 more building).**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -35,6 +35,10 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 15 | FastAPI in Production | 6 | 11 | ✅ |
 | 16 | Security & Authentication | 6 | 6 | ✅ |
 | 17 | The LGTM Stack, Operated | 6 | 6 | ✅ |
+| 18 | PostgreSQL: Internals & Practice | 7 | 6 | ✅ |
+| 19 | Redis: Internals & Practice | 7 | 6 | ✅ |
+| 20 | Database Engineering (Complete) | – | – | 🔨 building |
+| 21 | Data Science with Python | – | – | 🔨 building |
 
 ---
 

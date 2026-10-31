@@ -1,0 +1,11 @@
+{
+  "slug": "06-tune-the-plan",
+  "title": "Tune the Plan",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["planner", "tuning", "explain"],
+  "objective": "Fix a bad query plan caused by stale statistics and a missing index: run ANALYZE and add a B-tree index so the planner switches from a sequential scan to an efficient index scan on a 200 000-row table."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "05-jsonb-gin-search",
+  "title": "JSONB + GIN: Index the Document",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["jsonb", "gin", "indexing"],
+  "objective": "Add a GIN index to a JSONB column and write a containment query (@>) that uses it — proved by verifying both the index exists and EXPLAIN shows a Bitmap Index Scan."
+}

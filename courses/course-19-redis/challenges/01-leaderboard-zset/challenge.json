@@ -1,0 +1,11 @@
+{
+  "slug": "01-leaderboard-zset",
+  "title": "Leaderboard with a Sorted Set",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["sorted-set", "data-modeling"],
+  "objective": "Model a game leaderboard with a Redis ZSET: populate five player scores with ZADD, retrieve the top-N ranking with ZREVRANGE, and look up a specific player's 0-indexed rank with ZREVRANK."
+}

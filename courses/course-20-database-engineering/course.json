@@ -1,0 +1,12 @@
+{
+  "id": "course-20-database-engineering",
+  "slug": "database-engineering",
+  "title": "Database Engineering (Complete)",
+  "order": 20,
+  "status": "coming-soon",
+  "difficulty": "Advanced → Insane",
+  "estHours": "24–32 h",
+  "prereqs": ["SQL + one database (Course 18 helps)", "Transactions & indexing basics"],
+  "tags": ["databases", "storage-engines", "transactions", "replication", "sharding", "distributed-systems"],
+  "description": "A vendor-agnostic deep dive into how databases actually work: storage engines (B-tree vs LSM-tree), page layout & buffer pools, indexing internals, the ACID model & isolation anomalies, concurrency control (2PL, MVCC, OCC), write-ahead logging & crash recovery, query execution & optimization, replication (sync/async, leader-follower, multi-leader, quorum), partitioning & sharding, distributed consensus (Raft) & CAP/PACELC, and choosing among SQL / NoSQL / NewSQL / time-series / graph / vector / search engines."
+}
