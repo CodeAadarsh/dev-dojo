@@ -1,0 +1,5 @@
+[
+  "The default `helm create` scaffold uses `values.yaml` for `replicaCount` (top-level key) and `image.repository` / `image.tag` (nested under `image:`). Override them with `--set replicaCount=2 --set image.repository=nginx --set image.tag=1.27-alpine` at install time.",
+  "After `helm create myapp`, run `helm install portal ./myapp -n dojo-helm2 --set ... --dry-run` first. Read the rendered Deployment in the output to confirm the values landed before touching the cluster.",
+  "The verifier queries by label `app.kubernetes.io/instance=portal`, not by Deployment name. If your pods are running but the label isn't there, check that you used `helm install` (not `kubectl apply`). Helm stamps that label automatically."
+]

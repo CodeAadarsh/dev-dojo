@@ -1,0 +1,11 @@
+{
+  "slug": "17-service-has-no-endpoints",
+  "title": "No Endpoints, No Service",
+  "order": 17,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["debugging", "service", "endpoints", "networking"],
+  "objective": "A Service returns connection failures even though the pods are healthy. Find why it has zero endpoints, fix the label selector, and prove the Service is backed by real pod IPs."
+}

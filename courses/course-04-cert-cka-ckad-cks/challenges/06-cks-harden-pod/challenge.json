@@ -1,0 +1,11 @@
+{
+  "slug": "06-cks-harden-pod",
+  "title": "Harden the Pod, CKS-Style",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 15,
+  "tags": ["cks", "securitycontext", "seccomp", "security"],
+  "objective": "Take a workload and apply the full CKS securityContext hardening — non-root, no privilege escalation, read-only rootfs, all caps dropped, RuntimeDefault seccomp — and keep it Running."
+}

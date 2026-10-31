@@ -1,0 +1,11 @@
+{
+  "slug": "03-node-maintenance-drain",
+  "title": "Drain Without Downtime",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["nodes", "drain", "cordon", "sre"],
+  "objective": "A worker needs a kernel patch. Cordon it and drain it so its pods reschedule elsewhere — all without ever dropping the app below its disruption budget — then prove it with the verifier."
+}

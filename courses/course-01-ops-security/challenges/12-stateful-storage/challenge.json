@@ -1,0 +1,11 @@
+{
+  "slug": "12-stateful-storage",
+  "title": "State That Survives",
+  "order": 12,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["statefulset", "storage", "pvc"],
+  "objective": "A Deployment on emptyDir loses all its data every restart. Convert it to a StatefulSet with volumeClaimTemplates so state lands on a PersistentVolume that outlives the pod — then prove it with the verifier."
+}

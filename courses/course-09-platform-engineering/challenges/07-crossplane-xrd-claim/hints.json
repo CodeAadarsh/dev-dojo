@@ -1,0 +1,5 @@
+[
+  "Three objects in order: XRD → Composition → Claim. The XRD must reach `Established` status before the Claim's API type exists. Run `kubectl wait --for=condition=Established xrd/xobjectstores.platform.dojo --timeout=60s` between applying the XRD and the Claim.",
+  "The XRD `metadata.name` must be exactly `<plural>.<group>` — so `xobjectstores.platform.dojo`. The `spec.group` is `platform.dojo` and `spec.names.plural` is `xobjectstores`. The Composition's `spec.compositeTypeRef.apiVersion` must be `platform.dojo/v1alpha1` (group + `/` + version) and `kind: XObjectStore` — any typo here is accepted by the API server but the Composition is never selected.",
+  "For the Claim: `apiVersion: platform.dojo/v1alpha1`, `kind: ObjectStore` (the claimNames.kind from the XRD), `metadata.namespace: dojo-crossplane`. The `spec.parameters.region` must be one of the enum values (`ap-south-1` or `us-east-1`). After applying, `kubectl -n dojo-crossplane get objectstores` should show your Claim."
+]

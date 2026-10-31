@@ -1,0 +1,11 @@
+{
+  "slug": "06-dashboard-as-code",
+  "title": "Dashboard as Code",
+  "order": 6,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["grafana", "dashboard"],
+  "objective": "Ship a Grafana dashboard via a ConfigMap with the grafana_dashboard=1 label — the kube-prometheus-stack sidecar auto-imports it, giving you GitOps-able dashboards with zero Grafana UI clicks."
+}

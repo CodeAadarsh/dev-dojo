@@ -1,0 +1,5 @@
+[
+  "A Job needs `spec.template.spec.restartPolicy: Never` (or `OnFailure`). Generate a skeleton with `kubectl create job backup-test --image=busybox:1.36 --dry-run=client -o yaml -- sh -c 'echo ok'` and build from there.",
+  "To mount the ConfigMap as files, add a volume `configMap: name: app-data` and a matching `volumeMount`. Your PVC goes in as a second volume `persistentVolumeClaim: claimName: backup-store`. The copy command is as simple as `cp /source/records.json /backup/records.json`.",
+  "If the Job stays `Pending`, check `kubectl -n dojo-backup describe job <name>` and `kubectl -n dojo-backup describe pvc backup-store`. A PVC in `Pending` usually means the StorageClass provisioner hasn't fired — in kind the default class is `standard`; explicitly set `storageClassName: standard` in the PVC spec."
+]

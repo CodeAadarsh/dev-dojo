@@ -1,0 +1,5 @@
+[
+  "The symptom is a race: on termination the container gets SIGTERM at the same instant the pod is being pulled from Endpoints, so in-flight requests hit a closing socket. You stall the SIGTERM with a container `lifecycle.preStop` hook — the simplest is `exec: command: [\"/bin/sh\",\"-c\",\"sleep 15\"]`.",
+  "A preStop sleep is useless if the kubelet kills the container while it's still sleeping. `terminationGracePeriodSeconds` is the TOTAL budget for preStop + SIGTERM, so it must be `>=` your sleep (set sleep 15, grace 30 to leave headroom). Both live under `spec.template.spec` / the container, not on the Deployment's top-level spec.",
+  "Also add a `readinessProbe` (httpGet `/` on port 80) — it's what lets the endpoint controller rotate the pod in and out cleanly. Then make sure the rollout finished: `kubectl -n dojo-grace rollout status deploy/web` and confirm `readyReplicas >= 1` before running the verifier."
+]

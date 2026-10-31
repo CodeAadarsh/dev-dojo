@@ -1,0 +1,5 @@
+[
+  "Before creating an order, check whether x_idempotency_key is in _idem_cache. If it is, return _idem_cache[x_idempotency_key] immediately — no order should be created on a duplicate request.",
+  "After creating the order and building the response dict, store it: if x_idempotency_key is not None, do _idem_cache[x_idempotency_key] = response before returning. The next call with the same key will now hit the cache on entry.",
+  "test_no_key_always_creates_order is failing: make sure your cache check is guarded by 'if x_idempotency_key' (or 'if x_idempotency_key is not None'). A missing header arrives as None — requests without a key must never be deduplicated."
+]

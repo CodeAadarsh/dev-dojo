@@ -1,0 +1,11 @@
+{
+  "slug": "04-token-bucket-rate-limiter",
+  "title": "Token Bucket Rate Limiter",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["rate-limiting", "concurrency"],
+  "objective": "Implement a correct token-bucket rate limiter in Python: continuous refill, burst support, and thread-safe under concurrent requests."
+}

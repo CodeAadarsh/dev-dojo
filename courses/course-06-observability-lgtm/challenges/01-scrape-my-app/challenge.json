@@ -1,0 +1,11 @@
+{
+  "slug": "01-scrape-my-app",
+  "title": "Scrape My App",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["prometheus", "servicemonitor"],
+  "objective": "Wire a metrics-emitting app into the kube-prometheus-stack by creating the Service and ServiceMonitor that tell Prometheus where to scrape."
+}

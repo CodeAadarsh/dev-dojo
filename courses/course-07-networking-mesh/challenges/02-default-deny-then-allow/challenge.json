@@ -1,0 +1,11 @@
+{
+  "slug": "02-default-deny-then-allow",
+  "title": "Default Deny, Then Allow",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["networkpolicy", "calico"],
+  "objective": "Implement the zero-trust networking baseline: default-deny all ingress to a namespace, then carve out exactly one allow rule so only the frontend tier can reach the backend."
+}

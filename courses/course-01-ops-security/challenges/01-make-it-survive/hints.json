@@ -1,0 +1,5 @@
+[
+  "You can satisfy every requirement with a single `kubectl apply -f` of one Deployment manifest plus one PodDisruptionBudget manifest. Generate the Deployment skeleton with `kubectl -n dojo-resilient get deploy web -o yaml` and edit it.",
+  "`maxUnavailable: 0` lives under `spec.strategy.rollingUpdate`. You must also keep `type: RollingUpdate`. Pair it with `maxSurge: 1` so the rollout can actually make progress.",
+  "A PodDisruptionBudget is its own object (`policy/v1`). Use `minAvailable: 2` (or `maxUnavailable: 1`) with a `selector` matching `app: web`. Without a PDB, a `kubectl drain` could evict all pods at once."
+]

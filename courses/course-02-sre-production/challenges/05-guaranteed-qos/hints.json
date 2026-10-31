@@ -1,0 +1,5 @@
+[
+  "QoS is derived from the resource spec, not set directly. Check the current verdict with `kubectl -n dojo-qos get pods -l app=cache -o jsonpath='{.items[*].status.qosClass}'` — you'll see Burstable because the pods have requests but no limits.",
+  "Guaranteed needs `requests == limits` for BOTH cpu AND memory, on EVERY container in the pod. The setup gave you `cpu: 100m` / `memory: 64Mi` requests — add a `limits` block with the exact same two values.",
+  "Patch and roll out: `kubectl -n dojo-qos patch deploy cache --type merge -p '{\"spec\":{\"template\":{\"spec\":{\"containers\":[{\"name\":\"cache\",\"resources\":{\"requests\":{\"cpu\":\"100m\",\"memory\":\"64Mi\"},\"limits\":{\"cpu\":\"100m\",\"memory\":\"64Mi\"}}}]}}}}'`. Wait for the new pods, then re-check `status.qosClass` — it must read Guaranteed."
+]

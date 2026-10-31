@@ -1,0 +1,11 @@
+{
+  "slug": "02-persist-postgres",
+  "title": "Persist Postgres",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["database", "pvc", "persistence"],
+  "objective": "Deploy a production-style Postgres instance backed by a PVC, write a row, delete the pod, and prove the data survives the restart."
+}

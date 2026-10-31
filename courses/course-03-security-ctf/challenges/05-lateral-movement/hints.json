@@ -1,0 +1,5 @@
+[
+  "Get a shell on the foothold — `kubectl -n dojo-lateral exec -it foothold -- bash` — then remember a namespace is not a network boundary. Nothing stops one pod from talking to another pod's Service on the default pod network. The target Service is named `internal-api`.",
+  "Services are reachable by DNS at `<svc>.<ns>.svc.cluster.local`, and your `/etc/resolv.conf` search domain lets the short name work too. Resolve it: `dig +short internal-api.dojo-lateral.svc.cluster.local`. The Service listens on port 80.",
+  "Just `curl` it: `curl -s http://internal-api.dojo-lateral.svc.cluster.local/` and the flag is in the page body (`grep -o 'KUBE{[^}]*}'`). No auth, no token — that is the lesson. The fix you'll write up is a default-deny NetworkPolicy (and note kindnet won't actually enforce it)."
+]

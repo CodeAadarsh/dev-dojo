@@ -1,0 +1,5 @@
+[
+  "List what's in the namespace first: `kubectl -n dojo-leaky get secret,deploy`. The Secret is named `app-config`.",
+  "A Secret's values live under `.data` base64-encoded. `kubectl -n dojo-leaky get secret app-config -o jsonpath='{.data.FLAG}'` gives you the encoded blob — now decode it.",
+  "Pipe the encoded value into `base64 -d`. Or skip decoding entirely: `kubectl -n dojo-leaky exec deploy/billing -- env | grep FLAG` reads it straight from the container's environment."
+]

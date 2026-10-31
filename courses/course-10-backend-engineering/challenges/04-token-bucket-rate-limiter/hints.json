@@ -1,0 +1,5 @@
+[
+  "A token bucket tracks two pieces of state: the current token count and the timestamp of the last refill. On every allow() call, compute how much time has passed since the last call and add that many tokens (elapsed * refill_rate), then cap at capacity before deciding whether to allow.",
+  "Use time.monotonic() for timestamps — it is guaranteed non-decreasing, unlike time.time() which can jump on NTP correction. Initialise _tokens = float(capacity) so the bucket starts full. Return True and subtract 1.0 only when tokens >= 1.0; otherwise return False.",
+  "test_thread_safety fails with 'got 11' or 'got 12': two threads are both reading _tokens >= 1, both subtracting 1, both returning True — a classic TOCTOU race. Wrap the entire read-modify-write inside a threading.Lock so allow() is atomic."
+]

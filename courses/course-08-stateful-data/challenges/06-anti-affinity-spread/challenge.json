@@ -1,0 +1,11 @@
+{
+  "slug": "06-anti-affinity-spread",
+  "title": "Anti-Affinity Spread for StatefulSets",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["scheduling", "ha", "statefulset"],
+  "objective": "Add podAntiAffinity to a 3-replica StatefulSet so its pods are spread across multiple nodes, ensuring a single node failure cannot take down the entire cache tier."
+}

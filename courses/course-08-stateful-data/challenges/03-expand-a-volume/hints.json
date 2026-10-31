@@ -1,0 +1,5 @@
+[
+  "You can only expand a PVC — not shrink. Patch the spec directly: kubectl patch pvc dojo-data -n dojo-resize -p '{\"spec\":{\"resources\":{\"requests\":{\"storage\":\"2Gi\"}}}}'",
+  "If the patch is rejected with 'field is immutable', the StorageClass does not have allowVolumeExpansion: true. Check with: kubectl get sc dojo-expandable -o jsonpath='{.allowVolumeExpansion}'. The setup script created this class with the flag set — if it's missing, re-run setup.sh.",
+  "The verifier only checks spec.resources.requests.storage >= 2Gi. In kind, status.capacity.storage will likely stay at 1Gi (local-path doesn't implement filesystem expansion). That's expected. Confirm the spec was accepted: kubectl get pvc dojo-data -n dojo-resize -o jsonpath='{.spec.resources.requests.storage}'"
+]

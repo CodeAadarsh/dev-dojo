@@ -1,0 +1,12 @@
+{
+  "id": "course-03-security-ctf",
+  "slug": "security-ctf",
+  "title": "Kubernetes Attack & Defend (CTF)",
+  "order": 3,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "12–16 h",
+  "prereqs": ["Course 1", "Linux fundamentals & a security mindset", "Comfort with RBAC and node/docker access"],
+  "tags": ["security", "ctf", "rbac", "container-escape", "hardening"],
+  "description": "Kubernetes as an attack surface: steal ServiceAccount tokens, escalate via over-broad RBAC, reach exposed kubelet/etcd/dashboards, exfiltrate secrets, and break out of containers — then slam it shut with NetworkPolicy, Pod Security Admission, and Kyverno/OPA policy. CKS-grade offense and defense."
+}

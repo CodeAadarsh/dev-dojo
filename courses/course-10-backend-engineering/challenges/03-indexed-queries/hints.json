@@ -1,0 +1,5 @@
+[
+  "Run `EXPLAIN QUERY PLAN <your query>` in the sqlite3 CLI before touching the schema. Look for `SCAN TABLE products` — that line is the full-table scan you need to eliminate.",
+  "The fix is one SQL statement: `CREATE INDEX idx_products_category ON products(category_id);`. After running it, re-run `EXPLAIN QUERY PLAN` — you should see `SEARCH products ... USING INDEX idx_products_category` instead of `SCAN`.",
+  "Once the index is in place, run the target query directly: `SELECT p.restricted_notes FROM products p JOIN categories c ON p.category_id = c.id WHERE c.slug = 'classified' AND p.is_active = 0;` — the result is the flag."
+]

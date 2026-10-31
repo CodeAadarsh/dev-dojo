@@ -1,0 +1,11 @@
+{
+  "slug": "07-gitops-or-it-didnt-happen",
+  "title": "GitOps or It Didn't Happen",
+  "order": 7,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["argocd", "gitops"],
+  "objective": "Stand up an Argo CD Application that pulls the guestbook app from Git into dojo-gitops with automated sync — then prove the cluster converged to Git, not to your kubectl history."
+}

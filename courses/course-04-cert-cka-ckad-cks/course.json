@@ -1,0 +1,12 @@
+{
+  "id": "course-04-cert-cka-ckad-cks",
+  "slug": "cert-prep",
+  "title": "Cert Prep: CKA · CKAD · CKS",
+  "order": 4,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "10–14 h core (+ weeks of timed practice for the real exams)",
+  "prereqs": ["Course 1 (CKAD/CKA base)", "Courses 2 & 5 help for CKA topics; Course 3 for CKS", "A running kind cluster"],
+  "tags": ["cka", "ckad", "cks", "exam", "drills"],
+  "description": "Timed, task-style drills mapped to the official CKA, CKAD and CKS curricula: kubectl speed, imperative generators, fixing broken clusters against the clock, and a sequenced study roadmap toward each exam."
+}

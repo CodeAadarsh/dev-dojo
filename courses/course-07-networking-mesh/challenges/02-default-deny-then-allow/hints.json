@@ -1,0 +1,5 @@
+[
+  "NetworkPolicy uses two separate objects here: a catch-all deny and a targeted allow. The deny uses `podSelector: {}` (empty = all pods) with `policyTypes: [Ingress]` and no `ingress:` rules. The allow protects `role=backend` pods and lists one ingress rule from `role=frontend` on port 80.",
+  "The allow policy's `spec.ingress[0].from[0].podSelector.matchLabels.role` must be `frontend` — this selects *pods in the same namespace* with that label. The `spec.podSelector.matchLabels.role` must be `backend` — that is the pods this policy protects (the target, not the source).",
+  "Exact YAML: deny policy — `spec: {podSelector: {}, policyTypes: [Ingress]}`. Allow policy — `spec: {podSelector: {matchLabels: {role: backend}}, policyTypes: [Ingress], ingress: [{from: [{podSelector: {matchLabels: {role: frontend}}}], ports: [{port: 80}]}]}`."
+]

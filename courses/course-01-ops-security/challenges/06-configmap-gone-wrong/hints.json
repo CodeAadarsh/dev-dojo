@@ -1,0 +1,5 @@
+[
+  "The pod is Running but returns 403. Look at what actually mounted: `kubectl -n dojo-config exec deploy/web -- ls -l /usr/share/nginx/html`. The filename there is the clue — nginx serves `index.html`, not whatever it finds.",
+  "A ConfigMap key becomes the projected filename. Inspect the key with `kubectl -n dojo-config get configmap web-content -o yaml` — the content is correct, but it's stored under the wrong key name.",
+  "Fix it either way: rename the key to `index.html` in the ConfigMap, or keep the key and remap it with `items: [{ key: home.html, path: index.html }]` on the volume. Then `kubectl -n dojo-config rollout restart deploy/web` to be sure a fresh pod picks it up."
+]

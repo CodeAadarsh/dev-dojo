@@ -1,0 +1,11 @@
+{
+  "slug": "18-privileged-pod-escape",
+  "title": "Escape the Box",
+  "order": 18,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["container-escape", "privileged", "hostpath", "security"],
+  "objective": "A privileged pod with the host root filesystem mounted is not a container — it's a root shell on the node. Break out, read a file only the node's root can read, and recover the flag."
+}

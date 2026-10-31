@@ -1,0 +1,5 @@
+[
+  "Find the target node first: `kubectl get nodes -l tier=gold`. You need a HARD rule — the kind that leaves a pod Pending rather than placing it elsewhere. That's `requiredDuringSchedulingIgnoredDuringExecution`, not `preferred`.",
+  "The rule lives at `spec.template.spec.affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[].matchExpressions[]`, as `{key: tier, operator: In, values: [gold]}`. Generate a starting point with `kubectl -n dojo-sched get deploy pinme -o yaml` and splice it in.",
+  "Adding the rule does NOT move pods that are already running — `IgnoredDuringExecution` means existing pods stay put. After you apply, run `kubectl -n dojo-sched rollout restart deploy/pinme` so every pod is recreated under the new rule and lands on gold."
+]

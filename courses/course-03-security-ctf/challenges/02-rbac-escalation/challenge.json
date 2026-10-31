@@ -1,0 +1,11 @@
+{
+  "slug": "02-rbac-escalation",
+  "title": "Bind Thyself Admin",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["rbac", "privilege-escalation", "security"],
+  "objective": "A ServiceAccount that cannot read Secrets was handed the `bind` verb and `create rolebindings`. Stand in its shoes, grant yourself secret-read with a single RoleBinding, and read the flag — then learn why `bind`/`escalate` are RBAC's loaded guns."
+}

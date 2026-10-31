@@ -1,0 +1,11 @@
+{
+  "slug": "09-who-can-read-secrets",
+  "title": "Who Can Read Secrets?",
+  "order": 9,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 25,
+  "estMinutes": 25,
+  "tags": ["rbac", "secrets", "exfiltration", "security"],
+  "objective": "Three ServiceAccounts, three Secrets, three narrow Roles — and exactly one identity can read the Secret that holds the flag. Enumerate RBAC to find it, then read the flag as that account."
+}

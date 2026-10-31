@@ -1,0 +1,11 @@
+{
+  "slug": "06-egress-lockdown",
+  "title": "Egress Lockdown",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["networkpolicy", "egress", "security"],
+  "objective": "Author a default-deny-all-egress NetworkPolicy for dojo-egress, then carve out exactly the holes you need: DNS (UDP+TCP/53) to kube-system and one specific external destination."
+}

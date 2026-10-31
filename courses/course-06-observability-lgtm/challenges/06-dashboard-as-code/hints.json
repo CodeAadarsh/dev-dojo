@@ -1,0 +1,5 @@
+[
+  "The Grafana sidecar (built into kube-prometheus-stack) watches for ConfigMaps with a specific label. By default that label is `grafana_dashboard: \"1\"`. Create a regular ConfigMap in `dojo-dash` with this label and a data key whose value is JSON.",
+  "The data key value must be valid Grafana dashboard JSON. The minimum required structure is: `{\"title\": \"...\", \"panels\": [{...}]}`. The `panels` key must be present and non-empty — that's what the verifier checks.",
+  "A minimal panel object needs: `id` (integer), `title` (string), `type` (e.g. `\"timeseries\"` or `\"stat\"`), and `gridPos: {h, w, x, y}`. The `targets` array is optional for the verifier but required for Grafana to actually render the panel. Use `\"type\": \"text\"` with `\"content\": \"hello\"` for the simplest possible panel that needs no datasource."
+]

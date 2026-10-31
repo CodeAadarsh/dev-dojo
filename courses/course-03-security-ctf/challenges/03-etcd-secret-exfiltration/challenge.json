@@ -1,0 +1,11 @@
+{
+  "slug": "03-etcd-secret-exfiltration",
+  "title": "Straight From etcd",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["etcd", "secrets", "exfiltration", "security"],
+  "objective": "Skip the API server and its RBAC entirely. From the control-plane node, read a Secret's plaintext straight out of etcd with etcdctl — then learn why encryption-at-rest is the only control that stops you."
+}

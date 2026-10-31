@@ -1,0 +1,5 @@
+[
+  "You need TWO objects, not one. First a namespace-wide deny: a NetworkPolicy with `podSelector: {}`, `policyTypes: [Ingress]`, and NO `ingress:` block at all. An empty podSelector matches every pod; no ingress rules means nothing is allowed in.",
+  "The allow is a separate NetworkPolicy. Its `spec.podSelector.matchLabels` is `app: backend` (it applies TO backend), and under `ingress[].from[]` use a `podSelector` with `matchLabels: {role: frontend}`. Keep `namespaceSelector` out of it unless you combine both keys in the SAME `from` item.",
+  "Scope the hole to port 80: add `ports: [{protocol: TCP, port: 80}]` under the ingress rule. Then `kubectl apply` both and run verify.sh. Remember kindnet won't actually drop packets — the verifier reads the policy objects (empty-podSelector deny + backend allow from role=frontend on :80)."
+]

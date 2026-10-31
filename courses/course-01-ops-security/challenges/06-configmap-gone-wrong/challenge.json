@@ -1,0 +1,11 @@
+{
+  "slug": "06-configmap-gone-wrong",
+  "title": "ConfigMap Gone Wrong",
+  "order": 6,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 15,
+  "estMinutes": 15,
+  "tags": ["configmap", "config"],
+  "objective": "An nginx pod should serve a custom page from a ConfigMap, but the key and mount don't line up so it serves nothing useful. Fix the wiring until the expected page is served — then prove it with the verifier."
+}

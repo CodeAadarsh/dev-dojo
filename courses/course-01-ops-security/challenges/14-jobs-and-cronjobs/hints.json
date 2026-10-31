@@ -1,0 +1,5 @@
+[
+  "Two objects, both in `dojo-batch`. A Deployment is the wrong tool — its pods restart forever. You want `kind: Job` (runs to completion) and `kind: CronJob` (a Job on a schedule), both `apiVersion: batch/v1`.",
+  "Fastest path is imperative: `kubectl -n dojo-batch create job hello --image=busybox:1.36 -- sh -c 'echo hi; sleep 2'` and `kubectl -n dojo-batch create cronjob tick --image=busybox:1.36 --schedule='*/1 * * * *' -- sh -c 'date'`. A Job pod's restartPolicy must be Never or OnFailure, never Always.",
+  "The verifier reads real status: the Job must reach `status.succeeded >= 1`, so give it a couple of seconds and confirm with `kubectl -n dojo-batch get job` (COMPLETIONS 1/1). The CronJob just needs a valid `.spec.schedule` — '*/1 * * * *' is five fields: min hour day-of-month month day-of-week."
+]

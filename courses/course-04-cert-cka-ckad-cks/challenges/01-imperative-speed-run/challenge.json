@@ -1,0 +1,11 @@
+{
+  "slug": "01-imperative-speed-run",
+  "title": "Imperative Speed Run",
+  "order": 1,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 15,
+  "estMinutes": 5,
+  "tags": ["ckad", "imperative", "speed"],
+  "objective": "Under a 5-minute exam clock, use only imperative kubectl to create a 3-replica Deployment and expose it with a ClusterIP Service — then prove it with the verifier."
+}

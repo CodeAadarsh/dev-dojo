@@ -1,0 +1,5 @@
+[
+  "The base `kustomization.yaml` just needs `resources: [deployment.yaml]`. The overlay `kustomization.yaml` needs `resources: [../../base]`, `commonLabels: {env: prod}`, and `patches: [{path: replica-patch.yaml}]`.",
+  "The replica patch is a strategic-merge patch — it's a partial Deployment manifest with only the fields you want to change. You need `apiVersion`, `kind`, `metadata.name`, `metadata.namespace`, and `spec.replicas: 3`. Kustomize merges it on top of the base.",
+  "`kubectl diff -k overlays/prod/` shows exactly what will change before you apply. If the diff looks wrong, check your overlay `kustomization.yaml` — a missing `commonLabels` or wrong patch path are the most common mistakes."
+]

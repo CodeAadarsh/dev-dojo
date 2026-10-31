@@ -1,0 +1,5 @@
+[
+  "The pods are healthy, so stop looking at them. Ask the Service who's behind it: `kubectl -n dojo-endpoints get endpoints api`. If it says `<none>`, the Service matches no pods — that's the whole bug.",
+  "Compare two things: `kubectl -n dojo-endpoints get svc api -o jsonpath='{.spec.selector}'` (what the Service looks for) against `kubectl -n dojo-endpoints get pods --show-labels` (what the pods have). They don't match.",
+  "Fix the Service's `spec.selector` to the label the pods actually carry (`app=api`): `kubectl -n dojo-endpoints patch svc api --type=merge -p '{\"spec\":{\"selector\":{\"app\":\"api\"}}}'`. Endpoints populate within a second. Don't relabel the pods or hand-craft an Endpoints object."
+]

@@ -1,0 +1,5 @@
+[
+  "Priority has two objects: a cluster-scoped `PriorityClass` (name -> integer value) and a pod that references it by name. Create the class first, then point the Deployment's pod template at it. List existing ones with `kubectl get priorityclass`.",
+  "`priorityClassName` is a POD field, so it goes under `spec.template.spec.priorityClassName` on the Deployment — not on the Deployment's own spec, and not on a container. Setting it on the Deployment metadata does nothing.",
+  "Give your class `value: 1000000` and `globalDefault: false`. Apply it, then `kubectl -n dojo-priority patch deploy payments --type merge -p '{\"spec\":{\"template\":{\"spec\":{\"priorityClassName\":\"dojo-critical\"}}}}'` and wait for the rollout. Verify the integer stuck with `kubectl -n dojo-priority get pod <pod> -o jsonpath='{.spec.priority}'`."
+]

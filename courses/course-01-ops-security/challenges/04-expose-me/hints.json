@@ -1,0 +1,5 @@
+[
+  "Start with `kubectl -n dojo-expose get deploy shop -o wide --show-labels` to confirm the pod label is `app=shop`. The fastest way to create the Service is `kubectl -n dojo-expose expose deployment shop --port=80 --target-port=80`.",
+  "A Service with the wrong selector still shows up green in `kubectl get svc` but routes nowhere. After creating it, run `kubectl -n dojo-expose get endpoints` — if the ENDPOINTS column is `<none>`, your selector doesn't match the pods.",
+  "The declarative Service needs `spec.selector.app: shop`, `spec.ports[0].port: 80`, and `type: ClusterIP` (the default). The endpoints only populate once the matching pods are `Ready`, so wait for `kubectl -n dojo-expose rollout status deploy/shop` before verifying."
+]

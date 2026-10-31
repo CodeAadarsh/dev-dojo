@@ -1,0 +1,11 @@
+{
+  "slug": "02-validating-admission-policy",
+  "title": "Ban the Latest",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 25,
+  "tags": ["admission", "validatingadmissionpolicy", "policy", "security"],
+  "objective": "Enforce a cluster policy with a built-in ValidatingAdmissionPolicy (CEL) that rejects any Pod or Deployment using a mutable :latest / untagged image — no webhook server, no Gatekeeper, just the API server."
+}

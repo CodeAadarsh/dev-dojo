@@ -1,0 +1,11 @@
+{
+  "slug": "07-crossplane-xrd-claim",
+  "title": "Crossplane: Author an XRD, Composition & Claim",
+  "order": 7,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 35,
+  "estMinutes": 45,
+  "tags": ["crossplane", "xrd", "composition", "infra-as-api", "platform"],
+  "objective": "Define a Crossplane CompositeResourceDefinition, a Composition that targets it, and file a Claim — building the complete three-layer infra API that developers interact with instead of cloud consoles."
+}

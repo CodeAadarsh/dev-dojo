@@ -1,0 +1,11 @@
+{
+  "slug": "01-autoscale-under-load",
+  "title": "Autoscale Under Load",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 25,
+  "tags": ["hpa", "autoscaling", "sre"],
+  "objective": "A deployment ships with CPU requests but no autoscaler — scaling is a manual pager. Wire up a Horizontal Pod Autoscaler on CPU utilization, then prove the spec with the verifier."
+}

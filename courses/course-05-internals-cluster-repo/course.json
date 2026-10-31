@@ -1,0 +1,12 @@
+{
+  "id": "course-05-internals-cluster-repo",
+  "slug": "internals-cluster-repo",
+  "title": "Internals, Cluster & Repository Management",
+  "order": 5,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "12–16 h",
+  "prereqs": ["Course 1", "Comfort with kubectl + docker exec into nodes", "Basic etcd/Helm familiarity helps"],
+  "tags": ["internals", "cluster-admin", "etcd", "registry", "helm", "scheduler", "webhooks"],
+  "description": "Under the hood and in the operator's seat: control-plane architecture, the scheduler, CNI/CRI, etcd internals + backup/restore, API aggregation, CRDs & operators, and admission webhooks — plus the operational craft of cluster lifecycle (kubeadm upgrades, node cordon/drain, multi-cluster contexts) and repository management (container registries, Helm chart repos, and GitOps repo structure). Heavy on debugging real failures."
+}

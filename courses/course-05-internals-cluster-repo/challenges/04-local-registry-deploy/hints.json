@@ -1,0 +1,5 @@
+[
+  "Run `bash labs/bootstrap/install-registry.sh` first — nothing works until the registry on localhost:5001 is up and wired into the kind network. Confirm with `curl -s http://localhost:5001/v2/_catalog`.",
+  "The loop is four commands: `docker pull nginx:1.27-alpine`, `docker tag nginx:1.27-alpine localhost:5001/web:v1`, `docker push localhost:5001/web:v1`, then deploy with `--image=localhost:5001/web:v1`. The verifier wants a Deployment in dojo-registry whose image string contains `localhost:5001/`.",
+  "If the pod sticks in ErrImagePull, run `kubectl -n dojo-registry describe pod <pod>` and read the Events. `connection refused` means the registry/network isn't up (re-run the bootstrap); `manifest unknown` means you never actually pushed that tag (check `curl -s http://localhost:5001/v2/web/tags/list`)."
+]

@@ -1,0 +1,12 @@
+{
+  "id": "course-02-sre-production",
+  "slug": "sre-production",
+  "title": "Production SRE",
+  "order": 2,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "10–14 h",
+  "prereqs": ["Course 1, or equivalent production K8s experience", "Comfort with Deployments, probes & kubectl"],
+  "tags": ["sre", "scaling", "observability", "reliability", "argocd"],
+  "description": "Pure reliability engineering: resource management & QoS classes, HPA/VPA autoscaling, PodDisruptionBudgets, zero-downtime rollouts & rollbacks, probes done right, multi-environment GitOps with ArgoCD app-of-apps, SLOs, and incident-style troubleshooting drills."
+}

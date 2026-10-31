@@ -1,0 +1,5 @@
+[
+  "Pod Security Admission is driven entirely by namespace labels — no webhook to install. The three keys are `pod-security.kubernetes.io/enforce`, `/warn`, and `/audit`, each set to a standard name. You want all three set to `restricted` on `dojo-psa` (use `kubectl label ns ... --overwrite`).",
+  "The planted `nginx:1.27-alpine` binds port 80 and runs as root, so it can NEVER satisfy `runAsNonRoot` — that's intentional. Swap the image to `nginxinc/nginx-unprivileged:1.27-alpine`, which runs as uid 101 and listens on 8080, then add the restricted securityContext fields.",
+  "The restricted bundle a pod must set: `runAsNonRoot: true`, `allowPrivilegeEscalation: false`, `capabilities.drop: [\"ALL\"]`, and `seccompProfile.type: RuntimeDefault`. If the rollout is stuck at 0 ready, run `kubectl -n dojo-psa describe rs -l app=api` — the `FailedCreate` event lists every field you still violate."
+]

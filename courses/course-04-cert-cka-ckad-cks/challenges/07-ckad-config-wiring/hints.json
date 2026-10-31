@@ -1,0 +1,5 @@
+[
+  "Create the inputs imperatively: `kubectl -n dojo-wire create cm app-config --from-literal=APP_MODE=prod --from-literal=LOG_LEVEL=info` and `kubectl -n dojo-wire create secret generic app-secret --from-literal=api-key=s3cr3t`.",
+  "Generate the Deployment skeleton: `kubectl -n dojo-wire create deploy app --image=nginx:1.27-alpine --dry-run=client -o yaml > app.yaml`, then hand-edit it — the generator can't add envFrom or volumes.",
+  "Under the container add `envFrom: [{ configMapRef: { name: app-config } }]` and a `volumeMounts` entry; under the pod spec add `volumes: [{ name: sec, secret: { secretName: app-secret } }]` and mount it (e.g. at /etc/secret)."
+]

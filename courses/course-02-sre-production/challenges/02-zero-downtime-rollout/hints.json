@@ -1,0 +1,5 @@
+[
+  "You can satisfy every requirement with a single `kubectl apply -f` of one Deployment manifest. Generate the skeleton to edit with `kubectl -n dojo-rollout get deploy web -o yaml`. Three things are missing: a strategy block, a readinessProbe, and minReadySeconds.",
+  "`maxUnavailable: 0` and `maxSurge: 1` live under `spec.strategy.rollingUpdate`, and you must keep `type: RollingUpdate`. They can't both be 0 — with maxUnavailable:0 you NEED maxSurge >= 1 or the rollout can never add a pod to replace one, so it wedges forever.",
+  "`minReadySeconds` is a top-level field under `spec` (a sibling of `replicas`/`strategy`), not inside the probe — set it to 5 or more. The readinessProbe goes on the container: `httpGet: { path: /, port: 80 }`. After applying, wait for `kubectl -n dojo-rollout rollout status deploy/web` to report complete so readyReplicas equals spec.replicas before you run the verifier."
+]

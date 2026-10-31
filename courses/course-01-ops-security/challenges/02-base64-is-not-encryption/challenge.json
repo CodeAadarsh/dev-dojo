@@ -1,0 +1,11 @@
+{
+  "slug": "02-base64-is-not-encryption",
+  "title": "base64 Is Not Encryption",
+  "order": 2,
+  "difficulty": "Easy",
+  "flagType": "discovery",
+  "points": 15,
+  "estMinutes": 15,
+  "tags": ["secrets", "rbac", "exfiltration"],
+  "objective": "A billing service was shipped with its credentials in a Kubernetes Secret. Prove why that's not as safe as the team thinks — extract the hidden flag from the cluster."
+}

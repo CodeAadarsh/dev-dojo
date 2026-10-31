@@ -1,0 +1,11 @@
+{
+  "slug": "01-helm-with-values",
+  "title": "Helm Chart with Values Override",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["helm", "packaging"],
+  "objective": "Scaffold a Helm chart, then install it as release 'portal' into dojo-helm2 with a values override that sets replicaCount=2 and pins the image to nginx:1.27-alpine."
+}

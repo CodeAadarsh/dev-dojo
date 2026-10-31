@@ -1,0 +1,11 @@
+{
+  "slug": "01-build-a-rest-api",
+  "title": "Build a REST API",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["api", "rest", "crud"],
+  "objective": "Implement a complete CRUD API for an 'items' resource using FastAPI, passing a pytest harness that checks every endpoint, method, and status code."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "10-resource-starvation",
+  "title": "Resource Starvation",
+  "order": 10,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["resources", "qos", "limitrange", "sre"],
+  "objective": "A workload ships with no requests or limits, so the scheduler is flying blind and the pod is first to die under pressure. Give it a QoS class that survives, and make the namespace safe by default — then prove it with the verifier."
+}

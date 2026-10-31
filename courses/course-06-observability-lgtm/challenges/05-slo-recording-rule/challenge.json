@@ -1,0 +1,11 @@
+{
+  "slug": "05-slo-recording-rule",
+  "title": "SLO Recording Rule",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["slo", "recording-rule"],
+  "objective": "Author a PrometheusRule with a recording rule that computes a request-success SLI ratio — the foundational PromQL pattern behind every SLO dashboard and burn-rate alert."
+}

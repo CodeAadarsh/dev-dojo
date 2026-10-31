@@ -1,0 +1,5 @@
+[
+  "NetworkPolicy is additive: a pod with no policy selecting it is open to everyone. You need TWO objects — a default-deny that selects every pod (`podSelector: {}`, `policyTypes: [Ingress]`, no `ingress:` rules), and a separate allow policy. Apply the deny first.",
+  "The allow policy must select the backend it protects with `spec.podSelector.matchLabels.app: backend`, then list the permitted source under `spec.ingress[].from[].podSelector.matchLabels.role: frontend`. The `from` selector describes the SENDER, the top-level `podSelector` the RECEIVER — don't swap them.",
+  "Pin the port inside the same ingress rule: `ports: [{protocol: TCP, port: 80}]`. Generate a skeleton with `kubectl create -n dojo-hardnet networkpolicy ... --dry-run=client -o yaml` is not supported, so copy the two YAMLs from solution.md and `kubectl apply -f`. Remember kindnet won't drop packets — the verifier checks the objects, not connectivity."
+]

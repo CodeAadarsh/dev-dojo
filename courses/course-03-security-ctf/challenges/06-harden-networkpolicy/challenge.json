@@ -1,0 +1,11 @@
+{
+  "slug": "06-harden-networkpolicy",
+  "title": "Shut the Flat Network",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["networkpolicy", "hardening", "defense"],
+  "objective": "A namespace with a flat, allow-all pod network is one compromised pod away from full lateral movement. Lock it down: apply a default-deny-ingress policy, then an allow policy that lets only role=frontend reach backend:80 — and prove both policy objects exist with the verifier."
+}

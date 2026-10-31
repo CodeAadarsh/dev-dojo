@@ -1,0 +1,11 @@
+{
+  "slug": "04-expose-me",
+  "title": "Expose Me",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["service", "ingress", "networking"],
+  "objective": "A Deployment is running but unreachable — it has no Service. Give it a ClusterIP that actually routes to ready pods, then prove it with the verifier."
+}

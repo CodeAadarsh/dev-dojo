@@ -1,0 +1,11 @@
+{
+  "slug": "03-dns-blackhole",
+  "title": "DNS Resolves, Endpoints Don't Lie",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["dns", "debugging", "services"],
+  "objective": "Diagnose a broken Service where DNS resolves but connections timeout — the classic selector/port mismatch — using kubectl get endpoints and a netshoot pod."
+}

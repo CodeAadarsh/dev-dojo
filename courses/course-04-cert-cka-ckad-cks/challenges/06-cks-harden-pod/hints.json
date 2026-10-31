@@ -1,0 +1,5 @@
+[
+  "Edit the live Deployment: `kubectl -n dojo-cks edit deploy secure-app` and add a `securityContext` at the container level under `spec.template.spec.containers[0]`.",
+  "Pod-level vs container-level: `runAsNonRoot`, `runAsUser` and `seccompProfile` can sit at pod level (`spec.template.spec.securityContext`); `readOnlyRootFilesystem`, `allowPrivilegeEscalation` and `capabilities` MUST be at the container level.",
+  "capabilities drop is a list: `capabilities: { drop: [\"ALL\"] }`. seccomp is `seccompProfile: { type: RuntimeDefault }`. After editing, `kubectl -n dojo-cks rollout status deploy/secure-app` to confirm it still runs."
+]

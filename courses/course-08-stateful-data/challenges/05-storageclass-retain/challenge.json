@@ -1,0 +1,11 @@
+{
+  "slug": "05-storageclass-retain",
+  "title": "StorageClass: Retain Your Data",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["storageclass", "reclaim"],
+  "objective": "Create a custom StorageClass with Retain reclaim policy and volume expansion enabled, then bind a PVC to it — proving data survives PVC deletion."
+}

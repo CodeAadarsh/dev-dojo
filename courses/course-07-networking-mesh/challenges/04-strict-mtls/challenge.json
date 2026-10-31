@@ -1,0 +1,11 @@
+{
+  "slug": "04-strict-mtls",
+  "title": "Strict mTLS Enforcement",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["istio", "mtls", "security"],
+  "objective": "Lock down a namespace to Strict mTLS — no plaintext traffic allowed in or out — using a PeerAuthentication policy."
+}

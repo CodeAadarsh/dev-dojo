@@ -1,0 +1,5 @@
+[
+  "You need TWO objects, both in `admissionregistration.k8s.io/v1`: a `ValidatingAdmissionPolicy` (the rule, written in CEL) and a `ValidatingAdmissionPolicyBinding` (what turns it on and scopes it). Ship only the policy and nothing is enforced — the binding is the switch.",
+  "The CEL rule lives under `spec.validations[].expression` and reads the incoming object as `object`. For a Pod that's `object.spec.containers`; a container fails the policy if its image ends with `:latest` or has no `:` tag at all. Use `matchConstraints` to select `pods` (and `deployments` if you want to catch them before the Pod is even created).",
+  "A tight expression: `object.spec.containers.all(c, !c.image.endsWith(':latest') && c.image.contains(':'))`. Also cover `initContainers`. Scope enforcement to the namespace via the binding's `matchResources.namespaceSelector` (the setup labeled the namespace `dojo-policy=enforce`) and set `validationActions: [Deny]`."
+]

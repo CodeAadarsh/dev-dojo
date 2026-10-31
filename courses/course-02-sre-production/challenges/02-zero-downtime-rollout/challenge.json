@@ -1,0 +1,11 @@
+{
+  "slug": "02-zero-downtime-rollout",
+  "title": "Zero-Downtime Rollout",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["rollout", "availability"],
+  "objective": "A Deployment ships on default rollout settings, so every deploy briefly drops capacity and serves traffic to not-yet-ready pods. Retune the RollingUpdate strategy, add a readinessProbe, and gate rollout progress with minReadySeconds — then prove it with the verifier."
+}

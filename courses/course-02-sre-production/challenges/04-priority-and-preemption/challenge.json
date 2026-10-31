@@ -1,0 +1,11 @@
+{
+  "slug": "04-priority-and-preemption",
+  "title": "Who Gets Evicted First",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["priority", "preemption", "scheduling"],
+  "objective": "When a node runs out of room, the scheduler decides who dies. Create a high-value PriorityClass and bind your critical payments Deployment to it so it preempts the noisy neighbors instead of being evicted by them — then prove the wiring with the verifier."
+}

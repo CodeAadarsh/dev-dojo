@@ -1,0 +1,11 @@
+{
+  "slug": "02-ckad-multi-container-pod",
+  "title": "Sidecar Speed Run",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 12,
+  "tags": ["ckad", "multi-container", "volumes"],
+  "objective": "CKAD classic: a Pod with two containers sharing an emptyDir — a writer and a reader. Build it fast under exam pressure, then prove it with the verifier."
+}

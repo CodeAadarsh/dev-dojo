@@ -1,0 +1,11 @@
+{
+  "slug": "03-expand-a-volume",
+  "title": "Expand a Volume",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["storage", "pvc", "resize"],
+  "objective": "Expand a Bound PVC from 1Gi to at least 2Gi using the Kubernetes volume-expansion API — no data loss, no downtime."
+}

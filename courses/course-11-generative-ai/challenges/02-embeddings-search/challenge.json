@@ -1,0 +1,11 @@
+{
+  "slug": "02-embeddings-search",
+  "title": "Embeddings Search",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["embeddings", "vector-search"],
+  "objective": "Implement cosine-similarity top-k retrieval over a precomputed embedding corpus — no LLM required, pure vector math."
+}

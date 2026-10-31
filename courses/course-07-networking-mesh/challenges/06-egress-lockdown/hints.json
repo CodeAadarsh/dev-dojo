@@ -1,0 +1,5 @@
+[
+  "A `NetworkPolicy` with `policyTypes: [Egress]` and `egress: []` is the default-deny pattern. The `policyTypes` field is mandatory — without it, the empty `egress` list is ignored and traffic flows freely.",
+  "DNS (port 53) must be explicitly allowed on both UDP and TCP. Use a `namespaceSelector` with `kubernetes.io/metadata.name: kube-system` to target CoreDNS regardless of its pod IPs. Forgetting TCP means large DNS responses (EDNS0) silently fail.",
+  "For the monitoring destination, add a second egress rule to the allow policy with `namespaceSelector.matchLabels.purpose: monitoring` and `port: 9090, protocol: TCP`. The two policies (deny-all + allow) stack — allowed ports are the union of all matching allow rules."
+]

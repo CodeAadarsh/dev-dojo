@@ -1,0 +1,11 @@
+{
+  "slug": "06-deploy-api-to-kind",
+  "title": "Deploy API to kind",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["docker", "kubernetes", "deploy"],
+  "objective": "Ship a local Flask API from docker build through kind load to a running Deployment+Service in the dojo cluster."
+}

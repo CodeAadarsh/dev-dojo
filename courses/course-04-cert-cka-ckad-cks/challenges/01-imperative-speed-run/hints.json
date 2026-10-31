@@ -1,0 +1,5 @@
+[
+  "Two imperative commands do the whole task. The first is a `kubectl create deploy ...` with `--image` and `--replicas`; the second exposes it. Set your default namespace to `dojo-exam` first so you don't retype `-n`.",
+  "`kubectl create deploy speedy --image=nginx:1.27-alpine --replicas=3` handles the Deployment, replicas, and image in one line. It also labels the pods `app=speedy`, which the Service needs.",
+  "Expose it with `kubectl expose deploy speedy --port=80` — `expose` defaults to ClusterIP and copies the `app=speedy` selector off the Deployment so the Service actually routes. Prefer it over `kubectl create svc`, which doesn't wire the selector to your workload."
+]

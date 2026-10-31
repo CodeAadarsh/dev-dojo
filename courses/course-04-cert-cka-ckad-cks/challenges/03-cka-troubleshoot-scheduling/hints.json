@@ -1,0 +1,5 @@
+[
+  "Don't guess — `kubectl -n dojo-sched-fix describe pod <pending-pod>` and read the Events at the very bottom. The scheduler states exactly why (something about a node selector / affinity not matching).",
+  "The pod template pins itself with a `nodeSelector` of `disktype: ssd`, but `kubectl get nodes --show-labels` shows no node carries that label. Two ways out.",
+  "Fix A (keep the intent): label a worker — `kubectl label node dojo-worker disktype=ssd`. Fix B (drop the constraint): `kubectl -n dojo-sched-fix patch deploy reports --type=json -p='[{\"op\":\"remove\",\"path\":\"/spec/template/spec/nodeSelector\"}]'`. Either makes it schedulable."
+]

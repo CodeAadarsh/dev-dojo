@@ -1,0 +1,5 @@
+[
+  "Both probes live on the container at `spec.template.spec.containers[0]`. Generate an editable skeleton with `kubectl -n dojo-probes get deploy web -o yaml`, or patch live with `kubectl -n dojo-probes edit deploy web`.",
+  "Use an `httpGet` probe against `path: /` and `port: 80` for both — nginx returns 200 on `/`. A probe pointed at a path nginx doesn't serve (e.g. `/healthz` → 404) will count as a failure.",
+  "Keep the livenessProbe forgiving so it can't crashloop the pod: a generous `initialDelaySeconds` (~10) and `failureThreshold: 3`. The readinessProbe can poll faster. The verifier requires `readyReplicas >= spec.replicas`, so trigger-happy liveness settings will fail the check."
+]

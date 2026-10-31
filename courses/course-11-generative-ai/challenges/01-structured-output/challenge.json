@@ -1,0 +1,11 @@
+{
+  "slug": "01-structured-output",
+  "title": "Structured Output",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["prompting", "json"],
+  "objective": "Implement a parser that coerces raw LLM output into a validated incident-report schema — the foundational skill behind any reliable AI pipeline."
+}

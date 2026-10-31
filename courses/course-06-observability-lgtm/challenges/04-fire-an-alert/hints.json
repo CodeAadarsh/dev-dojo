@@ -1,0 +1,5 @@
+[
+  "A PrometheusRule is its own CRD (monitoring.coreos.com/v1). The structure is: spec.groups[].name + spec.groups[].rules[]. An alerting rule has 'alert:', 'expr:', 'for:', 'labels:', and 'annotations:' — a recording rule has 'record:' instead of 'alert:'.",
+  "The kube-prometheus-stack Prometheus operator only picks up PrometheusRules that match its ruleSelector. Check what selector your stack uses: `kubectl -n monitoring get prometheus -o jsonpath='{.items[0].spec.ruleSelector}'`. You likely need the label `release: kps` on the PrometheusRule.",
+  "A minimal working expr is `up == 0` — this fires when any Prometheus scrape target becomes unreachable. Pair it with `for: 1m`, `labels: {severity: warning}`, and `annotations: {summary: 'target is down'}` to satisfy all verifier checks."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "06-applicationset",
+  "title": "ApplicationSet — Multi-Env GitOps",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": ["argocd", "applicationset", "gitops"],
+  "objective": "Replace per-environment Application objects with a single ArgoCD ApplicationSet using a list generator — the GitOps pattern that scales from 2 envs to 200 without YAML sprawl."
+}

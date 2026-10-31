@@ -1,0 +1,11 @@
+{
+  "slug": "04-stolen-node-kubeconfig",
+  "title": "Keys to the Kingdom",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 35,
+  "estMinutes": 35,
+  "tags": ["container-escape", "hostpath", "kubeconfig", "security"],
+  "objective": "You have a shell in a pod that mounts the node's root filesystem. Steal the node's cluster-admin kubeconfig off that filesystem and use it to read a flag Secret in a locked-down namespace your pod's own ServiceAccount can't touch."
+}

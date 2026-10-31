@@ -1,0 +1,11 @@
+{
+  "slug": "03-pdb-protects-drain",
+  "title": "Budget for Disruption",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["pdb", "drain"],
+  "objective": "A 3-replica service has nothing stopping a node drain or cluster upgrade from evicting every pod at once. Add a PodDisruptionBudget that keeps a minimum available during voluntary disruptions — then prove it with the verifier."
+}

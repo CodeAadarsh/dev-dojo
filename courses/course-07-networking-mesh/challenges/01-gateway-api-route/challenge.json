@@ -1,0 +1,11 @@
+{
+  "slug": "01-gateway-api-route",
+  "title": "Gateway API: Route Traffic the Right Way",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["gateway-api", "ingress"],
+  "objective": "Move beyond Ingress: install Gateway API CRDs, define a Gateway and an HTTPRoute, and prove the route wires correctly to your Service backend."
+}

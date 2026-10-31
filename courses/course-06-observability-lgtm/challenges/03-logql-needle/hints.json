@@ -1,0 +1,5 @@
+[
+  "The flag is in the pod logs, not in a ConfigMap or Secret. Run `kubectl -n dojo-obs logs -l app=log-flood --tail=-1` to fetch all buffered lines. The output is noisy by design — pipe it through `grep 'FLAG='` to find the one needle.",
+  "If `kubectl logs` returns nothing, the pod may have just started and the flag line hasn't been emitted yet (it takes ~500 lines of noise first). Wait 10 seconds and try again, or use `-f` to follow and wait for the cycle.",
+  "In LogQL the line filter operator is `|=`. The query `{namespace=\"dojo-obs\", pod=~\"log-flood.*\"} |= \"FLAG=\"` returns only lines containing that substring. To promote `FLAG` to a queryable label, add `| logfmt` after the line filter."
+]

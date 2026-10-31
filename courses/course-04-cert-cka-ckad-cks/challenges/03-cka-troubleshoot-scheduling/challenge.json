@@ -1,0 +1,11 @@
+{
+  "slug": "03-cka-troubleshoot-scheduling",
+  "title": "Why Won't It Schedule",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 15,
+  "tags": ["cka", "troubleshooting", "scheduling", "debugging"],
+  "objective": "A Deployment is stuck Pending and the image is fine. Diagnose the scheduling failure from the Pod's Events and get it Running — a guaranteed CKA category."
+}

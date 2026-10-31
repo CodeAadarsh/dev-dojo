@@ -1,0 +1,11 @@
+{
+  "slug": "16-crashloop-mystery",
+  "title": "The CrashLoop Mystery",
+  "order": 16,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["debugging", "crashloopbackoff", "troubleshooting"],
+  "objective": "A Deployment is stuck in CrashLoopBackOff. Diagnose it with describe → logs → events, fix the real root cause, and prove the pods run clean with the verifier."
+}

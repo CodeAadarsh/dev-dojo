@@ -1,0 +1,5 @@
+[
+  "A recording rule uses 'record:' instead of 'alert:' in the rules array. The structure is: spec.groups[].rules[] with 'record: name', 'expr: promql'. There is no 'for:' field on recording rules — they evaluate on every scrape interval.",
+  "The naming convention for recording rules is 'level:metric:operations'. For an SLI, 'level' is typically 'job' (aggregated by job label), 'metric' is the SLI name (e.g. http_request_success_ratio), and 'operations' is the window (e.g. rate5m). Example: 'job:http_request_success_ratio:rate5m'.",
+  "A request success ratio expression divides 'good' requests by total requests using rate(): `sum(rate(http_requests_total{status!~\"5..\"}[5m])) / sum(rate(http_requests_total[5m]))`. The `status!~\"5..\"` selector excludes 5xx errors. Use this pattern verbatim to pass the verifier."
+]

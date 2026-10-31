@@ -1,0 +1,5 @@
+[
+  "Scaffold a working chart in one command: `helm create web`. It emits a complete nginx Deployment + Service + probes under `./web`. Preview what it renders with `helm template web ./web -n dojo-helm` before installing.",
+  "Install it as the release the verifier wants: `helm install web ./web -n dojo-helm --set image.tag=1.27-alpine`. The release name (`web`) is the first argument — it must be exactly `web`. Watch pods come up with `kubectl -n dojo-helm rollout status deploy/web`.",
+  "If `helm list -n dojo-helm` shows `web` but the verifier still fails, your pods aren't Ready yet — check `kubectl -n dojo-helm get pods`. A wrong/`latest` image tag causes `ImagePullBackOff`; reinstall with `helm upgrade --install web ./web -n dojo-helm --set image.tag=1.27-alpine`."
+]

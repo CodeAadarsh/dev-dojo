@@ -1,0 +1,11 @@
+{
+  "slug": "07-ckad-config-wiring",
+  "title": "Wire It Up",
+  "order": 7,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 15,
+  "estMinutes": 10,
+  "tags": ["ckad", "configmap", "secret"],
+  "objective": "A pure CKAD wiring drill: ConfigMap into env (envFrom), Secret mounted as a volume, one Deployment consuming both. Fast and exact."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "01-stateful-identity",
+  "title": "Stateful Identity",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["statefulset", "headless"],
+  "objective": "Deploy a StatefulSet with stable storage and a headless Service so every pod gets a predictable DNS name and its own bound PVC."
+}

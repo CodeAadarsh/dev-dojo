@@ -1,0 +1,11 @@
+{
+  "slug": "14-jobs-and-cronjobs",
+  "title": "Batch It",
+  "order": 14,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 15,
+  "estMinutes": 15,
+  "tags": ["jobs", "cronjobs", "batch"],
+  "objective": "Run a one-shot Job to completion and schedule a recurring CronJob — the run-to-finish half of Kubernetes that Deployments can't express."
+}

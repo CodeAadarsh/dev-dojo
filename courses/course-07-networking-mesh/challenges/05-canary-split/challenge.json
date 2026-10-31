@@ -1,0 +1,11 @@
+{
+  "slug": "05-canary-split",
+  "title": "Canary Traffic Split",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 35,
+  "tags": ["istio", "traffic", "canary"],
+  "objective": "Author an Istio VirtualService + DestinationRule that splits traffic 90 % to v1 and 10 % to v2, then prove the weighted routes are correct with the verifier."
+}

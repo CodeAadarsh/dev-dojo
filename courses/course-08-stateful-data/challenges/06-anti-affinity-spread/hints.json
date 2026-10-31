@@ -1,0 +1,5 @@
+[
+  "Anti-affinity lives under `spec.template.spec.affinity.podAntiAffinity`. Check the current (empty) state with `kubectl -n dojo-spread get sts cache -o jsonpath='{.spec.template.spec.affinity}'` — it will be blank. Edit the StatefulSet in-place: `kubectl -n dojo-spread edit sts cache`.",
+  "The correct structure is `requiredDuringSchedulingIgnoredDuringExecution` (a list of rules), where each rule has a `labelSelector` matching `app: cache` and `topologyKey: kubernetes.io/hostname`. After saving the edit, the StatefulSet controller triggers a rolling update — watch it with `kubectl -n dojo-spread rollout status sts/cache`.",
+  "After the rollout, if the verifier says pods are still on one node, delete them to force rescheduling: `kubectl -n dojo-spread delete pods -l app=cache`. Also confirm the control-plane taint was removed (setup.sh does this): `kubectl get nodes dojo-control-plane -o jsonpath='{.spec.taints}'` should be empty."
+]

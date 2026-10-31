@@ -1,0 +1,11 @@
+{
+  "slug": "15-pod-security-admission",
+  "title": "Lock the Namespace",
+  "order": 15,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["pod-security", "admission", "hardening"],
+  "objective": "A namespace is running a privileged, root, no-seccomp pod. Enforce the built-in restricted Pod Security Standard on the namespace AND refactor the workload until it runs compliant — then prove it with the verifier."
+}

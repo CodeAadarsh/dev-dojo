@@ -1,0 +1,11 @@
+{
+  "slug": "05-lateral-movement",
+  "title": "Pivot Through the Pod",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 30,
+  "estMinutes": 25,
+  "tags": ["lateral-movement", "networkpolicy", "security"],
+  "objective": "From a compromised foothold pod, pivot across the flat pod network to an internal-only API that trusted nobody could reach it — capture its flag, then shut the door with a default-deny NetworkPolicy."
+}

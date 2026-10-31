@@ -1,0 +1,11 @@
+{
+  "slug": "05-the-over-privileged-account",
+  "title": "The Over-Privileged Account",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["rbac", "privilege-escalation", "security"],
+  "objective": "A CI ServiceAccount was bound to a ClusterRole far broader than its job needs. Discover its real reach, then use it to read a Secret it was never meant to touch."
+}

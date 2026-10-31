@@ -1,0 +1,5 @@
+[
+  "Don't guess — run the quartet in order: `kubectl -n dojo-crash describe pod -l app=api`, then `logs --previous`, then `get events --sort-by=.lastTimestamp`. The exit code and the `Events` block at the bottom of `describe` narrow it fast.",
+  "The live `kubectl logs` on a crashing pod is often empty because you're reading the instance that hasn't failed yet. Add `--previous` to read the crashed container's output — it names the problem outright.",
+  "The log says a required value was never set. It's not an image or probe problem — the app refuses to start without one piece of config. Set it on the Deployment (not the pod) with `kubectl -n dojo-crash set env deploy/api <KEY>=<value>` and let it roll out fresh pods."
+]

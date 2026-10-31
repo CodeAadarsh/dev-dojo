@@ -1,0 +1,5 @@
+[
+  "The Application is `OutOfSync` on purpose: it has `automated` sync but `selfHeal: false`. Argo CD *reports* the drift (someone scaled `guestbook-ui` away from Git) but won't fix it. Confirm with `kubectl -n argocd get application drift-detective -o jsonpath='{.status.sync.status}'`.",
+  "`prune` and `selfHeal` are independent sub-fields of `spec.syncPolicy.automated`. You only need to change one: set `selfHeal` to `true`. `prune` deals with resources removed from Git; `selfHeal` deals with live drift — and live drift is your problem here.",
+  "Flip it with `kubectl -n argocd patch application drift-detective --type merge -p '{\"spec\":{\"syncPolicy\":{\"automated\":{\"selfHeal\":true}}}}'` (or `argocd app set drift-detective --self-heal`). Within a few seconds the controller re-applies Git, scales guestbook-ui back down, and the app returns to `Synced`."
+]

@@ -1,0 +1,5 @@
+[
+  "The control-plane node in kind is just a container: `docker exec dojo-control-plane sh -c '...'`. etcdctl is already inside it, and the mTLS client certs live under `/etc/kubernetes/pki/etcd/` (ca.crt, server.crt, server.key).",
+  "`snapshot save` talks to the LIVE etcd on `https://127.0.0.1:2379`, so it needs `ETCDCTL_API=3` plus `--cacert`/`--cert`/`--key`. Write the output to `/var/lib/etcd-backup/snapshot.db` (setup.sh already created that directory on the node).",
+  "The verifier runs `ETCDCTL_API=3 etcdctl --write-out=table snapshot status /var/lib/etcd-backup/snapshot.db` — that reads the local file only (no certs/endpoint) and fails on a garbage or zero-byte file, so you cannot fake it with `touch`. Take a real `snapshot save` and you're done."
+]

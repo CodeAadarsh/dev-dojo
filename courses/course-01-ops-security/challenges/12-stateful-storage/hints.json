@@ -1,0 +1,5 @@
+[
+  "`emptyDir` dies with the pod. You need a StatefulSet (not a Deployment) with a `volumeClaimTemplates:` block — that stamps out one PVC per replica and re-attaches it on restart. Delete the old Deployment first so two controllers don't fight over the `app=notes` pods.",
+  "Under `spec.volumeClaimTemplates`, give the template `metadata.name: data`, `accessModes: [ReadWriteOnce]`, `storageClassName: standard` (kind's default dynamic provisioner), and `resources.requests.storage: 1Gi`. Then mount it in the container with a `volumeMounts` entry whose `name` is `data` at `/data`.",
+  "A StatefulSet also wants a headless Service (`clusterIP: None`) whose name matches `spec.serviceName`. Apply everything, wait for `kubectl -n dojo-storage rollout status statefulset/notes`, confirm `kubectl -n dojo-storage get pvc` shows a Bound claim (data-notes-0), then run verify.sh."
+]

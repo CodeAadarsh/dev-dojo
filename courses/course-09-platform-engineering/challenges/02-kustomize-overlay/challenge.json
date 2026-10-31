@@ -1,0 +1,11 @@
+{
+  "slug": "02-kustomize-overlay",
+  "title": "Kustomize Overlay for Production",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["kustomize", "overlays"],
+  "objective": "Build a base Kustomize configuration and a 'prod' overlay that patches replicas to 3 and adds an env label, then apply it to the cluster with kubectl apply -k."
+}

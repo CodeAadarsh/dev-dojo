@@ -1,0 +1,11 @@
+{
+  "slug": "02-promql-hunt",
+  "title": "PromQL Hunt",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "discovery",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["promql", "metrics"],
+  "objective": "A running app emits a custom Prometheus metric that carries the flag in one of its labels. Write a PromQL query to extract it."
+}

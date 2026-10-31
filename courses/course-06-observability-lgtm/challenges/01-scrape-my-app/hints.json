@@ -1,0 +1,5 @@
+[
+  "Two objects are needed: a `Service` exposing port 8080 and a `ServiceMonitor` (CRD from kube-prometheus-stack). Check whether the Deployment already labels its pods with `app: example-metrics-app` — use that same label in both the Service selector and the ServiceMonitor `spec.selector.matchLabels`.",
+  "The ServiceMonitor's `spec.endpoints[].port` must match the **name** of the Service port, not its number. Name the Service port `metrics` and reference it as `port: metrics` in the ServiceMonitor endpoint.",
+  "A ServiceMonitor with `spec.selector.matchLabels: {app: example-metrics-app}` selects the Service with that label. The endpoint block is `- port: metrics\\n  interval: 30s\\n  path: /metrics`. Apply both objects and run the verifier."
+]

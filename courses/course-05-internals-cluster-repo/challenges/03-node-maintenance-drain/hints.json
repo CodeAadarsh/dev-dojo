@@ -1,0 +1,5 @@
+[
+  "Two steps, two verbs. First `kubectl get pods -n dojo-maint -o wide` to see which worker holds pods, then `kubectl cordon <worker>` to stop new scheduling, then `kubectl drain <worker>` to evict what's there. The control-plane node doesn't count — pick a `dojo-worker*`.",
+  "A plain `kubectl drain` will refuse to start, complaining about DaemonSet pods (kindnet, kube-proxy) and possibly emptyDir data. Add `--ignore-daemonsets` and `--delete-emptydir-data`. Do NOT reach for `--force` — you don't need it and it evicts pods nothing will recreate.",
+  "If drain prints `Cannot evict pod as it would violate the pod's disruption budget` and seems to hang — that's correct behavior, not a bug. The PDB (minAvailable: 2) makes drain wait for a replacement pod to become Ready on the other worker before evicting the next. Let it finish; it paces itself."
+]

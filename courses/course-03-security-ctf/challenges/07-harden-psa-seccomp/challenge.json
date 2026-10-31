@@ -1,0 +1,11 @@
+{
+  "slug": "07-harden-psa-seccomp",
+  "title": "Restricted By Default",
+  "order": 7,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["pod-security", "seccomp", "hardening", "defense"],
+  "objective": "A legacy workload runs as root with every capability and no seccomp filter — the exact shape the Course 03 container-escape challenge exploited. Turn on Pod Security Admission's `restricted` profile for the namespace AND bring the workload into compliance, then prove both with the verifier."
+}

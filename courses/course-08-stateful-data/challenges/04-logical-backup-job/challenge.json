@@ -1,0 +1,11 @@
+{
+  "slug": "04-logical-backup-job",
+  "title": "Logical Backup Job",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["backup", "jobs"],
+  "objective": "Wire a Kubernetes Job to read a data source and write a backup artifact to a PersistentVolumeClaim, then prove the Job completed successfully."
+}

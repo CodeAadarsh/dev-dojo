@@ -1,0 +1,5 @@
+[
+  "DNS resolving does not mean the Service works — run `kubectl -n dojo-dns get endpoints api-svc` first. If it shows `<none>`, every connection will silently time out regardless of DNS. The Endpoints object is the ground truth.",
+  "Two bugs were planted: the Service `selector.version=v1` but the pod has `version=v2`, and `targetPort=8080` but nginx listens on `80`. Check both: `kubectl -n dojo-dns get pods --show-labels` and `kubectl -n dojo-dns get svc api-svc -o yaml`.",
+  "Fix with a patch: `kubectl -n dojo-dns patch svc api-svc --type=merge -p '{\"spec\":{\"selector\":{\"app\":\"backend\",\"version\":\"v2\"},\"ports\":[{\"name\":\"http\",\"port\":80,\"targetPort\":80}]}}'`. Then confirm endpoints are non-empty before running the verifier."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "05-cka-rbac",
+  "title": "Least Privilege, Fast",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 12,
+  "tags": ["cka", "rbac", "security"],
+  "objective": "Create a ServiceAccount that can read pods but not delete them — a timed RBAC drill. Role, RoleBinding, and the auth can-i check that proves it."
+}

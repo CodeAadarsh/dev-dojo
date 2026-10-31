@@ -1,0 +1,5 @@
+[
+  "A CRD has two halves: the CustomResourceDefinition (which teaches the API the new kind) and then the custom resources themselves. Start with `kubectl explain crd` and the apiextensions.k8s.io/v1 docs.",
+  "In the CRD, set `spec.scope: Namespaced`, `spec.group: dojo.local`, `spec.names` (plural: widgets, singular: widget, kind: Widget), and one `spec.versions[0]` with `served: true, storage: true` and an `openAPIV3Schema`. Under the schema's `spec` object, add `required: [size]`.",
+  "After `kubectl apply -f crd.yaml`, wait with `kubectl wait --for=condition=Established crd/widgets.dojo.local`. Then create a Widget CR (`apiVersion: dojo.local/v1`, `kind: Widget`) in `dojo-crd` that sets `spec.size`."
+]

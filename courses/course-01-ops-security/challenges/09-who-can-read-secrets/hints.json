@@ -1,0 +1,5 @@
+[
+  "Don't read the Secret as yourself — the challenge is to find which identity can. Impersonate each ServiceAccount with `--as=system:serviceaccount:dojo-secrets:<sa>` and ask the API server directly with `kubectl auth can-i`.",
+  "`list` is a trap here: the Roles are scoped with `resourceNames`, so `auth can-i list secrets` can say no while `auth can-i get secret/<name>` says yes. Sweep per-Secret: loop app-a/app-b/app-c over `auth can-i get secret/payments-api-key --as=...` and watch for the single `yes`.",
+  "Once `app-b` comes back `yes`, read the flag through it: `kubectl -n dojo-secrets get secret payments-api-key -o jsonpath='{.data.FLAG}' --as=system:serviceaccount:dojo-secrets:app-b | base64 -d`."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "08-drift-detective",
+  "title": "Drift Detective",
+  "order": 8,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["argocd", "gitops", "self-heal"],
+  "objective": "An Argo CD app has drifted: someone scaled a live resource by hand and the controller isn't fixing it. Diagnose why, then flip on self-heal so the cluster snaps back to Git."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "04-tenant-namespace",
+  "title": "Provision a Tenant Namespace",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["multi-tenancy", "quota", "rbac"],
+  "objective": "Build the namespace governance layer for a new tenant: ResourceQuota, LimitRange, and a scoped RoleBinding — the three primitives that turn a namespace into a safe multi-tenant unit."
+}

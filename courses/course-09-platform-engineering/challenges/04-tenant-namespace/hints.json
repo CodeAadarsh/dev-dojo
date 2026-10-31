@@ -1,0 +1,5 @@
+[
+  "Three separate objects, all applied to namespace 'dojo-tenant-a'. Generate skeletons with `kubectl create resourcequota --dry-run=client -o yaml`, `kubectl create limitrange --dry-run=client -o yaml`, and `kubectl create rolebinding --dry-run=client -o yaml`.",
+  "A RoleBinding that references a ClusterRole is the standard pattern — it gives the named ClusterRole's permissions but *scoped to the namespace*. Use `roleRef.kind: ClusterRole` and `roleRef.name: edit`. The binding must have `subjects[0].kind: ServiceAccount` and `subjects[0].name: tenant-operator`.",
+  "ResourceQuota requires three fields under `spec.hard`: `pods`, `cpu`, and `memory`. LimitRange requires a `spec.limits` array with at least one entry of `type: Container` and a `default` or `defaultRequest` block."
+]

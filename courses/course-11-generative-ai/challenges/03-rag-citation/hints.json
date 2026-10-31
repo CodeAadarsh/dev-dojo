@@ -1,0 +1,5 @@
+[
+  "For chunking, split `knowledge_base.txt` on double newlines (`\\n\\n`) — each paragraph is already a coherent unit. Filter out paragraphs shorter than ~8 words to remove headings and blank lines.",
+  "For retrieval, score each chunk by counting how many query words appear in it, weighted by how rare each word is across all chunks (TF-IDF). The target chunk contains 'postmortem', 'blameless', 'five sections' — rare words that appear almost nowhere else in the KB.",
+  "The flag is on its own line in the winning chunk: `FLAG=KUBE{...}`. Use `re.search(r'FLAG=(KUBE\\{[^}]+\\})', top_chunk)` to extract it. If your retrieve() returns the wrong chunk, print all chunks with their scores to see where the ranking broke down."
+]

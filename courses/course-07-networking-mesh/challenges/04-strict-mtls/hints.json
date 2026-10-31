@@ -1,0 +1,5 @@
+[
+  "A `PeerAuthentication` is a `security.istio.io/v1` resource. Generate a skeleton with `kubectl explain peerauthentication.spec.mtls` to see the valid mode values.",
+  "The policy must be named `default` and have no `spec.selector` — that combination tells Istio it is the namespace-wide default. The critical field is `spec.mtls.mode`.",
+  "Set `spec.mtls.mode: STRICT`. The full minimal manifest is four fields: `apiVersion: security.istio.io/v1`, `kind: PeerAuthentication`, `metadata.name: default`, `metadata.namespace: dojo-mtls`, and `spec.mtls.mode: STRICT`."
+]

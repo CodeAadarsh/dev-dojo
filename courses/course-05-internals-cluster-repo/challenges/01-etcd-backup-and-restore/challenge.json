@@ -1,0 +1,11 @@
+{
+  "slug": "01-etcd-backup-and-restore",
+  "title": "Back Up the Brain",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["etcd", "backup", "cluster-admin"],
+  "objective": "Take a verified etcd snapshot from inside the control-plane node and save it to a known path — the one disaster-recovery artifact that stands between you and a rebuild-from-scratch."
+}

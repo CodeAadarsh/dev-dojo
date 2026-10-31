@@ -1,0 +1,5 @@
+[
+  "Gateway API uses two separate objects: a `Gateway` (owned by the platform team — declares port/protocol/TLS) and an `HTTPRoute` (owned by the app team — declares host/path → Service). Start with `kubectl explain gateway.spec.listeners` and `kubectl explain httproute.spec.rules.backendRefs`.",
+  "The `HTTPRoute` joins to its parent via `spec.parentRefs[].name`, which must equal the `Gateway` name (`dojo-gw`). The `backendRefs[].name` field is the Service name, and `port` must match the Service's `spec.ports[].port` (80), not the containerPort.",
+  "Minimal working YAML: Gateway with `spec.gatewayClassName: istio` and one listener `{name: http, port: 80, protocol: HTTP}`; HTTPRoute with `parentRefs: [{name: dojo-gw}]` and `rules: [{backendRefs: [{name: web-svc, port: 80}]}]`. Both in namespace `dojo-gw`."
+]

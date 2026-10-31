@@ -1,0 +1,11 @@
+{
+  "slug": "04-validation-and-errors",
+  "title": "Validate or Regret It",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["flask", "validation", "errors"],
+  "objective": "Validate every incoming request body and return a consistent JSON error envelope — 422 for bad input, 404 handlers that never leak HTML."
+}

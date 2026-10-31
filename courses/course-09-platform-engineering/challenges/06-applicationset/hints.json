@@ -1,0 +1,5 @@
+[
+  "An ApplicationSet is `apiVersion: argoproj.io/v1alpha1`, `kind: ApplicationSet`. Apply it to the `argocd` namespace. The list generator goes under `spec.generators[0].list.elements` — each element is a map of arbitrary keys that become template variables.",
+  "Template variables use double-brace syntax: `{{env}}` expands to the value of key `env` from each list element. Set `spec.template.spec.destination.namespace: dojo-appset` — this is what the verifier checks. The destination server for the local kind cluster is `https://kubernetes.default.svc`.",
+  "Generate the two Applications by having two entries under `spec.generators[0].list.elements`. The Applications will show Unknown sync status if the repoURL doesn't point to real chart content — that's fine, the verifier only checks the ApplicationSet object's structure, not sync health."
+]

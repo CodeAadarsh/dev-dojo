@@ -1,0 +1,11 @@
+{
+  "slug": "03-probe-the-depths",
+  "title": "Probe the Depths",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["probes", "health", "availability"],
+  "objective": "A probe-less Deployment looks healthy but lies to the control plane. Add a correct readinessProbe and livenessProbe without tipping it into a crashloop — then prove it with the verifier."
+}

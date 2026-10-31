@@ -1,0 +1,11 @@
+{
+  "slug": "11-networkpolicy-lockdown",
+  "title": "NetworkPolicy Lockdown",
+  "order": 11,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["networkpolicy", "security", "networking"],
+  "objective": "The namespace is wide open — every pod can reach every other pod. Impose default-deny-ingress, then allow only role=frontend to reach backend on port 80, and prove it with the verifier."
+}

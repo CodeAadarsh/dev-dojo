@@ -1,0 +1,11 @@
+{
+  "slug": "05-custom-resource-api",
+  "title": "Custom Resource API — Environment",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 35,
+  "tags": ["crd", "api-extension", "platform"],
+  "objective": "Extend the Kubernetes API with a namespaced Environment CRD (group platform.dojo, schema-validated spec.tier) and instantiate it — the fundamental move when building a platform API."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "03-indexed-queries",
+  "title": "Indexed Queries",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "discovery",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["database", "sql", "indexing"],
+  "objective": "Use EXPLAIN QUERY PLAN to find a full-table scan in a catalog database, add the missing index on the foreign key column, and retrieve the hidden flag via the now-indexed join."
+}

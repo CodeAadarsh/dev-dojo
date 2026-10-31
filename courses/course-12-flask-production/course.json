@@ -1,0 +1,12 @@
+{
+  "id": "course-12-flask-production",
+  "slug": "flask-production",
+  "title": "Python Flask in Production",
+  "order": 12,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "12–16 h",
+  "prereqs": ["Python basics", "HTTP fundamentals", "A running kind cluster for the deploy challenge"],
+  "tags": ["python", "flask", "rest", "sqlalchemy", "gunicorn", "testing", "docker"],
+  "description": "Take Flask from toy to production: the app factory & blueprints, config & secrets, SQLAlchemy + migrations, auth (sessions & JWT), REST API design, error handling, testing with pytest, gunicorn & WSGI, structured logging, security hardening, Dockerizing, and deploying to a kind cluster."
+}

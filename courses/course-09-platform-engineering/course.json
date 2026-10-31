@@ -1,0 +1,12 @@
+{
+  "id": "course-09-platform-engineering",
+  "slug": "platform-engineering",
+  "title": "Platform Engineering & DevEx",
+  "order": 9,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "14–18 h",
+  "prereqs": ["Courses 1 & 5", "Helm/Kustomize familiarity helps"],
+  "tags": ["platform", "helm", "kustomize", "operators", "crossplane", "policy", "multi-tenancy"],
+  "description": "Build the platform other teams build on: Helm & Kustomize mastery, writing your own operators/CRDs, Crossplane for infra-as-API, multi-tenancy & namespaces-as-a-service, policy-as-code (Kyverno/OPA), and internal developer platforms / golden paths (Backstage)."
+}

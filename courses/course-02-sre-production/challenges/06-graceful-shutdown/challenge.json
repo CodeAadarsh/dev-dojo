@@ -1,0 +1,11 @@
+{
+  "slug": "06-graceful-shutdown",
+  "title": "Drain Gracefully",
+  "order": 6,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["lifecycle", "graceful-shutdown"],
+  "objective": "A Deployment resets live connections every time a pod is terminated. Teach it to drain: a preStop hook, a grace period that actually covers it, and a readiness probe — then prove it with the verifier."
+}

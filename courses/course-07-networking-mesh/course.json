@@ -1,0 +1,12 @@
+{
+  "id": "course-07-networking-mesh",
+  "slug": "networking-mesh",
+  "title": "Networking & Service Mesh",
+  "order": 7,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "14–18 h",
+  "prereqs": ["Course 1", "Course 5 helpful", "A Calico-enabled cluster for NetworkPolicy enforcement"],
+  "tags": ["networking", "cni", "gateway-api", "istio", "mtls", "networkpolicy"],
+  "description": "How packets really move: CNI internals, kube-proxy, CoreDNS, the Gateway API & Ingress, service mesh (Istio/Linkerd) with mTLS and traffic shifting / canary, and NetworkPolicy in depth — with Calico for real enforcement on kind."
+}

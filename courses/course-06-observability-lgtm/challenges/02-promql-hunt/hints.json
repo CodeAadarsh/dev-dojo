@@ -1,0 +1,5 @@
+[
+  "Port-forward Prometheus first: `kubectl -n monitoring port-forward svc/prometheus-operated 9090:9090`. Then open http://localhost:9090 and use the Graph tab. The metric name is `dojo_flag_info` — just type it into the query box and execute.",
+  "If Prometheus shows no results, the scrape hasn't happened yet (interval is 15s). Check the Targets page at http://localhost:9090/targets to confirm the `dojo-obs/promql-hunt-app` target is UP. If it's missing, the ServiceMonitor may not have been discovered — wait 30s and refresh.",
+  "The flag is a label *value*, not the metric value (which is just `1`). In the result table, look for the `flag=` label in the row. You can also read it without Prometheus: `kubectl -n dojo-obs get configmap promql-hunt-metrics -o jsonpath='{.data.metrics}'`."
+]

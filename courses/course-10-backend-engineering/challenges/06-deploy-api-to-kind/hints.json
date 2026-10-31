@@ -1,0 +1,5 @@
+[
+  "If the pod is stuck in ImagePullBackOff, kind never saw the image. Images built on your host are not automatically available inside the cluster — you must explicitly run 'kind load docker-image dojo-api:v1 --name dojo' after every build.",
+  "After loading the image, verify it arrived: 'docker exec dojo-control-plane crictl images | grep dojo-api'. If the output is empty, the load did not succeed or targeted the wrong cluster name.",
+  "verify.sh port-forwards pod port 5000 to localhost:18080 and curls /healthz. If the curl returns connection-refused even with the pod running, check that CMD in Dockerfile starts Flask with host='0.0.0.0' — binding to 127.0.0.1 (the default) makes the port unreachable from outside the container process."
+]

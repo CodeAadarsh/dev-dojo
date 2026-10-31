@@ -1,0 +1,11 @@
+{
+  "slug": "03-kyverno-require-labels",
+  "title": "Kyverno: Require Pod Labels",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 35,
+  "tags": ["kyverno", "policy-as-code", "labels", "admission"],
+  "objective": "Author a Kyverno ClusterPolicy in Enforce mode that blocks pod creation in namespace dojo-policy unless both 'app' and 'team' labels are present — the admission gate that makes label-based observability and cost attribution enforceable."
+}

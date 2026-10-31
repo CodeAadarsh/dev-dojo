@@ -1,0 +1,11 @@
+{
+  "slug": "03-rag-citation",
+  "title": "RAG Citation",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["rag", "retrieval"],
+  "objective": "Build a chunk-and-retrieve pipeline over a real knowledge base and surface the exact passage — and the flag inside it — by answering a specific question correctly."
+}

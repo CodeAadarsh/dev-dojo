@@ -1,0 +1,5 @@
+[
+  "A PodDisruptionBudget is its own `policy/v1` object, separate from the Deployment — it finds pods by label, not by owner. Fastest path: `kubectl -n dojo-pdb create pdb api-pdb --selector=app=api --min-available=2`.",
+  "The `selector.matchLabels` must be `app: api` to match the planted pods. If it's wrong, the PDB is valid but matches zero pods — check `kubectl -n dojo-pdb get pdb api-pdb -o wide` and make sure ALLOWED DISRUPTIONS reads 1, not 0.",
+  "Use an integer `minAvailable: 2` (not a percentage, and not `maxUnavailable`), and don't set it to 3 — a floor equal to the replica count means `disruptionsAllowed: 0` and would block every drain forever. Confirm the app is healthy (`kubectl -n dojo-pdb rollout status deploy/api`) so readyReplicas is >= 2 before running the verifier."
+]

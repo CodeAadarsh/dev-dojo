@@ -1,0 +1,5 @@
+[
+  "All three objects can be created imperatively — no YAML needed: `kubectl -n dojo-rbac-exam create sa viewer`, then `create role`, then `create rolebinding`.",
+  "Role: `kubectl -n dojo-rbac-exam create role pod-reader --verb=get,list,watch --resource=pods`. Keep the verbs to exactly those three — add `delete` and the verifier fails on purpose.",
+  "Bind it to the SA (not a user): `kubectl -n dojo-rbac-exam create rolebinding viewer-rb --role=pod-reader --serviceaccount=dojo-rbac-exam:viewer`. Test with `kubectl auth can-i ... --as=system:serviceaccount:dojo-rbac-exam:viewer`."
+]

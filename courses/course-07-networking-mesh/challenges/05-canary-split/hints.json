@@ -1,0 +1,5 @@
+[
+  "You need two separate objects: a `DestinationRule` (kind `DestinationRule`, `networking.istio.io/v1`) that defines subsets by label, and a `VirtualService` that references those subset names with weights.",
+  "The `DestinationRule.spec.subsets` is a list of `{name, labels}` pairs. The `name` value (e.g. `v1`, `v2`) is what the VirtualService references in `destination.subset`. The labels must match the pod labels exactly.",
+  "In the `VirtualService.spec.http[0].route`, add two entries each with `destination.host: app`, `destination.subset: v1` (or `v2`), and `weight: 90` / `weight: 10`. The two weights must sum to exactly 100 or Istio will reject the manifest."
+]

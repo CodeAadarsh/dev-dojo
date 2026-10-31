@@ -1,0 +1,11 @@
+{
+  "slug": "05-idempotent-endpoint",
+  "title": "Idempotent Endpoint",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["idempotency", "api", "reliability"],
+  "objective": "Add idempotency-key handling to a FastAPI orders endpoint so duplicate POSTs create exactly one order and return identical responses."
+}

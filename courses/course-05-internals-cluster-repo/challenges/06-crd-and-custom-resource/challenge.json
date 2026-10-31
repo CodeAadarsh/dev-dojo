@@ -1,0 +1,11 @@
+{
+  "slug": "06-crd-and-custom-resource",
+  "title": "Teach the API a New Word",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["crd", "api-extension", "operators"],
+  "objective": "Extend the Kubernetes API itself: define a CustomResourceDefinition for a new kind 'Widget' (group dojo.local) with a schema that requires spec.size, get it Established, then create a Widget custom resource in dojo-crd — and prove it with the verifier."
+}

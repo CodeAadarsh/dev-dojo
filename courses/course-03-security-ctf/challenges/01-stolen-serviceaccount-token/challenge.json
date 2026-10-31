@@ -1,0 +1,11 @@
+{
+  "slug": "01-stolen-serviceaccount-token",
+  "title": "Stolen ServiceAccount Token",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["serviceaccount", "token", "api", "security"],
+  "objective": "You have a shell in a pod. Use its mounted ServiceAccount token to authenticate to the API server by hand and read a Secret the SA was granted too much access to — then recover the flag."
+}

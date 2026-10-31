@@ -1,0 +1,11 @@
+{
+  "slug": "05-helm-release",
+  "title": "Package It With Helm",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["helm", "packaging", "repository"],
+  "objective": "Stop shipping hand-edited YAML. Install a real Helm release named 'web' into namespace dojo-helm — from a chart repo or a chart you scaffold — get its pods Ready, then prove it with the verifier."
+}

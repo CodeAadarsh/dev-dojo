@@ -1,0 +1,5 @@
+[
+  "The Deployment already has CPU requests (100m) — that's the denominator an HPA needs. You only have to add the autoscaler. Fastest path: `kubectl -n dojo-hpa autoscale deploy web --cpu-percent=50 --min=2 --max=5`.",
+  "If you write the manifest, use `apiVersion: autoscaling/v2` and put the metric under `spec.metrics` as `type: Resource`, `resource.name: cpu`, `resource.target.type: Utilization`, `resource.target.averageUtilization: 50`. The verifier rejects `AverageValue` — it specifically wants utilization (a % of the request).",
+  "The bounds matter: `minReplicas: 2` (never a single pod) and `maxReplicas: 5` (cost cap), and max must be greater than min. The `scaleTargetRef` must be `kind: Deployment`, `name: web`. Confirm with `kubectl -n dojo-hpa get hpa web -o yaml`."
+]

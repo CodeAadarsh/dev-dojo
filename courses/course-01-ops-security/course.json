@@ -1,0 +1,12 @@
+{
+  "id": "course-01-ops-security",
+  "slug": "ops-security",
+  "title": "Kubernetes Ops + Security",
+  "order": 1,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "15–20 h",
+  "prereqs": ["Start here — the entry course", "Docker & container basics", "Basic kubectl usage"],
+  "tags": ["kubernetes", "docker", "argocd", "security", "sre"],
+  "description": "The balanced track: run production workloads AND attack/defend them. Docker deep-dive, the kind lab, Deployments & probes, Services & Ingress, config & secrets, RBAC, GitOps with ArgoCD, and observability — with a security thread (secret extraction, RBAC abuse, hardening) woven through every module."
+}

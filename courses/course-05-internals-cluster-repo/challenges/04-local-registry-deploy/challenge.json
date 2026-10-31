@@ -1,0 +1,11 @@
+{
+  "slug": "04-local-registry-deploy",
+  "title": "Ship From Your Own Registry",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["registry", "images", "repository"],
+  "objective": "Stand up a local container registry, push your own retagged image into it, and run a Deployment that pulls from localhost:5001 — the full build-tag-push-deploy loop that every private cluster depends on."
+}

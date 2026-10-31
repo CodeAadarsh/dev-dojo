@@ -1,0 +1,5 @@
+[
+  "Start with `json.loads(raw)` — you need a Python dict before you can do anything else. Then look at each field and ask: does it already satisfy the schema constraint, or does it need coercion?",
+  "Handle `affected_services` before you strip extra keys. Check `isinstance(data['affected_services'], str)` and split on `','` with `.strip()` on each element. For severity, `.lower()` plus a membership check against `VALID_SEVERITIES` is sufficient.",
+  "The key-stripping step is a dict comprehension: `{k: data[k] for k in SCHEMA_KEYS if k in data}`. Run your final validation (non-empty title, non-empty resolution_steps, no missing keys) on this result dict — that's what the tests assert on."
+]

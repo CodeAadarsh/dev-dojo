@@ -1,0 +1,12 @@
+{
+  "id": "course-08-stateful-data",
+  "slug": "stateful-data",
+  "title": "Stateful Workloads & Data",
+  "order": 8,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "12–16 h",
+  "prereqs": ["Course 1", "Comfort with PV/PVC basics"],
+  "tags": ["statefulset", "storage", "csi", "databases", "backup", "operators"],
+  "description": "Run data on Kubernetes without losing it: StatefulSets & stable identity, CSI drivers & StorageClasses, PV/PVC lifecycle and reclaim policies, running databases, the operator pattern for stateful systems, and backup / restore / disaster recovery."
+}

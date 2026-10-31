@@ -1,0 +1,11 @@
+{
+  "slug": "02-pagination-and-status-codes",
+  "title": "Pagination & Status Codes",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["api", "pagination"],
+  "objective": "Fix a working-but-incomplete FastAPI implementation: add limit/offset pagination to the list endpoint and correct all HTTP status codes (201 on create, 404 on missing, 422 on invalid input, 204 on delete)."
+}

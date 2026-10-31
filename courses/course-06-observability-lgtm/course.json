@@ -1,0 +1,12 @@
+{
+  "id": "course-06-observability-lgtm",
+  "slug": "observability-lgtm",
+  "title": "Observability Deep-Dive (LGTM)",
+  "order": 6,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "14–18 h",
+  "prereqs": ["Course 1", "Course 2 (SRE) recommended", "Runs the kube-prometheus-stack (labs/bootstrap/install-monitoring.sh)"],
+  "tags": ["observability", "prometheus", "loki", "grafana", "tempo", "opentelemetry"],
+  "description": "Hands-on LGTM: Prometheus & PromQL, Loki & LogQL, Grafana dashboards, Tempo tracing, OpenTelemetry instrumentation, correlating metrics/logs/traces, alerting & burn-rate SLOs, and taming high cardinality at 100GB+/day scale."
+}

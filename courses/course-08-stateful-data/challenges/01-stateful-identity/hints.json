@@ -1,0 +1,5 @@
+[
+  "You need two objects: a Service with clusterIP: None (headless) and a StatefulSet that references it via spec.serviceName. Create the Service first. Generate a starting manifest with: kubectl create svc clusterip web --tcp=80:80 -n dojo-sts --dry-run=client -o yaml — then remove the clusterIP line to get None.",
+  "The volumeClaimTemplates section lives directly under spec (same level as replicas and template), not inside template.spec. Give it name: data so the PVCs are named data-<sts>-0, data-<sts>-1, data-<sts>-2. Each pod's volumeMounts then references name: data with the mountPath you want.",
+  "If pods are stuck Pending: 'kubectl get pvc -n dojo-sts' — PVCs will show Pending because kind uses WaitForFirstConsumer. They bind automatically once each pod is scheduled. If pods are stuck ContainerCreating, run 'kubectl describe pod web-0 -n dojo-sts' and look at Events — a missing readinessProbe or wrong serviceName will appear there."
+]

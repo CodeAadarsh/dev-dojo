@@ -1,0 +1,5 @@
+[
+  "This is two independent fixes. First the namespace: `kubectl label namespace dojo-hardpsa pod-security.kubernetes.io/enforce=restricted --overwrite`. That gates NEW pods only — the running root pod is untouched until its Deployment rolls.",
+  "Then the workload. The `restricted` profile needs all four: `runAsNonRoot: true`, `allowPrivilegeEscalation: false`, `capabilities.drop: [\"ALL\"]`, and `seccompProfile.type: RuntimeDefault`. Put runAsNonRoot + seccompProfile at pod level (`spec.securityContext`) and the cap/escalation bits at container level (`spec.containers[].securityContext`).",
+  "Gotcha: `runAsNonRoot: true` on a root image (busybox) won't start unless you ALSO set a non-zero `runAsUser` (e.g. 1000) — otherwise the kubelet errors `container has runAsNonRoot and image will run as root`. Apply the fixed Deployment, `rollout status`, then run verify.sh. If the rollout stalls at 0 replicas, `describe` the ReplicaSet — PSA's rejection message lives there, not on the Deployment."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "04-fire-an-alert",
+  "title": "Fire an Alert",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["alerting", "prometheusrule"],
+  "objective": "Author a PrometheusRule that defines a real alerting rule with an expression, a 'for' duration, and a severity label — the minimum viable alert an on-call engineer will trust."
+}

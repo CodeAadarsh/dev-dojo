@@ -1,0 +1,11 @@
+{
+  "slug": "03-logql-needle",
+  "title": "LogQL Needle",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "discovery",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["loki", "logql"],
+  "objective": "A noisy pod logs thousands of lines. One contains the flag. Find it with LogQL in Grafana/Loki — or fall back to kubectl logs if Loki isn't installed."
+}

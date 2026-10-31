@@ -1,0 +1,5 @@
+[
+  "A `ClusterPolicy` is a Kyverno object (`apiVersion: kyverno.io/v1`). The `spec.rules[*].match.any` block controls which resources are evaluated. To target only namespace `dojo-policy`, add `namespaces: [\"dojo-policy\"]` under `resources`.",
+  "The `validate.pattern.metadata.labels` block checks label presence. Use `?*` as the value to require a non-empty label value: `app: \"?*\"` means the `app` label must exist and be at least one character long. Include both `app` and `team` in the same `labels` block.",
+  "The verifier tests live admission with `--dry-run=server`. If your policy is in `Audit` mode (not `Enforce`), the dry-run will succeed even for violating pods — set `spec.validationFailureAction: Enforce`. If the policy doesn't fire at all, check `kubectl get validatingwebhookconfigurations | grep kyverno` to confirm the webhook is registered."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "05-guaranteed-qos",
+  "title": "Guarantee It",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["qos", "resources"],
+  "objective": "A latency-sensitive cache ships as Burstable and gets throttled and OOM-reaped under node pressure. Set requests == limits for CPU and memory so every pod lands in the Guaranteed QoS class — then prove it with the verifier."
+}

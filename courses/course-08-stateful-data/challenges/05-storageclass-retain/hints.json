@@ -1,0 +1,5 @@
+[
+  "A StorageClass is a cluster-scoped object (`storage.k8s.io/v1`). Generate a skeleton with `kubectl get sc standard -o yaml` and edit it — change the name, set `reclaimPolicy: Retain`, and add `allowVolumeExpansion: true`.",
+  "If your PVC stays `Pending` after applying, check `volumeBindingMode`. With `WaitForFirstConsumer`, the PVC only binds once a pod mounts it. Either switch to `volumeBindingMode: Immediate` or spin up a quick pod (`kubectl run -n dojo-sc probe --image=busybox:1.36 --restart=Never -- sleep 5`) that mounts the PVC to trigger provisioning.",
+  "The verifier navigates from the PVC to the StorageClass by reading `spec.storageClassName`. Make sure the PVC's `storageClassName` field exactly matches the name of the StorageClass you created — a missing or misspelled field causes the PVC to fall back to the default class."
+]

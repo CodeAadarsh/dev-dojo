@@ -1,0 +1,5 @@
+[
+  "Validation failures must return HTTP 422, not 400. Build an `errors` list, append to it for each bad field, and return `jsonify({'status': 422, 'error': 'Unprocessable Entity', 'details': errors}), 422` if it's non-empty.",
+  "Flask's default 404 page is HTML — register `@app.errorhandler(404)` on the app object (not a blueprint) to replace it. The handler receives the HTTPException as its argument and must return `(response, 404)`.",
+  "Watch out for the `bool`-is-`int` edge case: `isinstance(True, int)` returns `True` in Python. Guard with `isinstance(age, bool)` first, or use `type(age) is int`, so a JSON `true` is rejected as non-integer."
+]

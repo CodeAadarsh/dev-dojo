@@ -1,0 +1,12 @@
+{
+  "id": "course-10-backend-engineering",
+  "slug": "backend-engineering",
+  "title": "Backend Engineering: SDE 1 → 3",
+  "order": 10,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "20–30 h",
+  "prereqs": ["One backend language (Node/TS or Python)", "HTTP & SQL basics", "A running kind cluster for the deploy challenges"],
+  "tags": ["backend", "api-design", "databases", "caching", "queues", "system-design", "concurrency"],
+  "description": "From SDE-1 fundamentals to SDE-3 system design: REST & gRPC API design, relational & NoSQL data modeling, indexing & transactions, caching (Redis), message queues & event-driven architecture, concurrency, idempotency & rate limiting, auth, and scaling patterns (sharding, consistency, CAP) — building and deploying real services."
+}

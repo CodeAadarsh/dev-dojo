@@ -1,0 +1,5 @@
+[
+  "Cosine similarity is dot product divided by the product of the two L2 norms. L2 norm of vector v is `math.sqrt(sum(x*x for x in v))`. The `math` module is all you need — no numpy.",
+  "For `search`: compute the cosine similarity between the query and every corpus embedding, collect `(score, index)` pairs, sort them descending by score, and return the first `k` indices. A list comprehension + `sorted(..., reverse=True)` fits in 3 lines.",
+  "The top-2 test checks that `corpus[1]` (K8s) is second for the Python query, not just that `corpus[0]` is first. This means your sort must be stable and you must return indices in descending similarity order — not just the top-1."
+]

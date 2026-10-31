@@ -1,0 +1,5 @@
+[
+  "Start at the top of the request path and walk inward. The pods are `Running` but every one is `0/1 READY`, and the Deployment's `AVAILABLE` is 0. `Running` means the container started; `Ready` means its readinessProbe passed. Those are different claims — and only Ready pods get added to a Service's endpoints. So why is a running container not Ready?",
+  "`kubectl -n dojo-incident describe pod -l app=web` and read the `Events:` at the bottom. You'll see `Readiness probe failed: ... connect: connection refused`. The logs are clean, so the app is fine — the probe is checking something the app doesn't offer. Compare what the probe checks against what the container actually exposes.",
+  "Diff the two: `readinessProbe.httpGet.port` vs the container's `containerPort`. nginx serves on 80, but the probe targets 8080 — nothing listens there, so the probe never passes. Fix the probe's port to 80 (`kubectl -n dojo-incident edit deploy web`), wait for `rollout status`, and confirm `kubectl -n dojo-incident get endpoints web` now lists pod IPs."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "07-slo-incident-debug",
+  "title": "Page at 3am",
+  "order": 7,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["debugging", "incident", "sre"],
+  "objective": "The deploy went green, the pods are Running — and the service is serving zero traffic. Page received. Diagnose the incident with describe/logs/events/endpoints, fix it, and let the verifier confirm the service is healthy again."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "course-11-generative-ai",
+  "slug": "generative-ai",
+  "title": "Generative AI: RAG & Applied AI",
+  "order": 11,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "18–24 h",
+  "prereqs": ["Python basics", "Local LLM via Ollama (Mac Mini) or an API key", "Backend basics help"],
+  "tags": ["genai", "llm", "rag", "embeddings", "agents", "evaluation", "applied-ai"],
+  "description": "Applied generative AI end to end: LLM fundamentals & prompting, embeddings & vector search, retrieval-augmented generation (chunking, retrieval, reranking), tool-using agents, evaluation & guardrails, cost/latency engineering, and serving a RAG app — runnable locally with Ollama and deployable to Kubernetes."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "13-taints-and-affinity",
+  "title": "Pin the Pod",
+  "order": 13,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["scheduling", "affinity", "taints"],
+  "objective": "An app schedules onto any worker, but it must run only on the tier=gold node. Pin it with required nodeAffinity and prove every pod landed there."
+}
