@@ -1,0 +1,5 @@
+[
+  "The default `grafana/loki` chart deploys in microservices mode on recent versions. You need to set `deploymentMode: SingleBinary` and `singleBinary.replicas: 1` in your values file.",
+  "Zero out the microservice component replicas to avoid pod scheduling failures on kind: set `read.replicas: 0`, `write.replicas: 0`, `backend.replicas: 0` in your values.",
+  "Full minimal values: deploymentMode=SingleBinary, loki.auth_enabled=false, loki.commonConfig.replication_factor=1, loki.storage.type=filesystem, singleBinary.replicas=1, read/write/backend replicas=0. Then: `helm install loki grafana/loki -n dojo-lgtm -f values.yaml`"
+]

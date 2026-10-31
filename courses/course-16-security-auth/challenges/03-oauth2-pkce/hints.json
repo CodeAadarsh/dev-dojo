@@ -1,0 +1,5 @@
+[
+  "The derivation is three lines: `digest = hashlib.sha256(code_verifier.encode('ascii')).digest()` — note `.digest()` not `.hexdigest()`, which returns raw bytes not a hex string. Then `base64.urlsafe_b64encode(digest).rstrip(b'=').decode()`. That's the complete `generate_code_challenge` implementation.",
+  "For `generate_code_verifier`, use `secrets.token_urlsafe(48)` — it returns 64 URL-safe base64 characters from `os.urandom(48)`, satisfying the RFC 7636 §4.1 length and character-set requirements in one call.",
+  "For `verify_pkce`, re-derive the challenge from the verifier and compare: `return generate_code_challenge(code_verifier) == code_challenge`. Return `False` (not raise) on mismatch — the caller decides whether to respond 400 or 401."
+]

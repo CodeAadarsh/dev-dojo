@@ -16,7 +16,7 @@ kube-dojo/
 └── CONTENT_SPEC.md  the authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (15 live)
+### Courses (17 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -35,6 +35,8 @@ kube-dojo/
 | 13 | DSA for Tier-1 Interviews | 15 patterns, pytest-judged problems | local |
 | 14 | System Design: SDE-2 → SDE-3 | framework + worked designs | local |
 | 15 | FastAPI in Production | async APIs, Pydantic, pytest-judged | local + kind |
+| 16 | Security & Authentication | all auth types + OWASP, hands-on | local + kind |
+| 17 | The LGTM Stack, Operated | run Loki/Grafana/Tempo/Mimir | kind |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

@@ -1,0 +1,5 @@
+[
+  "Run `tests/test_leak.py` first. The test passes on the vulnerable code — the 200 response proves the IDOR is real. Read `app.py`'s `get_order()` function and find the line that's missing.",
+  "The fix is not in the authentication layer — `get_current_user()` already works. It's in the endpoint body, between the 404 check and the return statement. You need to compare `order['owner']` with `current_user`.",
+  "Raise `HTTPException(status_code=403, detail='Forbidden')` when the owner does not match. The 404 check must come before the 403 check — otherwise a non-owner would learn that the order ID exists (by getting 403 instead of 404)."
+]

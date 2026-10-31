@@ -1,0 +1,12 @@
+{
+  "id": "course-17-lgtm-operated",
+  "slug": "lgtm-operated",
+  "title": "The LGTM Stack, Operated",
+  "order": 17,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "16–22 h",
+  "prereqs": ["Course 6 (Observability) recommended", "Course 1 + Helm", "A kind cluster with RAM headroom — the stack is heavy"],
+  "tags": ["grafana", "loki", "tempo", "mimir", "alloy", "opentelemetry", "observability"],
+  "description": "Run Grafana's LGTM stack, not just query it: deploy and operate Loki (logs), Grafana (dashboards & alerting), Tempo (traces), Mimir (metrics at scale) and Alloy / OpenTelemetry Collector on Kubernetes — multi-tenancy, object storage, retention, cardinality, LogQL/TraceQL/PromQL in anger, dashboards-as-code, and the cost/scale tradeoffs a Grafana-Labs SRE lives in. Complements Course 6 (which instruments your app); this one operates the platform."
+}

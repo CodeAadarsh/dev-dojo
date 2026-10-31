@@ -1,0 +1,11 @@
+{
+  "slug": "06-dashboards-and-alerts-as-code",
+  "title": "Dashboards and Alerts as Code",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["grafana", "dashboards", "alerting"],
+  "objective": "Ship a Grafana dashboard as a labeled ConfigMap and an alert rule as a PrometheusRule (or Grafana provisioning ConfigMap) — both version-controlled, both auto-discovered by Grafana."
+}

@@ -1,0 +1,5 @@
+[
+  "The one-line fix for alg:none: pass `algorithms=[\"HS256\"]` explicitly to `jwt.decode()`. PyJWT then rejects any token whose header declares a different algorithm — `none`, `NONE`, or `None` — before it even looks at the signature.",
+  "For `issue_jwt`, build a payload dict with `sub`, `iss`, `aud`, `iat=int(time.time())`, and `exp=iat+900`. Then call `jwt.encode(payload, SECRET_KEY, algorithm=\"HS256\")`. For `verify_jwt`, pass `audience=AUDIENCE` and `issuer=ISSUER` to `jwt.decode()` — the library validates both claims for you.",
+  "Force all required claims to exist: `options={\"require\": [\"exp\", \"iat\", \"iss\", \"aud\", \"sub\"]}` in `jwt.decode()`. Without this, a token with no `exp` (infinite lifetime) passes the expiry check because there's nothing to check."
+]

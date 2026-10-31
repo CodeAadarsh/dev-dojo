@@ -1,0 +1,5 @@
+[
+  "The chart sidecar is what discovers the ConfigMap — check `sidecar.datasources.enabled: true` in your Helm values.",
+  "The ConfigMap label must be exactly `grafana_datasource: \"1\"` (string value, not boolean). Check with: kubectl -n dojo-lgtm get cm -l grafana_datasource=1",
+  "Full values hint: `helm install grafana grafana/grafana -n dojo-lgtm --set sidecar.datasources.enabled=true`. Then create the ConfigMap with the label. Check Grafana pod logs with: kubectl -n dojo-lgtm logs -l app.kubernetes.io/name=grafana -c grafana-sc-datasources"
+]

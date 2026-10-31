@@ -1,0 +1,5 @@
+[
+  "RFC 6238 §4: the TOTP counter is `int(unix_seconds) // 30`, packed as a big-endian 8-byte unsigned integer with `struct.pack('>Q', counter)`. HMAC-SHA1 that with the base32-decoded secret.",
+  "Dynamic truncation: `offset = digest[-1] & 0x0F`. Then `struct.unpack('>I', digest[offset:offset+4])[0] & 0x7FFFFFFF` gives you a positive 31-bit integer. Modulo 10**6, zero-padded to 6 chars.",
+  "For `verify()`: loop over steps `[-1, 0, +1]` relative to `int(at_time)//30`, call `generate()` for each, compare with `code`. Check `used_codes` first — if the code is already in there, return False immediately without doing any HMAC work."
+]

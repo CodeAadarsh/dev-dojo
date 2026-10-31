@@ -1,0 +1,5 @@
+[
+  "The `mimir-distributed` chart defaults to zone-aware replication which requires 3 ingesters in different zones. For kind, set `ingester.zoneAwareReplication.enabled: false` and `mimir.structuredConfig.ingester.ring.replication_factor: 1`.",
+  "The remote_write endpoint goes through the nginx gateway, not the distributor directly. URL is `http://mimir-nginx.dojo-lgtm.svc/api/v1/push`. Mimir rejects pushes without `X-Scope-OrgID` — add it under `headers:` in the remote_write block.",
+  "Full required ConfigMap: create `prometheus-remote-write-config` in `dojo-lgtm` with data key containing `remote_write:` block pointing to `http://mimir-nginx.dojo-lgtm.svc/api/v1/push` with `headers: {X-Scope-OrgID: \"your-tenant\"}`. The verifier greps for both `/api/v1/push` and `X-Scope-OrgID`."
+]

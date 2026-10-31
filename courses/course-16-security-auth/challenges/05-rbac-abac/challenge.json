@@ -1,0 +1,11 @@
+{
+  "slug": "05-rbac-abac",
+  "title": "RBAC + ABAC Policy Engine",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 50,
+  "tags": ["authorization", "rbac", "abac", "idor", "policy"],
+  "objective": "Build an authorize(user, action, resource) function that combines role-based access control with an attribute rule that prevents IDOR — users can only edit their own resources."
+}

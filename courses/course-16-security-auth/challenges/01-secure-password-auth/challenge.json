@@ -1,0 +1,11 @@
+{
+  "slug": "01-secure-password-auth",
+  "title": "Secure Password Auth",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["passwords", "sessions"],
+  "objective": "Implement register/login using argon2id hashing so the hidden pytest suite confirms no plaintext or MD5 storage and correct credential verification."
+}

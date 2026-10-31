@@ -1,0 +1,11 @@
+{
+  "slug": "04-tempo-traces",
+  "title": "Tempo — Ship the Trace Receiver",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 35,
+  "tags": ["tempo", "tracing", "otlp"],
+  "objective": "Install Grafana Tempo into dojo-lgtm with its OTLP receiver enabled, verify the service exposes gRPC/HTTP OTLP ports, and run a TraceQL query to confirm the pipeline is live."
+}

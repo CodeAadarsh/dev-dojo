@@ -1,0 +1,11 @@
+{
+  "slug": "02-jwt-hardening",
+  "title": "JWT Hardening",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["jwt", "security"],
+  "objective": "Implement issue_jwt and verify_jwt that sign HS256, set all required claims, and reject alg:none, wrong signatures, expired tokens, and wrong audiences."
+}

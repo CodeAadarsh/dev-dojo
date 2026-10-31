@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**15 courses live · ~97 modules · ~106 challenges.**
+**17 courses live · ~109 modules · ~118 challenges.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -33,6 +33,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 13 | DSA for Tier-1 Interviews | 6 | 8 | ✅ |
 | 14 | System Design: SDE-2 → SDE-3 | 6 | 8 | ✅ |
 | 15 | FastAPI in Production | 6 | 11 | ✅ |
+| 16 | Security & Authentication | 6 | 6 | ✅ |
+| 17 | The LGTM Stack, Operated | 6 | 6 | ✅ |
 
 ---
 

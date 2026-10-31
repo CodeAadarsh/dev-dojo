@@ -1,0 +1,5 @@
+[
+  "argon2-cffi exposes the right primitive in two lines: `from argon2 import PasswordHasher; ph = PasswordHasher()`. Call `ph.hash(password)` to hash and `ph.verify(stored_hash, password)` to check — it raises `VerifyMismatchError` on mismatch.",
+  "Never compare hashes with `==`. argon2id embeds a random salt in the stored string, so `ph.hash('x') != ph.hash('x')` always. Use `ph.verify(stored, candidate)` which extracts the salt internally.",
+  "Session tokens must come from `secrets.token_hex(32)` — 64 hex characters, 256 bits of entropy from `os.urandom`. Store the token in `_sessions[token] = username`; `verify_session` already reads from that dict."
+]

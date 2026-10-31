@@ -1,0 +1,11 @@
+{
+  "slug": "06-break-and-fix-auth",
+  "title": "Break and Fix: IDOR in an Order API",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 60,
+  "tags": ["owasp", "idor", "debugging", "security", "fastapi"],
+  "objective": "Diagnose and fix a broken-access-control bug in a pre-built FastAPI app where any authenticated user can read any order — then prove the fix with the verifier."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "03-oauth2-pkce",
+  "title": "OAuth2 PKCE",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["oauth2", "pkce"],
+  "objective": "Implement the PKCE S256 code_verifier/code_challenge generation and server-side verification so the harness confirms correct derivation and mismatch rejection."
+}

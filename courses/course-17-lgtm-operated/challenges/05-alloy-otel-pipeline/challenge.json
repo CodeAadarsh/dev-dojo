@@ -1,0 +1,11 @@
+{
+  "slug": "05-alloy-otel-pipeline",
+  "title": "Alloy — Wire the OTel Pipeline",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": ["alloy", "opentelemetry", "pipeline"],
+  "objective": "Deploy Grafana Alloy (or an OTel Collector) into dojo-lgtm with a three-stage pipeline: OTLP receiver → batch/memory_limiter processor → exporter to Loki, Tempo, or Mimir."
+}

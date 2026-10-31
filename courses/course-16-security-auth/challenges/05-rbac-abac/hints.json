@@ -1,0 +1,5 @@
+[
+  "Start with two guard clauses: return False if the user or resource is not in the data model. After that, look up the user's role and check whether the action is in that role's permission set.",
+  "The ABAC ownership gate only applies to the 'owner' role. Check: `if user_role == 'owner' and action == 'edit': return RESOURCES[resource].get('owner') == user`. Admin and editor roles bypass this check entirely.",
+  "Read the decision matrix in brief.md column by column: find one row where your function currently returns the wrong answer and trace through your logic. The 'dave edits order:2' row and the 'bob edits order:1' row together expose whether your ABAC gate is too broad or too narrow."
+]

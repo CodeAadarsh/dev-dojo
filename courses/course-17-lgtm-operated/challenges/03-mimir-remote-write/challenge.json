@@ -1,0 +1,11 @@
+{
+  "slug": "03-mimir-remote-write",
+  "title": "Mimir Remote-Write with Multi-Tenant OrgID",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["mimir", "metrics", "remote-write"],
+  "objective": "Deploy Mimir (mimir-distributed, small values) and author a remote_write config (ConfigMap or Prometheus CR) that targets Mimir with X-Scope-OrgID set — proving the multi-tenant push path is wired up."
+}

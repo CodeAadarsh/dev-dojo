@@ -1,0 +1,11 @@
+{
+  "slug": "02-deploy-loki",
+  "title": "Ship Loki in Monolithic Mode",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["loki", "logs", "helm"],
+  "objective": "Deploy Loki (singleBinary / monolithic mode) into dojo-lgtm and push a real log line via logcli — then query it back with LogQL."
+}

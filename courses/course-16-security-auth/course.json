@@ -1,0 +1,12 @@
+{
+  "id": "course-16-security-auth",
+  "slug": "security-auth",
+  "title": "Security & Authentication",
+  "order": 16,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "16–22 h",
+  "prereqs": ["Backend basics (Courses 10/12/15 help)", "HTTP, cookies & TLS basics", "python3 for the hands-on"],
+  "tags": ["security", "authentication", "oauth2", "jwt", "mfa", "webauthn", "owasp"],
+  "description": "Every way to prove who you are and lock down what you can do: password hashing & sessions, JWT, OAuth2/OIDC (auth-code + PKCE, client-credentials, device), SAML & enterprise SSO, API keys & mTLS, MFA (TOTP) & passwordless (WebAuthn/passkeys), plus authorization (RBAC/ABAC/ReBAC) and the OWASP Top 10 (XSS, SQLi, CSRF, SSRF, IDOR) — built and attacked hands-on, then hardened."
+}

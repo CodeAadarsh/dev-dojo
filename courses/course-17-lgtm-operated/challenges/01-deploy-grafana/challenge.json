@@ -1,0 +1,11 @@
+{
+  "slug": "01-deploy-grafana",
+  "title": "Deploy Grafana with a Live Datasource",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["grafana", "helm"],
+  "objective": "Helm-install Grafana into dojo-lgtm and provision a datasource via a ConfigMap the sidecar auto-loads — without restarting Grafana."
+}

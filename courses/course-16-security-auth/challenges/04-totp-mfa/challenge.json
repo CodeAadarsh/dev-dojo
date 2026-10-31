@@ -1,0 +1,11 @@
+{
+  "slug": "04-totp-mfa",
+  "title": "TOTP MFA from Scratch",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 40,
+  "tags": ["mfa", "totp", "rfc6238", "cryptography"],
+  "objective": "Implement RFC 6238 TOTP — generate a 6-digit code from a secret + timestamp, then verify it with a ±1-step window and replay rejection — using only the Python standard library."
+}
