@@ -1,0 +1,11 @@
+{
+  "slug": "05-classify-without-leakage",
+  "title": "Classify without Leakage",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["sklearn", "classification", "leakage"],
+  "objective": "Identify and eliminate two forms of data leakage from a starter classifier (a leaky feature and preprocessing-before-split), then build a leak-free Pipeline achieving weighted F1 ≥ 0.80 on the held-out test set."
+}

@@ -1,0 +1,5 @@
+[
+  "Think of the memtable as a plain Python dict where keys map to either a value or the sentinel `TOMBSTONE = '__TOMBSTONE__'`. `put` is a dict assignment; `delete` is the same assignment but storing the sentinel.",
+  "For `flush()`: write `json.dump(self._memtable, f)` to the numbered path, then `self._sstables.insert(0, SSTable(path))` — index 0 keeps it newest-first. After writing, clear `self._memtable = {}` and increment `self._flush_count`.",
+  "For `get()`: check `self._memtable` first (`if key in self._memtable`). If present, return `None` when the value is `TOMBSTONE`, else return the value. Then iterate `self._sstables` (newest-first) and do the same check per SSTable using `if key in sst:` and `sst.get(key)`. Return `None` if nothing matches."
+]

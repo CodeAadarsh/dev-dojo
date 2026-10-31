@@ -1,0 +1,11 @@
+{
+  "slug": "01-vectorize-it",
+  "title": "Vectorize It",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["numpy", "vectorization"],
+  "objective": "Replace a slow Python-loop computation with a NumPy vectorized equivalent that produces identical results and runs within a tight time budget on a large array."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "01-build-an-lsm-memtable",
+  "title": "Build an LSM Memtable",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["storage-engines", "lsm"],
+  "objective": "Implement a tiny LSM memtable with flush-to-SSTable and a get() that searches memtable then newest-to-oldest SSTables, honouring tombstones for deletes."
+}

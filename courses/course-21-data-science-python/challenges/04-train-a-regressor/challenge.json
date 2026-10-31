@@ -1,0 +1,11 @@
+{
+  "slug": "04-train-a-regressor",
+  "title": "Train a Regressor",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["sklearn", "regression"],
+  "objective": "Build a scikit-learn Pipeline that scales features and trains a regression model reaching R² ≥ 0.80 on a held-out test set generated with a fixed random seed."
+}

@@ -3,7 +3,7 @@
   "slug": "data-science-python",
   "title": "Data Science with Python",
   "order": 21,
-  "status": "coming-soon",
+  "status": "available",
   "difficulty": "Intermediate → Advanced",
   "estHours": "24–32 h",
   "prereqs": ["Python basics", "pip install numpy pandas scikit-learn matplotlib", "High-school stats helps"],

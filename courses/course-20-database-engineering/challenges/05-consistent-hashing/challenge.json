@@ -1,0 +1,11 @@
+{
+  "slug": "05-consistent-hashing",
+  "title": "Consistent Hashing with Virtual Nodes",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 55,
+  "tags": ["partitioning", "sharding"],
+  "objective": "Implement a consistent-hash ring with virtual nodes supporting add_node, remove_node, and get_node; prove that adding or removing one node remaps at most ~2x the optimal fraction of keys."
+}

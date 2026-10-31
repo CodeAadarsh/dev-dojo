@@ -1,0 +1,11 @@
+{
+  "slug": "04-hash-join",
+  "title": "Hash Join",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["query-execution", "joins"],
+  "objective": "Implement a hash join (build phase on the smaller relation, probe phase) returning merged rows for every matching pair; handle duplicate keys on both sides."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "06-cluster-and-reduce",
+  "title": "Cluster and Reduce",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["clustering", "pca", "unsupervised"],
+  "objective": "Scale a high-dimensional dataset, optionally reduce with PCA, and apply k-means so that recovered cluster labels achieve adjusted Rand index ≥ 0.85 against the known ground-truth structure."
+}

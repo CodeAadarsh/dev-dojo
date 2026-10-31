@@ -1,0 +1,11 @@
+{
+  "slug": "02-isolation-anomalies",
+  "title": "Isolation Anomalies — Stop the Lost Update",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["transactions", "isolation"],
+  "objective": "Fix a lost-update race in a Python deposit function by adding SELECT ... FOR UPDATE row-level locking against a live Postgres instance."
+}

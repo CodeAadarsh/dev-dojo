@@ -1,0 +1,5 @@
+[
+  "The verifier calls build_pipeline(X_train, y_train) and then pipeline.predict(X_test). Your function must return a *fitted* Pipeline — call pipe.fit(X_train, y_train) before returning.",
+  "The Pipeline must contain a scaler step before the regressor: Pipeline([('scaler', StandardScaler()), ('model', Ridge())]). Without the scaler, Ridge's regulariser is applied in the original (unscaled) feature units, which can hurt performance and will fail the two-step assertion.",
+  "Ridge(alpha=1.0) with StandardScaler easily clears R² ≥ 0.80 on this dataset. If you want to experiment: LinearRegression, RandomForestRegressor(n_estimators=100, random_state=42), or GradientBoostingRegressor(random_state=42) all work. The key correctness requirement is Pipeline structure + fit before return."
+]

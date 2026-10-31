@@ -1,0 +1,5 @@
+[
+  "The race happens because both threads read the same balance before either writes. The fix is to lock the row at read time so the second thread cannot proceed until the first commits. Look up `SELECT ... FOR UPDATE` in the Postgres docs.",
+  "Inside `deposit()`, change `cur.execute(\"SELECT balance FROM accounts WHERE id = %s\", ...)` to `cur.execute(\"SELECT balance FROM accounts WHERE id = %s FOR UPDATE\", ...)`. The `FOR UPDATE` clause acquires an exclusive row lock for the duration of the transaction.",
+  "The complete one-line fix: append ` FOR UPDATE` inside the SQL string in the first `cur.execute()` call inside `deposit()`. The second call (the UPDATE) stays unchanged. With that lock in place, the second concurrent call blocks at the SELECT until the first transaction commits and releases the lock."
+]

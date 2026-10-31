@@ -1,0 +1,5 @@
+[
+  "The formula per element is `normed = (x - lo) / (hi - lo)`, then `max(0.0, min(1.0, normed))`. Which NumPy function applies min/max element-wise across an entire array in one call?",
+  "Use `np.asarray(arr, dtype=np.float64)` to convert the input, then write the normalization as a single arithmetic expression — NumPy broadcasts scalars automatically. For clamping, look up `np.clip`.",
+  "Three lines: `a = np.asarray(arr, dtype=np.float64)`, then `normed = (a - lo) / (hi - lo)`, then `return np.clip(normed, 0.0, 1.0)`. Do NOT use `np.vectorize` — that is still a Python loop under the hood."
+]

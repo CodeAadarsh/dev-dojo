@@ -1,0 +1,11 @@
+{
+  "slug": "03-write-ahead-log",
+  "title": "Write-Ahead Log — Crash Recovery",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["wal", "recovery"],
+  "objective": "Add a write-ahead log to a skeleton key-value store so that operations survive a simulated crash: append each op to the log before applying it, then replay the log on restart to recover state."
+}

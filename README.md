@@ -16,7 +16,7 @@ kube-dojo/
 └── CONTENT_SPEC.md  the authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (19 live)
+### Courses (21 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -39,6 +39,8 @@ kube-dojo/
 | 17 | The LGTM Stack, Operated | run Loki/Grafana/Tempo/Mimir | kind |
 | 18 | PostgreSQL: Internals & Practice | MVCC, WAL, indexes, planner, tuning | local (Docker) |
 | 19 | Redis: Internals & Practice | encodings, persistence, cluster, patterns | local (Docker) |
+| 20 | Database Engineering (Complete) | storage engines → Raft, vendor-agnostic | local + Docker |
+| 21 | Data Science with Python | NumPy → ML, leakage-aware, pytest-judged | local |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

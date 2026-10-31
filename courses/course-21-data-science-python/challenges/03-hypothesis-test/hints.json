@@ -1,0 +1,5 @@
+[
+  "Two independent groups, continuous outcome, roughly normal distribution (n=80 satisfies CLT). That narrows it to a two-sample t-test. Look at `scipy.stats.ttest_ind`. Should the test be one-tailed or two-tailed? (The brief asks 'is there a difference', not 'is B faster'.) ",
+  "Call `scipy.stats.ttest_ind(a, b, equal_var=False)` — the `equal_var=False` chooses Welch's t-test, which does not assume equal variances. The return object has `.statistic` and `.pvalue`. Reject H0 when `pvalue < 0.05`.",
+  "The complete implementation is: `res = stats.ttest_ind(a, b, equal_var=False); return {'statistic': float(res.statistic), 'p_value': float(res.pvalue), 'reject_null': bool(res.pvalue < 0.05)}`. The `float()` and `bool()` casts are required — the verifier checks Python native types, not NumPy scalars."
+]

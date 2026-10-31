@@ -1,0 +1,11 @@
+{
+  "slug": "03-hypothesis-test",
+  "title": "Hypothesis Test — Two-Sample t-Test",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["statistics", "hypothesis-testing"],
+  "objective": "Run a two-sample t-test on seeded samples, compute the p-value, and return the correct reject/fail-to-reject decision at alpha=0.05."
+}

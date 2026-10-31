@@ -1,0 +1,5 @@
+[
+  "Modulo hashing (`hash(key) % N`) remaps ~(N-1)/N keys when N changes. Consistent hashing fixes this by mapping both keys and nodes to positions on a circular number line. What operation do you perform on that number line to find which node owns a given key?",
+  "The ring is a sorted list of integer positions. Each physical node contributes `vnodes` virtual nodes to the ring, using label `f\"{node}#vn{i}\"` hashed with MD5. `get_node(key)` computes `pos = _md5int(key)`, then finds the first ring position >= pos (binary search). The `bisect` module is your friend: `bisect.bisect_right(ring, pos) % len(ring)` gives the clockwise-next index, wrapping around.",
+  "Three data structures: `_ring: list[int]` (sorted positions), `_map: dict[int, str]` (position → physical node). `add_node`: loop over `range(vnodes)`, compute `_md5int(f\"{node}#vn{i}\")`, update both structures, then sort `_ring`. `remove_node`: build a set of the same positions, `del _map[pos]` for each, then rebuild `_ring` with a list comprehension filtering out those positions. This keeps remove O(N) instead of O(K×N)."
+]

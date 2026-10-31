@@ -1,0 +1,11 @@
+{
+  "slug": "02-pandas-groupby",
+  "title": "Pandas GroupBy — Clean and Aggregate",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["pandas", "wrangling"],
+  "objective": "Clean a messy CSV (wrong dtypes, missing values) and produce the exact groupby aggregation the hidden pytest harness asserts."
+}

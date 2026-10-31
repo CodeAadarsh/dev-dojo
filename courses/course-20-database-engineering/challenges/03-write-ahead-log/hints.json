@@ -1,0 +1,5 @@
+[
+  "The WAL is a plain text file (wal.log) in the data directory. Each operation is a newline-delimited JSON record. Open the file in append mode (`\"a\"`) inside `put()` and `delete()`, write the record, then update `self._store`. The file write must come before the dict update.",
+  "In `__init__`, after `self._store = {}`, check `if os.path.exists(self.wal_path):` and replay: open the file, iterate lines, parse each with `json.loads(line.strip())`, and apply `put` records as `self._store[record[\"key\"]] = record[\"value\"]` and `delete` records as `self._store.pop(record[\"key\"], None)`.",
+  "Complete `put`: `with open(self.wal_path, \"a\") as f: f.write(json.dumps({\"op\": \"put\", \"key\": key, \"value\": value}) + \"\\n\")` then `self._store[key] = value`. Mirror for `delete` with `{\"op\": \"delete\", \"key\": key}` and `self._store.pop(key, None)`."
+]

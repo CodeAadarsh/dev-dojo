@@ -1,0 +1,11 @@
+{
+  "slug": "06-raft-leader-election",
+  "title": "Raft Leader Election",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 35,
+  "estMinutes": 70,
+  "tags": ["consensus", "raft", "distributed"],
+  "objective": "Implement the Raft leader-election state machine (follower/candidate/leader, terms, votes, majority) over an injectable clock/messaging harness; prove exactly one leader per term and that a higher term always supersedes."
+}

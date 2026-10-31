@@ -1,0 +1,5 @@
+[
+  "The brute-force approach scans `right` once for every row of `left` — O(M×N). The hash join avoids the inner loop by pre-indexing one relation. Which relation should you index, and into what data structure? Think about what operation becomes O(1) as a result.",
+  "Build a `dict[key_value, list[dict]]` from the *smaller* relation. Then scan the larger relation once, looking up each row's join key. Building on the smaller side keeps the hash table in memory. Remember: a key can appear multiple times on either side — `ht[k]` must be a list, not a single row.",
+  "Three steps: (1) if `len(left) <= len(right)`, build on left and probe with right, otherwise swap. (2) Build: `for row in build_rel: ht.setdefault(row[build_key], []).append(row)`. (3) Probe: `for row in probe_rel: for match in ht.get(row[probe_key], []): result.append({**left_row, **right_row})` — keep a `build_is_left` flag to get the merge order right."
+]

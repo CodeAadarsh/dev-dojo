@@ -3,7 +3,7 @@
   "slug": "database-engineering",
   "title": "Database Engineering (Complete)",
   "order": 20,
-  "status": "coming-soon",
+  "status": "available",
   "difficulty": "Advanced → Insane",
   "estHours": "24–32 h",
   "prereqs": ["SQL + one database (Course 18 helps)", "Transactions & indexing basics"],

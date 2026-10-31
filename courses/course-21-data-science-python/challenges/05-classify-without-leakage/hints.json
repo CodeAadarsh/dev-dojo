@@ -1,0 +1,5 @@
+[
+  "The verifier evaluates pipeline.predict(X_test_clean) where X_test_clean has no 'leaky' column. If your pipeline was fit on all 16 columns including 'leaky', sklearn will raise a shape/key error at predict time. You must explicitly select only the 15 real feature columns when fitting.",
+  "Use ColumnTransformer to apply StandardScaler to only the non-leaky columns: feature_cols = [c for c in X_train.columns if c != 'leaky']. Then: ColumnTransformer([('scale', StandardScaler(), feature_cols)]). This way, 'leaky' is never referenced during fit or predict.",
+  "Wrap the ColumnTransformer and classifier in a Pipeline([('prep', preprocessor), ('model', LogisticRegression(max_iter=1000, random_state=42))]). Call pipe.fit(X_train, y_train) before returning. LogisticRegression scores ~0.895 F1; RandomForestClassifier(n_estimators=100, random_state=42) works too."
+]
