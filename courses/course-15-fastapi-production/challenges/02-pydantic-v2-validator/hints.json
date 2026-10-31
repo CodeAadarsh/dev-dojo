@@ -1,0 +1,5 @@
+[
+  "For the date range: use `@model_validator(mode='after')` on `BookingCreate` — `self.check_out` and `self.check_in` are both available as attributes of `self`. Raise `ValueError('check_out must be after check_in')` if the condition fails.",
+  "For the guests range: `guests: int = Field(ge=1, le=10)` is the shortest path. For ORM mode: add `model_config = ConfigDict(from_attributes=True)` to `BookingResponse` — import `ConfigDict` from `pydantic`.",
+  "For the error envelope: `from fastapi.exceptions import RequestValidationError` then `@app.exception_handler(RequestValidationError) async def handler(request, exc): return JSONResponse(422, {'status': 422, 'error': 'Validation Failed', 'details': [e['msg'] for e in exc.errors()]})`."
+]

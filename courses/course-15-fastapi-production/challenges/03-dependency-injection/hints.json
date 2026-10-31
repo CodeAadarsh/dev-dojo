@@ -1,0 +1,5 @@
+[
+  "Start with REFACTOR 1: add `def get_db(): yield _store` as a module-level function. Then add `db: dict = Depends(get_db)` to each route signature and replace every `_store[...]` reference with `db[...]`. The isolation test will fail as long as any route still touches `_store` directly.",
+  "For REFACTOR 2: `pip install pydantic-settings`, then `from pydantic_settings import BaseSettings`. Define `class Settings(BaseSettings): app_name: str = 'Task API'` and `settings = Settings()` at module level. The test does `from main import settings` — it must be a module-level name.",
+  "For REFACTOR 3: `router = APIRouter(prefix='/tasks')`, change `@app.get` / `@app.post` decorators to `@router.get` / `@router.post`, and add `app.include_router(router)` at the bottom. The route paths in the decorator become `/` and `/{task_id}` (prefix handles `/tasks`)."
+]

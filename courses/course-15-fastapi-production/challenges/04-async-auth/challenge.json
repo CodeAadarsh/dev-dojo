@@ -1,0 +1,17 @@
+{
+  "slug": "04-async-auth",
+  "title": "Async Auth Endpoints",
+  "order": 6,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 40,
+  "estMinutes": 45,
+  "tags": [
+    "fastapi",
+    "jwt",
+    "oauth2",
+    "passlib",
+    "auth"
+  ],
+  "objective": "Implement register, login, and a protected /users/me endpoint using OAuth2PasswordBearer, PyJWT, and passlib; pass a pytest harness that checks every auth scenario including duplicate registration, wrong password, and tampered tokens."
+}

@@ -1,0 +1,3 @@
+["The tests are failing because EmailNotifier.send_welcome raises RuntimeError. You need to define RecordingNotifier in conftest.py that stores calls instead of raising, then wire it in via app.dependency_overrides.",
+"The client fixture needs three steps: (1) app.dependency_overrides[get_notifier] = lambda: recorder, (2) yield TestClient(app), (3) app.dependency_overrides.clear(). The recorder fixture just yields RecordingNotifier(). Both fixtures need @pytest.fixture.",
+"The assert for welcome: `assert any(c['event'] == 'welcome' and c['username'] == 'bob' for c in recorder.calls)`. The map key in dependency_overrides must be the exact function object imported from main — `from main import app, get_notifier` — not a string."]

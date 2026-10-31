@@ -1,0 +1,17 @@
+{
+  "slug": "05-test-doubles",
+  "title": "Test Doubles with dependency_overrides",
+  "order": 9,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 35,
+  "estMinutes": 40,
+  "tags": [
+    "fastapi",
+    "pytest",
+    "testing",
+    "dependency_overrides",
+    "fixtures"
+  ],
+  "objective": "Make a broken pytest suite pass by implementing dependency_overrides fixtures that swap a live NotificationService for an in-memory recorder, without modifying the app code or the test assertions."
+}

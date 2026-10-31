@@ -1,0 +1,16 @@
+{
+  "slug": "02-pydantic-v2-validator",
+  "title": "Pydantic v2 Validator",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": [
+    "pydantic",
+    "validation",
+    "orm-mode",
+    "error-envelope"
+  ],
+  "objective": "Add cross-field validators, enable ORM mode on the response model, and register a custom RequestValidationError handler that returns a consistent error envelope."
+}

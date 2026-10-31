@@ -1,0 +1,3 @@
+["The register endpoint must return 201 and the login endpoint must return an access_token — check those two first before worrying about /users/me.",
+"For login: use `pwd_context.verify(form.password, stored['hashed_password'])` and return a JWT with `jwt.encode({\"sub\": username, \"exp\": ...}, SECRET_KEY, algorithm=ALGORITHM)`. For /users/me: use `jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])` and catch both `jwt.ExpiredSignatureError` and `jwt.InvalidTokenError`.",
+"The 409 on duplicate comes from checking `if user.username in _users_db` before inserting. The tampered-token 401 comes from `jwt.InvalidTokenError` — PyJWT raises this when the signature does not match. The password-is-hashed check: store `pwd_context.hash(user.password)` not `user.password`."]

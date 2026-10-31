@@ -1,0 +1,15 @@
+{
+  "slug": "05-async-and-background",
+  "title": "Async & Background Tasks — Side Effects You Can Observe",
+  "order": 8,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": [
+    "fastapi",
+    "async",
+    "background-tasks"
+  ],
+  "objective": "Implement an async endpoint that returns immediately and schedules a BackgroundTask with an observable side effect; fix a classic sync-in-async blocking pitfall."
+}

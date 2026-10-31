@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**14 courses live · ~91 modules · ~95 challenges.**
+**15 courses live · ~97 modules · ~106 challenges.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -32,6 +32,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 12 | Python Flask in Production | 6 | 1 | ⚠ 5 challenges pending |
 | 13 | DSA for Tier-1 Interviews | 6 | 8 | ✅ |
 | 14 | System Design: SDE-2 → SDE-3 | 6 | 8 | ✅ |
+| 15 | FastAPI in Production | 6 | 11 | ✅ |
 
 ---
 

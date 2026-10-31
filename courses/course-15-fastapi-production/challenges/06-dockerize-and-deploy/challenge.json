@@ -1,0 +1,16 @@
+{
+  "slug": "06-dockerize-and-deploy",
+  "title": "Dockerize & Deploy — FastAPI to kind",
+  "order": 11,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 60,
+  "tags": [
+    "docker",
+    "kubernetes",
+    "uvicorn",
+    "deploy"
+  ],
+  "objective": "Build a slim FastAPI Docker image with a gunicorn+uvicorn worker, load it into the kind 'dojo' cluster, and deploy a Deployment + Service to namespace dojo-fastapi with a /health readinessProbe."
+}

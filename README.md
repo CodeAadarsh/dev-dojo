@@ -16,7 +16,7 @@ kube-dojo/
 └── CONTENT_SPEC.md  the authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (14 live)
+### Courses (15 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -34,6 +34,7 @@ kube-dojo/
 | 12 | Python Flask in Production | app factory → deploy | local + kind |
 | 13 | DSA for Tier-1 Interviews | 15 patterns, pytest-judged problems | local |
 | 14 | System Design: SDE-2 → SDE-3 | framework + worked designs | local |
+| 15 | FastAPI in Production | async APIs, Pydantic, pytest-judged | local + kind |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

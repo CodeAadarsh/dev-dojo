@@ -1,0 +1,5 @@
+[
+  "`background_tasks.add_task(fn, arg1, arg2)` schedules `fn` to run after the response is sent. The function and its arguments are passed positionally — no lambda needed. FastAPI handles the call; you just register it.",
+  "For `run_in_executor`: `loop = asyncio.get_running_loop(); result = await loop.run_in_executor(None, sync_fn, arg)`. The `None` picks the default thread-pool executor. This is the one-liner that bridges any blocking call into an async context without rewriting the called function.",
+  "The 202 body must be `{\"status\": \"queued\"}` — return it as the last statement in the async endpoint, after registering the background task. `status_code=202` goes on the `@app.post` decorator, not in a `Response` object."
+]

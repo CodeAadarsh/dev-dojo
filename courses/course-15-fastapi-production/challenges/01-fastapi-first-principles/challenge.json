@@ -1,0 +1,16 @@
+{
+  "slug": "01-fastapi-first-principles",
+  "title": "FastAPI First Principles",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": [
+    "fastapi",
+    "pydantic",
+    "status-codes",
+    "async"
+  ],
+  "objective": "Repair a broken product catalog: add Pydantic v2 models, fix status codes, properly handle 404, and fix the query param type so all eight harness tests pass."
+}

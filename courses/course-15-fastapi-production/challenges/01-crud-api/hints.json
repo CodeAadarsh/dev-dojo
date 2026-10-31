@@ -1,0 +1,5 @@
+[
+  "FastAPI sets the response status code from `status_code=` on the route decorator, not from what you return. `@app.post('/items', status_code=201)` is the one-liner that fixes the first failing test.",
+  "For missing resources, `raise HTTPException(status_code=404, detail='Item not found')` is the FastAPI idiom — never let a bare `KeyError` from dict access propagate. Guard every access: `if item_id not in _store: raise HTTPException(...)`.",
+  "DELETE returning 204 No Content means the function must return nothing (implicit `None`). FastAPI omits the body automatically when the declared status is 204. Add `status_code=204` to the `@app.delete` decorator and remove any return statement."
+]

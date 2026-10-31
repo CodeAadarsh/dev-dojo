@@ -1,0 +1,15 @@
+{
+  "slug": "01-crud-api",
+  "title": "CRUD API with Status Codes",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": [
+    "fastapi",
+    "pydantic",
+    "crud"
+  ],
+  "objective": "Implement a complete CRUD API for an 'items' resource with Pydantic v2 request/response models and exact HTTP status codes (POST→201, DELETE→204, missing→404), passing a hidden pytest harness."
+}

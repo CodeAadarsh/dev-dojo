@@ -1,0 +1,12 @@
+{
+  "id": "course-15-fastapi-production",
+  "slug": "fastapi-production",
+  "title": "FastAPI in Production",
+  "order": 15,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "12–16 h",
+  "prereqs": ["Python basics (async helps)", "HTTP fundamentals", "A running kind cluster for the deploy challenge"],
+  "tags": ["python", "fastapi", "async", "pydantic", "jwt", "docker"],
+  "description": "Ship FastAPI like a senior: async & ASGI, Pydantic v2 models & validation, dependency injection, async SQLAlchemy, OAuth2 + JWT auth, background tasks, testing with httpx/pytest-asyncio, auto OpenAPI docs, uvicorn/gunicorn tuning, and Dockerizing + deploying to a kind cluster."
+}

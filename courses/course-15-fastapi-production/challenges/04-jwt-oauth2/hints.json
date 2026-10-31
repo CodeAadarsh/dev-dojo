@@ -1,0 +1,5 @@
+[
+  "FastAPI's `OAuth2PasswordBearer(tokenUrl='token')` handles extracting the Bearer token from the `Authorization` header automatically. Declare it once at the module level and inject it via `Depends(oauth2_scheme)` in any route that needs the raw token string.",
+  "`jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])` raises `jwt.InvalidTokenError` (the base class) for any invalid token: expired, tampered, wrong algorithm, malformed. Catch that base class, not just `ExpiredSignatureError`, or a tampered token will return a 500 instead of a 401.",
+  "The `exp` claim must be a UTC-aware datetime. Use `datetime.now(timezone.utc) + timedelta(minutes=N)` — PyJWT 2.x rejects naive datetimes. Set it in `create_access_token` and PyJWT checks it automatically on every `decode` call."
+]

@@ -1,0 +1,5 @@
+[
+  "Pydantic v2 field constraints live on `Field(...)`: `Field(min_length=1, max_length=120)` for strings, `Field(gt=0)` for a strictly-positive float. Add these to `ItemCreate` and FastAPI's auto-422 handles the rest.",
+  "To override the default 422 shape, register `@app.exception_handler(RequestValidationError)` — import it from `fastapi.exceptions`. The handler receives `exc.errors()` which is a list you reshape into `{'status':422,'error':'Unprocessable Entity','details':[...]}` and return as a `JSONResponse`.",
+  "For a JSON 404 on unregistered paths you need `@app.exception_handler(StarletteHTTPException)` (from `starlette.exceptions`), not `HTTPException` (from fastapi). Starlette's router raises `StarletteHTTPException` when no route matches — FastAPI's `HTTPException` only covers raises from inside your route functions."
+]

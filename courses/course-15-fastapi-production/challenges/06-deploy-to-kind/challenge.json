@@ -1,0 +1,18 @@
+{
+  "slug": "06-deploy-to-kind",
+  "title": "Deploy to kind",
+  "order": 10,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 50,
+  "estMinutes": 60,
+  "tags": [
+    "fastapi",
+    "docker",
+    "kubernetes",
+    "kind",
+    "deployment",
+    "readiness"
+  ],
+  "objective": "Build a slim multi-stage Docker image with a non-root user, load it into a kind cluster, deploy it with a Deployment and ClusterIP Service, and confirm /health responds 200 — all with readOnlyRootFilesystem: true."
+}

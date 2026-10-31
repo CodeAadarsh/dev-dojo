@@ -1,0 +1,16 @@
+{
+  "slug": "03-dependency-injection",
+  "title": "Dependency Injection",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 35,
+  "estMinutes": 50,
+  "tags": [
+    "fastapi",
+    "dependency-injection",
+    "pydantic-settings",
+    "testing"
+  ],
+  "objective": "Refactor a leaky all-in-main.py task API to use a yield dependency, pydantic-settings, and APIRouter so that DI isolation tests pass with app.dependency_overrides."
+}

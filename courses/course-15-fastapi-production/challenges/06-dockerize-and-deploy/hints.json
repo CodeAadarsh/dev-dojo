@@ -1,0 +1,5 @@
+[
+  "The Dockerfile needs three lines: `COPY requirements.txt .` then `RUN pip install --no-cache-dir -r requirements.txt`, then `COPY app/ ./app/`. Order matters for layer caching — copy requirements first so a code change doesn't re-run pip.",
+  "After `docker build`, kind nodes have an empty image store — your host's Docker daemon is invisible to them. Run `kind load docker-image dojo-fastapi:v1 --name dojo` to push the image into every node's containerd. Then set `imagePullPolicy: IfNotPresent` in the Deployment so the kubelet uses the local copy.",
+  "The gunicorn CMD: `[\"gunicorn\", \"app.main:app\", \"--worker-class\", \"uvicorn.workers.UvicornWorker\", \"--bind\", \"0.0.0.0:8000\", \"--workers\", \"2\"]`. The module path is `app.main:app` because the working directory is `/srv` and `main.py` is in the `app/` subdirectory."
+]

@@ -1,0 +1,14 @@
+{
+  "slug": "02-validation-and-errors",
+  "title": "Validation and Error Envelopes",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": [
+    "fastapi",
+    "validation"
+  ],
+  "objective": "Add Pydantic v2 field constraints to an items API and register custom exception handlers that return a consistent JSON error envelope for 422 and 404 responses."
+}
