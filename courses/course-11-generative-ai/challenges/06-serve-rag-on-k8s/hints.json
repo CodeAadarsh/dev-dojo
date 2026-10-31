@@ -1,0 +1,5 @@
+[
+  "If the pod is in ErrImagePull or ImagePullBackOff, the image is not in the kind cluster. Run: kind load docker-image rag-service:v1 --name dojo",
+  "If the pod is Running but readyReplicas stays 0, the readiness probe may be failing. Check: kubectl describe pod -n dojo-genai — look for 'Readiness probe failed' in the Events section.",
+  "The deployment.yaml sets imagePullPolicy: Never — this is required for kind-loaded images. If you edited the manifest and removed it, Kubernetes will try to pull from Docker Hub and fail."
+]

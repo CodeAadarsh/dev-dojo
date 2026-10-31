@@ -1,0 +1,11 @@
+{
+  "slug": "05-retrieval-eval",
+  "title": "Retrieval Evaluation",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["evaluation", "metrics"],
+  "objective": "Implement a vector retriever and validate it against a labeled eval set, achieving recall@3 >= 0.80 on a deterministic benchmark."
+}

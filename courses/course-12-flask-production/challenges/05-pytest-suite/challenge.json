@@ -1,0 +1,11 @@
+{
+  "slug": "05-pytest-suite",
+  "title": "Test the App You Didn't Write",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["flask", "testing", "pytest"],
+  "objective": "Write a complete pytest suite for a given Flask app — all required test functions must exist and pass."
+}

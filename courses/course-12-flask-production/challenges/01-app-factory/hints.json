@@ -1,0 +1,5 @@
+[
+  "The factory must return a new Flask instance — not a module-level `app`. Write `def create_app(): app = Flask(__name__); return app` and never touch `app` outside that function.",
+  "Register the Blueprint with `app.register_blueprint(main)` inside `create_app()`, after importing it from `app.views`. Flask uses the blueprint name as a prefix for endpoint strings — `/health` on blueprint `main` becomes endpoint `main.health`.",
+  "The `/health` handler must return `jsonify({'status': 'ok'})` — exact key and value. The `/version` handler must return a JSON object with a `'version'` key; the value can be any string."
+]

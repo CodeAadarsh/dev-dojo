@@ -1,0 +1,5 @@
+[
+  "Each test function must be named exactly as shown in the brief — the verifier greps for `def test_health_returns_200` etc. before running pytest. A differently-named function won't satisfy the check even if it tests the same thing.",
+  "Use Flask's `app.test_client()` inside a `@pytest.fixture` that calls `create_app()`. With `app.config['TESTING'] = True` the client suppresses error propagation and lets you inspect response codes directly. Each test gets a fresh client (and a fresh `_tasks` dict) because the fixture recreates the app.",
+  "For `test_get_task_returns_200`: you cannot hardcode an ID — create a task first with `client.post('/tasks', json={'title': '...'})`, extract `rv.get_json()['id']`, then `GET /tasks/{id}`. This pattern works for any auto-increment store and keeps tests independent of insertion order."
+]

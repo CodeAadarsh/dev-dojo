@@ -1,0 +1,5 @@
+[
+  "The pod stays in `ErrImageNeverPull` or `ImagePullBackOff`? You skipped `kind load docker-image flask-app:dojo --name dojo`. kind nodes run their own containerd — they can't see your local Docker daemon's images. Load the image first, then apply the manifest.",
+  "The Deployment shows `0/1 READY` and `describe` shows the readinessProbe failing? Check that your CMD or `command:` in the Deployment runs Gunicorn on port 8000 and that the probe's `port` field matches. Also check `kubectl logs -n dojo-flask <pod>` for import errors — a Python traceback at startup means Gunicorn started but the app factory crashed.",
+  "The verifier fails on 'readinessProbe httpGet path is empty'? The probe must be inside `.spec.template.spec.containers[0].readinessProbe.httpGet` — not under `livenessProbe`, not at the Deployment level. Minimal shape: `readinessProbe: { httpGet: { path: /health, port: 8000 } }`."
+]

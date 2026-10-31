@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**17 courses live · ~109 modules · ~118 challenges.**
+**17 courses live · 109 modules · 126 challenges — all complete.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -28,8 +28,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 8 | Stateful Workloads & Data | 6 | 6 | ✅ |
 | 9 | Platform Engineering | 6 | 7 | ✅ |
 | 10 | Backend Engineering (SDE 1→3) | 6 | 6 | ✅ |
-| 11 | Generative AI: RAG & Applied AI | 6 | 3 | ⚠ 3 challenges pending |
-| 12 | Python Flask in Production | 6 | 1 | ⚠ 5 challenges pending |
+| 11 | Generative AI: RAG & Applied AI | 6 | 6 | ✅ |
+| 12 | Python Flask in Production | 6 | 6 | ✅ |
 | 13 | DSA for Tier-1 Interviews | 6 | 8 | ✅ |
 | 14 | System Design: SDE-2 → SDE-3 | 6 | 8 | ✅ |
 | 15 | FastAPI in Production | 6 | 11 | ✅ |
@@ -38,15 +38,9 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ---
 
-## Milestone 0 — Finish what's started (do first)
+## Milestone 0 — Finish what's started
 
-Blocked only by the daily LLM budget; resumes on a fresh budget day.
-
-- **Course 11 (GenAI):** add `tool-using-agent`, `retrieval-eval`, `serve-rag-on-k8s`.
-- **Course 12 (Flask):** add `app-factory`, `sqlalchemy-crud`, `jwt-auth`, `pytest-suite`, `dockerize-and-deploy`.
-
-Resume: re-run workflow `wf_a9696710-43a` (done modules replay from cache; only the
-failed challenge batches re-run), or author the 8 challenges directly.
+✅ **Done (2026-11-01)** — Courses 11 (GenAI) and 12 (Flask) are now complete, 6 challenges each. All 17 courses are fully built.
 
 ---
 

@@ -1,0 +1,11 @@
+{
+  "slug": "01-app-factory",
+  "title": "The App Factory",
+  "order": 1,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 15,
+  "estMinutes": 20,
+  "tags": ["flask", "app-factory"],
+  "objective": "Implement create_app() that returns a configured Flask app with /health and /version endpoints registered through a Blueprint."
+}

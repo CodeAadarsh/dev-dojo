@@ -1,0 +1,11 @@
+{
+  "slug": "06-dockerize-and-deploy",
+  "title": "Ship It: Gunicorn + Docker + k8s",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["docker", "kubernetes", "gunicorn", "deploy"],
+  "objective": "Containerize a Flask app with Gunicorn, load it into the kind cluster, and deploy a Deployment + Service with a /health readinessProbe to namespace dojo-flask."
+}

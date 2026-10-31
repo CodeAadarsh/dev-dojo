@@ -1,0 +1,11 @@
+{
+  "slug": "04-tool-using-agent",
+  "title": "Tool-Using Agent",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["agents", "tool-use"],
+  "objective": "Implement a function-calling agent loop that drives a mock LLM through two tool calls and returns the correct deterministic answer."
+}

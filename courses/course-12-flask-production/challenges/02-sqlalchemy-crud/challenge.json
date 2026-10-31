@@ -1,0 +1,11 @@
+{
+  "slug": "02-sqlalchemy-crud",
+  "title": "Notes CRUD with SQLAlchemy",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["flask", "sqlalchemy", "crud"],
+  "objective": "Define a Note model and wire up five CRUD endpoints backed by SQLite using Flask-SQLAlchemy — all eight harness tests green."
+}

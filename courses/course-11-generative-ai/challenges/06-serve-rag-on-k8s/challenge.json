@@ -1,0 +1,11 @@
+{
+  "slug": "06-serve-rag-on-k8s",
+  "title": "Serve RAG on Kubernetes",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["serving", "kubernetes", "deploy"],
+  "objective": "Package a minimal RAG HTTP service into a Docker image, load it into a kind cluster, and deploy it as a Kubernetes Deployment in namespace dojo-genai."
+}

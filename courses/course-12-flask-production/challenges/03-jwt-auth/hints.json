@@ -1,0 +1,5 @@
+[
+  "Sign the JWT with `jwt.encode({'sub': username, 'exp': datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)}, app.config['SECRET_KEY'], algorithm='HS256')`. PyJWT 2.x returns a string, not bytes.",
+  "In `/protected`, extract the token after `'Bearer '` with `auth.split(' ', 1)[1]`, then call `jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])`. The `algorithms=` argument is a list — omitting it or passing a string raises `DecodeError`.",
+  "Wrap `jwt.decode()` in `try/except jwt.PyJWTError`. This base class catches all PyJWT failures: bad signature, expiry, and malformed tokens. The verifier sends a token signed with a different secret — your handler must return 401 for it."
+]

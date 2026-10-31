@@ -1,0 +1,5 @@
+[
+  "Define the `Note` class inheriting from `db.Model`. Columns: `db.Column(db.Integer, primary_key=True)` for id, `db.Column(db.String(200), nullable=False)` for title, `db.Column(db.Text, nullable=True)` for body. Call `db.create_all()` inside `with app.app_context()` in the factory.",
+  "Fetch a note by primary key with `db.session.get(Note, note_id)` — this returns `None` if not found (return 404 in that case). To persist changes, call `db.session.add(note)` then `db.session.commit()`. For DELETE, call `db.session.delete(note)` then `db.session.commit()`.",
+  "DELETE must return HTTP 204 No Content with an empty body: `return '', 204`. Returning `jsonify({})` sends an empty JSON object which is technically a response body — some strict parsers reject it on a 204."
+]

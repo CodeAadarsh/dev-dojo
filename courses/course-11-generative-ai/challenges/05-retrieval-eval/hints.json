@@ -1,0 +1,5 @@
+[
+  "Run 'python eval_harness.py' in your work dir to see your current recall@1, @3, @5 scores. A score of 0.0 means the stub is still running — you haven't replaced list(range(k)) yet.",
+  "Cosine similarity = dot(q, c) / (norm(q) * norm(c)). Use numpy: C = np.array(corpus_embs); sims = C.dot(q) / (np.linalg.norm(C, axis=1) * np.linalg.norm(q)). Then argsort in descending order.",
+  "Full pattern: q = np.array(query_emb); C = np.array(corpus_embs); sims = C.dot(q) / (np.linalg.norm(C, axis=1) * np.linalg.norm(q)); return np.argsort(sims)[::-1][:k].tolist()"
+]

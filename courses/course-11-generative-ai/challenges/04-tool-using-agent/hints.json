@@ -1,0 +1,5 @@
+[
+  "Look at what run_agent returns after the first call to chat(). If it returns immediately, you have an if-statement instead of a loop.",
+  "The loop must continue when response[\"type\"] == \"tool_call\". After dispatching the tool, append {\"role\": \"tool\", \"content\": str(result)} to messages before calling chat() again.",
+  "The full pattern: while True: resp = chat(messages); if resp['type'] == 'tool_call': messages.append({...result...}); elif resp['type'] == 'text': return resp['content']"
+]

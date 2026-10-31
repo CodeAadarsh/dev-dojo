@@ -1,0 +1,11 @@
+{
+  "slug": "03-jwt-auth",
+  "title": "JWT Login and Protected Routes",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["flask", "jwt", "auth", "security"],
+  "objective": "Implement /login (issues a signed JWT) and /protected (returns 401 without a valid token, 200 with one) — including rejection of tokens signed with a different key."
+}
