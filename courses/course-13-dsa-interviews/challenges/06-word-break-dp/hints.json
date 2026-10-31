@@ -1,0 +1,5 @@
+[
+  "For word_break_memo: define a recursive function dp(i) that returns True if s[i:] can be segmented. Try every split point j from i+1 to len(s)+1 — if s[i:j] is in the word set AND dp(j) is True, then dp(i) is True. Add a memo dict (local to the outer function) to avoid recomputing the same index.",
+  "For word_break_tab: define dp[i] = True if s[:i] can be segmented. Initialize dp[0] = True (empty string). For each i from 1 to n, check all j from 0 to i — if dp[j] is True and s[j:i] is in the word set, set dp[i] = True. Return dp[n].",
+  "Common mistake: using a mutable default argument memo={} instead of a local dict. Python evaluates default args once at definition, so memo persists across calls and returns wrong cached results for different inputs. Initialize memo inside the function body every call, or use @lru_cache on a nested function."
+]

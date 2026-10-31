@@ -1,0 +1,14 @@
+{
+  "slug": "04-rate-limiter-design",
+  "title": "Pick the Right Rate-Limiting Algorithm",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": [
+    "rate-limiting",
+    "tradeoffs"
+  ],
+  "objective": "Given three hard constraints — distributed, burst-tolerant, O(1) memory — identify the single algorithm that satisfies all of them and explain why every alternative fails on at least one."
+}

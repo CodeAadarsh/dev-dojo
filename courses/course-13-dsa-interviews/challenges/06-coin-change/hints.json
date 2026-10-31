@@ -1,0 +1,5 @@
+[
+  "Greedy — always picking the largest coin that fits — gives the wrong answer for arbitrary denominations. You need dynamic programming: build up optimal solutions for all sub-amounts from 0 to the target, then read off `dp[amount]`.",
+  "Define `dp[i]` = minimum coins to make amount `i`. Set `dp[0] = 0` and every other entry to `infinity` (unreachable). For each amount `i` from 1 to `amount`, try every coin `c`: if `c <= i`, then `dp[i] = min(dp[i], dp[i - c] + 1)`. Fill the table left to right — `dp[i - c]` is always already computed.",
+  "After filling the table, `dp[amount]` holds the answer. If it is still `infinity`, the amount cannot be made with the given coins — return `-1`. Otherwise return `dp[amount]`."
+]

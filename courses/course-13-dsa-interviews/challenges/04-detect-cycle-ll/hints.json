@@ -1,0 +1,5 @@
+[
+  "Two pointers is the key. Start both `slow` and `fast` at `head`. Advance `slow` by one node per iteration and `fast` by two. If they ever point to the same node (`slow is fast`), the list has a cycle. If `fast` or `fast.next` becomes `None`, it doesn't.",
+  "Your loop condition needs two guards before you advance: `while fast is not None and fast.next is not None`. The first prevents a None dereference on an even-length acyclic list; the second handles odd-length. Both mean 'we fell off the end → no cycle.'",
+  "Use identity (`slow is fast`), not equality (`slow == fast`). Node values can repeat — `[1, 1, 1]` with no cycle would trigger `==` on the first step. The algorithm works on pointer identity, not value."
+]

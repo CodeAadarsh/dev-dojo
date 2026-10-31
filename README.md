@@ -16,7 +16,7 @@ kube-dojo/
 └── CONTENT_SPEC.md  the authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (12 live)
+### Courses (14 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -32,6 +32,8 @@ kube-dojo/
 | 10 | Backend Engineering (SDE 1→3) | APIs, data, caching, system design | local + kind |
 | 11 | Generative AI: RAG & Applied AI | LLMs, embeddings, RAG, agents | local + kind |
 | 12 | Python Flask in Production | app factory → deploy | local + kind |
+| 13 | DSA for Tier-1 Interviews | 15 patterns, pytest-judged problems | local |
+| 14 | System Design: SDE-2 → SDE-3 | framework + worked designs | local |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

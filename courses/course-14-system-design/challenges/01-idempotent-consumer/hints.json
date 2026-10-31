@@ -1,0 +1,3 @@
+["The check must happen at the database level, not in application code. What database primitive enforces uniqueness?",
+ "Try inserting the idempotency key first — before the balance update. What happens if the key already exists? What exception do you catch?",
+ "Wrap both the INSERT into processed_messages and the UPDATE to accounts inside a single 'with conn:' block. Catch sqlite3.IntegrityError outside the block and return False."]

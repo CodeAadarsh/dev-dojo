@@ -1,0 +1,16 @@
+{
+  "slug": "03-top-k-frequent",
+  "title": "Top K Frequent Elements",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": [
+    "heap",
+    "hashing",
+    "bucket-sort",
+    "frequency"
+  ],
+  "objective": "Return the k most frequent elements from an array; the solution must run better than O(n log n) — understand and implement both the heap (O(n log k)) and bucket-sort (O(n)) approaches."
+}

@@ -1,0 +1,5 @@
+[
+  "The brute-force `max(nums[i:i+k])` for each position is O(n·k). Think about what makes an element permanently useless — if a newer element is larger, the older one can never win any future window. What data structure lets you maintain that order and pop from both ends?",
+  "You want a **monotonic deque** (from `collections.deque`). Store *indices* (not values) so you can check whether the front element has left the window. Maintain a decreasing invariant: before appending index `i`, pop from the back while `nums[dq[-1]] <= nums[i]`.",
+  "Three operations per iteration: (1) `popleft` while `dq[0] < i - k + 1` to evict stale indices; (2) `pop` from back while `nums[dq[-1]] <= nums[i]` to maintain decreasing order; (3) `append(i)`. After step 3, if `i >= k - 1`, the current window max is `nums[dq[0]]`."
+]

@@ -1,0 +1,14 @@
+{
+  "slug": "01-capacity-estimation",
+  "title": "Capacity Estimation: 100M-DAU Social Feed",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": [
+    "estimation",
+    "capacity"
+  ],
+  "objective": "Given a concrete spec (100M DAU, 10 posts/user/day, 1KB each), compute writes/sec, storage/year, and write bandwidth within 10% tolerance — without guessing."
+}

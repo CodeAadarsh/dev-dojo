@@ -1,0 +1,5 @@
+[
+  "Start with Requirements: pick a scale target (DAU or QPS) you can defend. Every other section derives from it. You need at least Functional requirements (shorten, redirect) and Non-functional (latency, availability).",
+  "The verifier needs five exact headings: '## Requirements', '## Capacity', '## API', '## Data Model', '## Scaling' — copy them verbatim as level-2 headings.",
+  "For the ID scheme in '## Data Model': name one of 'base62', 'counter', or 'hash' and explain the trade-off. Base62 encoding of a counter is the canonical answer — zero collisions, simple implementation, 7 chars gives 3.5 trillion combinations."
+]

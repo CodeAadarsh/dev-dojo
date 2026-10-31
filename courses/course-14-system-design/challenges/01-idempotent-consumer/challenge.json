@@ -1,0 +1,16 @@
+{
+  "slug": "01-idempotent-consumer",
+  "title": "Idempotent Message Consumer",
+  "order": 7,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": [
+    "async",
+    "messaging",
+    "idempotency",
+    "sqlite"
+  ],
+  "objective": "Implement an idempotent message consumer that stores a processed-messages key atomically with its side effect inside the same SQLite transaction, so duplicate deliveries produce no duplicate side effects."
+}

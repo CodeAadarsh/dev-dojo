@@ -1,0 +1,14 @@
+{
+  "slug": "06-spot-the-bottleneck",
+  "title": "Spot the Bottleneck",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": [
+    "design-review",
+    "debugging"
+  ],
+  "objective": "Read a real-world architecture diagram, identify the single component causing P99 latency to degrade 110× under load, name the correct fix, and document your findings so the verifier can confirm them."
+}

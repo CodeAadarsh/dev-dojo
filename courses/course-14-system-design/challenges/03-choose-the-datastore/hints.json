@@ -1,0 +1,5 @@
+[
+  "Run setup.sh first, then read scenarios.md carefully. Scenario 3 is the target — focus on its access pattern: 50K score updates/sec where each update must also return an instant rank among 1M players.",
+  "Ask: what data structure supports O(log N) insert + O(log N) rank query natively? Which of the three candidate datastores ships that as a built-in primitive?",
+  "The answer is in answer_keys.json under 'scenario-3'. The correct datastore key maps to the valid flag — the wrong choices map to syntactically similar strings that will fail validation."
+]

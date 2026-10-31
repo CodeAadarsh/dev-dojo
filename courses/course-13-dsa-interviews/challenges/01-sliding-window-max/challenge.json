@@ -1,0 +1,16 @@
+{
+  "slug": "01-sliding-window-max",
+  "title": "Sliding Window Maximum",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": [
+    "sliding-window",
+    "arrays",
+    "deque",
+    "monotonic"
+  ],
+  "objective": "Return the maximum element in each contiguous window of size k as it slides across the array, in O(n) time using a monotonic deque."
+}

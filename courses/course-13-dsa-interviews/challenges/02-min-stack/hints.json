@@ -1,0 +1,5 @@
+[
+  "You need O(1) `getMin` after arbitrary `pop` calls — that rules out any approach that recomputes the min on the fly. The minimum when element X was pushed is a *fixed fact* about that moment in time. Where could you store it so it's always available in O(1)?",
+  "Store a pair `(value, min_at_this_depth)` on each push. The second field is `min(val, current_min)`. Then `getMin` is just `self._stack[-1][1]` — O(1), no scanning.",
+  "If you prefer two separate lists: maintain `self._min_stack` alongside `self._stack`. Push onto `_min_stack` whenever `val <= _min_stack[-1]` (note `<=`, not `<` — duplicates of the current minimum must be tracked). Pop from both stacks together when the value being popped equals the current min."
+]

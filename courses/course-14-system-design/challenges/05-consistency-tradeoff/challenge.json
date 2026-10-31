@@ -1,0 +1,14 @@
+{
+  "slug": "05-consistency-tradeoff",
+  "title": "Strong vs. Eventual: Pick the Right Consistency Model",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": [
+    "cap",
+    "consistency"
+  ],
+  "objective": "Given two real services with opposite consistency requirements, identify the correct CAP choice for each and articulate the consequence of getting it wrong."
+}

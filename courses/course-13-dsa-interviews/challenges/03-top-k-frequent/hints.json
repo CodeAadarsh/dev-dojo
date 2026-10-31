@@ -1,0 +1,5 @@
+[
+  "Start with a frequency count (`Counter` from `collections`). You have a dict of `{element: count}`. Now you need the k elements with the highest counts — without sorting the whole dict, which would be O(n log n). Which Python standard-library data structure is designed for 'give me the largest/smallest k items'?",
+  "Use a **min-heap** of size k (`heapq` module). Push `(freq, element)` tuples; when the heap exceeds k entries, pop the minimum-frequency one. What remains after processing all elements is exactly the top-k. Alternatively, `heapq.nlargest(k, counts, key=counts.get)` does this in one call.",
+  "For a follow-up O(n) solution, use **bucket sort**: create a list of `n+1` empty buckets where `buckets[f]` holds all elements with frequency `f`. Fill from the counter, then scan from `buckets[n]` down to `buckets[0]` collecting elements until you have k. Frequency is bounded by n so no sorting is ever needed."
+]

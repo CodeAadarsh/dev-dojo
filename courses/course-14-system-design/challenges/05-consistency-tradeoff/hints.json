@@ -1,0 +1,5 @@
+[
+  "Look at the two failure modes described in the brief. One failure costs money (real money — not just a stale read). The other failure is cosmetically bad but harmless. The correct consistency model for each maps directly to how catastrophic the failure mode is.",
+  "BankLedger has a concurrent-write problem: two requests reading the same balance and both committing. Only one consistency model prevents this — the one where reads and writes are serialised atomically. TrendFeed uses commutative increments where any merge order produces the same result.",
+  "The flag is `KUBE{strong_for_balance_eventual_for_likes}`. 'Strong' = linearizable/CP, required when wrong reads corrupt data with no recovery. 'Eventual' = AP, correct when the data is a convergent counter and brief staleness is invisible to users."
+]

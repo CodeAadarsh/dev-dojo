@@ -1,0 +1,13 @@
+{
+  "slug": "06-coin-change",
+  "title": "Coin Change",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": [
+    "dp"
+  ],
+  "objective": "Given coin denominations and a target amount, find the minimum number of coins needed to make exactly that amount, or -1 if it is impossible."
+}

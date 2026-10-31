@@ -1,0 +1,15 @@
+{
+  "slug": "04-linked-list-cycle-entry",
+  "title": "Find the Cycle Entry",
+  "order": 7,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": [
+    "linked-list",
+    "two-pointers",
+    "floyd"
+  ],
+  "objective": "Implement Floyd's cycle detection to detect a cycle and return its entry node — not just a boolean."
+}

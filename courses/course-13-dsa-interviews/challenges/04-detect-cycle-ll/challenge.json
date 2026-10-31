@@ -1,0 +1,14 @@
+{
+  "slug": "04-detect-cycle-ll",
+  "title": "Detect Cycle in a Linked List",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": [
+    "linked-list",
+    "two-pointer"
+  ],
+  "objective": "Detect whether a singly-linked list contains a cycle using Floyd's tortoise-and-hare algorithm in O(1) space."
+}

@@ -1,0 +1,5 @@
+[
+  "Look at the traffic profile table. One number stands out: what percentage of queries are reads vs writes? Then look at the infrastructure: how many nodes does the database tier have?",
+  "DB CPU goes from 12% to 97% when load goes from 200 to 2,000 req/s. Disk IOPS is 61 of 200 — disk is not the bottleneck. Index hit rate is 92% — slow queries are not the bottleneck. The CPU is being consumed by concurrent query *execution*, not I/O wait.",
+  "The fix involves adding the missing piece to the database tier: nodes that handle the 95% read traffic so the primary only handles writes. The keyword you need in findings.txt: 'replica'. The bottleneck keyword: 'primary' or 'single'."
+]

@@ -1,0 +1,14 @@
+{
+  "slug": "05-course-schedule",
+  "title": "Course Schedule",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": [
+    "graph",
+    "topological-sort"
+  ],
+  "objective": "Given n courses and prerequisite pairs, return a valid completion order using topological sort (Kahn's BFS), or an empty list if a cycle makes it impossible."
+}

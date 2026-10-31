@@ -1,0 +1,16 @@
+{
+  "slug": "02-circuit-breaker",
+  "title": "Circuit Breaker State Machine",
+  "order": 8,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 35,
+  "estMinutes": 45,
+  "tags": [
+    "reliability",
+    "circuit-breaker",
+    "state-machine",
+    "resilience"
+  ],
+  "objective": "Implement a circuit breaker with correct CLOSED → OPEN → HALF-OPEN → CLOSED state transitions, failure threshold counting, and probe-based recovery."
+}

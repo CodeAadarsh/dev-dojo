@@ -1,0 +1,15 @@
+{
+  "slug": "06-word-break-dp",
+  "title": "Word Break",
+  "order": 8,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": [
+    "dynamic-programming",
+    "memoization",
+    "string"
+  ],
+  "objective": "Implement word break using both memoization and tabulation, proving you can mechanically translate between the two DP forms."
+}

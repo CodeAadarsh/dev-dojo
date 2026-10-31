@@ -1,0 +1,3 @@
+["The state property should compute the effective state: if _state is OPEN and the timeout has elapsed, return HALF_OPEN — no need for a timer thread.",
+ "In _on_failure(), a failure in HALF_OPEN must send the circuit straight back to OPEN (same as reaching the threshold). Check for both conditions.",
+ "Reset the failure count when the circuit opens and when it closes. If you don't reset on open, the first failure in a new CLOSED phase incorrectly inherits the old count."]

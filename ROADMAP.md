@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**12 courses live · ~79 modules · ~79 challenges.**
+**14 courses live · ~91 modules · ~95 challenges.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -30,6 +30,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 10 | Backend Engineering (SDE 1→3) | 6 | 6 | ✅ |
 | 11 | Generative AI: RAG & Applied AI | 6 | 3 | ⚠ 3 challenges pending |
 | 12 | Python Flask in Production | 6 | 1 | ⚠ 5 challenges pending |
+| 13 | DSA for Tier-1 Interviews | 6 | 8 | ✅ |
+| 14 | System Design: SDE-2 → SDE-3 | 6 | 8 | ✅ |
 
 ---
 
@@ -47,10 +49,12 @@ failed challenge batches re-run), or author the 8 challenges directly.
 
 ## Milestone 1 — Career track (highest priority for the SDE-2 / Tier-1 goal)
 
+> ✅ **Courses 13 & 14 are now SHIPPED** (full: 6 modules + 8 challenges each). Course 15 remains.
+
 | # | Course | Difficulty | Est. | Verifier | Scope |
 |---|--------|-----------|------|----------|-------|
-| 13 | **DSA for Tier-1 Interviews** | Int → Adv | 25–40 h | local (pytest) | the 15 patterns (two-pointers, sliding window, heaps, graphs, DP…), timed drills, complexity analysis; each challenge is a judged problem |
-| 14 | **System Design (SDE-2 → SDE-3)** | Advanced | 18–24 h | local / discovery | design a URL shortener, feed, rate limiter, chat, payment ledger; rubric self-checks + capacity math |
+| 13 | **DSA for Tier-1 Interviews** ✅ | Int → Adv | 25–40 h | local (pytest) | the 15 patterns (two-pointers, sliding window, heaps, graphs, DP…), timed drills, complexity analysis; each challenge is a judged problem |
+| 14 | **System Design (SDE-2 → SDE-3)** ✅ | Advanced | 18–24 h | local / discovery | design a URL shortener, feed, rate limiter, chat, payment ledger; rubric self-checks + capacity math |
 | 15 | **The SDE-2 Interview Loop** | Int → Adv | 10–14 h | discovery | coding + design + behavioral prep, company-specific (Grafana, Uber, Atlassian, Razorpay…), negotiation |
 
 ## Milestone 2 — Cloud, IaC & delivery

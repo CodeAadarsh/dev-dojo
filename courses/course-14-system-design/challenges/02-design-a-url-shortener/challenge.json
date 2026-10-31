@@ -1,0 +1,15 @@
+{
+  "slug": "02-design-a-url-shortener",
+  "title": "Design a URL Shortener",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 45,
+  "tags": [
+    "design",
+    "api",
+    "data-model"
+  ],
+  "objective": "Write a complete system-design document for a URL shortener covering Requirements, Capacity, API, Data Model, and Scaling — with a sound short-code ID scheme."
+}

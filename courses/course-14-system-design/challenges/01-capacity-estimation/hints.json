@@ -1,0 +1,5 @@
+[
+  "Work through units explicitly: writes_per_sec = DAU × posts_per_day / seconds_per_day. How many seconds are in a day?",
+  "Storage uses GiB (binary, 1024^3 bytes), not GB. Total bytes = DAU × posts_per_day × post_size_bytes × 365. Divide by 1024^3 for GiB.",
+  "Write bandwidth = writes_per_sec × post_size_bytes, then convert to MiB/s by dividing by 1024^2. All three values are derived from the same base numbers — check they're consistent with each other."
+]

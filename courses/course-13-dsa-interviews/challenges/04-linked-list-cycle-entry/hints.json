@@ -1,0 +1,5 @@
+[
+  "Phase 1 is standard cycle detection: a slow pointer (1 step) and a fast pointer (2 steps). When they meet, a cycle exists. The meeting point is inside the cycle, not the entry.",
+  "Phase 2: after the meeting, reset one pointer to head and keep the other at the meeting point. Advance both at speed 1. They will meet exactly at the cycle entry node — not somewhere else in the cycle.",
+  "The math: if F is the distance from head to the cycle entry, the reset pointer travels F steps to reach the entry. The other pointer also travels exactly F more steps (because F ≡ -k mod C, where k is the distance from entry to meeting point). They arrive at the entry simultaneously. Implement this without a hash set."
+]

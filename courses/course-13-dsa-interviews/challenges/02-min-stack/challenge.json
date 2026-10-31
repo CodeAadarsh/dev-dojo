@@ -1,0 +1,15 @@
+{
+  "slug": "02-min-stack",
+  "title": "Min Stack",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": [
+    "stack",
+    "design",
+    "data-structures"
+  ],
+  "objective": "Design a stack that supports push, pop, top, and getMin — all in O(1) time and O(n) space."
+}

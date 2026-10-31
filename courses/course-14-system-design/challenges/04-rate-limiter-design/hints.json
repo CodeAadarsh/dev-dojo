@@ -1,0 +1,5 @@
+[
+  "List the three constraints side by side with each algorithm. One of the four algorithms fails memory, one fails burst, one fails both burst *and* accurate sliding — eliminate them one by one.",
+  "Sliding log is accurate but think about what 'O(1) memory/key' means for 10M keys at 100 req/s. Token bucket state is exactly two numbers — tokens remaining and last refill time.",
+  "Token bucket is the answer. The flag is `KUBE{token_bucket_<property>}` where <property> encodes the key trait that satisfies the burst-tolerant constraint. Read the constraint: idle clients accumulate capacity."
+]

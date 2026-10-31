@@ -1,0 +1,14 @@
+{
+  "slug": "03-choose-the-datastore",
+  "title": "Choose the Datastore",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "discovery",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": [
+    "databases",
+    "tradeoffs"
+  ],
+  "objective": "Reason through three concrete data-access scenarios and identify the correct datastore for the target scenario — the right answer holds the flag."
+}

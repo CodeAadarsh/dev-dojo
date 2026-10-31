@@ -1,0 +1,12 @@
+{
+  "id": "course-13-dsa-interviews",
+  "slug": "dsa-interviews",
+  "title": "DSA for Tier-1 Interviews",
+  "order": 13,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "25–40 h",
+  "prereqs": ["One language (Python recommended)", "Big-O basics", "python3 + pytest"],
+  "tags": ["dsa", "algorithms", "interviews", "data-structures", "problem-solving"],
+  "description": "The patterns that crack Tier-1 coding rounds: complexity analysis, two-pointers & sliding window, hashing/stacks/heaps, linked lists/trees/tries, graphs (BFS/DFS, topological sort, union-find, Dijkstra), and recursion/backtracking/DP — each a judged, pytest-graded problem you solve under a timer."
+}

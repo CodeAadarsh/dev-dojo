@@ -1,0 +1,5 @@
+[
+  "Model the problem as a directed graph: for each [course, prereq] pair, draw a directed edge from prereq to course. The question becomes: does this graph contain a cycle?",
+  "Kahn's algorithm (BFS): compute in-degrees for all nodes. Start with nodes that have in-degree 0 (no prerequisites). Process each, reducing the in-degree of its dependents. A node with in-degree 0 after reduction is now 'available'. If you process fewer than num_courses nodes total, a cycle prevented some nodes from ever becoming available.",
+  "DFS alternative: use 3-color marking. WHITE = unvisited, GRAY = in the current DFS path, BLACK = fully processed. If you encounter a GRAY neighbor during DFS, you've found a back edge — which is a cycle. A visited BLACK node is not a cycle (it's just shared across DFS trees)."
+]

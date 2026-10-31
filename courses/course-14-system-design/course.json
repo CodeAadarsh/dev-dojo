@@ -1,0 +1,12 @@
+{
+  "id": "course-14-system-design",
+  "slug": "system-design",
+  "title": "System Design: SDE-2 → SDE-3",
+  "order": 14,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "18–24 h",
+  "prereqs": ["Backend basics (Course 10 helps)", "HTTP, databases & caching familiarity"],
+  "tags": ["system-design", "scalability", "distributed-systems", "interviews", "architecture"],
+  "description": "Design systems that scale and defend them in an interview: the requirements → estimate → API → data → deep-dive framework, load balancing / caching / CDN, replication & sharding, consistency & CAP, async messaging & backpressure, reliability & SLOs, and worked designs (URL shortener, news feed, chat, rate limiter, payment ledger)."
+}
