@@ -13,17 +13,20 @@ export function Reveal({
 }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="overflow-hidden rounded-lg border border-border">
+    <div className="glass overflow-hidden rounded-xl">
       <button
         onClick={() => setOpen(!open)}
-        className={`flex w-full items-center justify-between bg-panel2 px-4 py-2.5 text-left hover:text-white ${
-          danger ? 'text-amber' : 'text-dim'
-        }`}
+        className="flex w-full items-center justify-between px-5 py-3.5 text-left transition-colors hover:text-ink"
+        style={{ color: danger ? 'var(--color-amber)' : 'var(--color-dim)' }}
       >
         <span className="text-sm font-medium">{label}</span>
-        <span className="mono">{open ? '−' : '+'}</span>
+        <span className="mono text-base">{open ? '−' : '+'}</span>
       </button>
-      {open && <div className="border-t border-border px-4 py-3">{children}</div>}
+      {open && (
+        <div className="px-6 py-5" style={{ borderTop: '1px solid var(--color-border)' }}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }

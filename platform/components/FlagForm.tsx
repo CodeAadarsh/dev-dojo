@@ -40,32 +40,40 @@ export function FlagForm({
 
   if (status === 'ok') {
     return (
-      <div className="rounded-lg border border-green bg-green/10 px-4 py-3 font-medium text-green">
-        ✓ Solved — flag accepted.
+      <div
+        className="flex items-center gap-2 rounded-xl px-4 py-3 font-medium"
+        style={{ color: '#0b8277', background: 'rgba(15,157,143,0.12)', border: '1px solid rgba(15,157,143,0.35)' }}
+      >
+        <span>✓</span> Flag accepted — challenge solved.
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col gap-2 sm:flex-row">
-      <input
-        value={flag}
-        onChange={(e) => setFlag(e.target.value)}
-        placeholder="KUBE{...}"
-        spellCheck={false}
-        autoComplete="off"
-        className="flex-1 rounded-lg border border-border bg-panel2 px-3 py-2 font-mono text-sm outline-none focus:border-green"
-      />
-      <button
-        type="submit"
-        disabled={status === 'loading'}
-        className="rounded-lg bg-green px-5 py-2 font-semibold text-black hover:brightness-110 disabled:opacity-50"
-      >
-        {status === 'loading' ? 'Checking…' : 'Submit Flag'}
-      </button>
+    <div className="space-y-2">
+      <form onSubmit={onSubmit} className="flex flex-col gap-3 sm:flex-row">
+        <input
+          value={flag}
+          onChange={(e) => setFlag(e.target.value)}
+          placeholder="KUBE{...}"
+          spellCheck={false}
+          autoComplete="off"
+          className="mono flex-1 rounded-xl px-4 py-2.5 text-sm text-ink outline-none transition-shadow placeholder:text-faint focus:ring-2"
+          style={{
+            background: 'rgba(255,255,255,0.7)',
+            border: '1px solid var(--color-border)',
+            boxShadow: 'inset 0 1px 2px rgba(18,38,71,0.05)',
+          }}
+        />
+        <button type="submit" disabled={status === 'loading'} className="btn-primary px-6 py-2.5 text-sm font-medium disabled:opacity-50">
+          {status === 'loading' ? 'Checking…' : 'Submit flag'}
+        </button>
+      </form>
       {status === 'bad' && (
-        <span className="self-center text-sm text-red">Incorrect — keep digging.</span>
+        <p className="text-sm" style={{ color: 'var(--color-red)' }}>
+          Not quite — keep digging.
+        </p>
       )}
-    </form>
+    </div>
   );
 }

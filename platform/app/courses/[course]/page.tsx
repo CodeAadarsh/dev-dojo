@@ -15,12 +15,23 @@ export default async function CoursePage({ params }: { params: Promise<{ course:
   const done = course.challenges.filter((ch) => solved[challengeKey(course.id, ch.slug)]).length;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <div>
-        <Link href="/" className="text-sm text-dim hover:text-green">← all courses</Link>
-        <h1 className="mt-2 text-3xl font-bold text-white">{course.title}</h1>
-        <p className="mt-2 max-w-2xl text-dim">{course.description}</p>
-        <div className="mt-3 flex flex-wrap gap-1.5">
+        <Link href="/" className="text-sm text-dim transition-colors hover:text-accent">
+          ← All courses
+        </Link>
+        <div className="mt-4 flex items-center gap-3">
+          <span className="text-xs font-medium text-faint">Course {course.order}</span>
+          <DifficultyBadge difficulty={course.difficulty} />
+        </div>
+        <h1
+          className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
+          {course.title}
+        </h1>
+        <p className="mt-3 max-w-2xl text-pretty leading-relaxed text-dim">{course.description}</p>
+        <div className="mt-4 flex flex-wrap gap-1.5">
           {course.tags.map((t) => (
             <Pill key={t}>{t}</Pill>
           ))}
@@ -28,19 +39,22 @@ export default async function CoursePage({ params }: { params: Promise<{ course:
       </div>
 
       {(course.estHours || course.prereqs.length > 0) && (
-        <div className="space-y-2 rounded-lg border border-border bg-panel p-4 text-sm">
+        <div className="glass grid gap-6 rounded-2xl p-6 sm:grid-cols-[auto_1fr] sm:gap-10">
           {course.estHours && (
             <div>
-              <span className="text-dim">⏱ Estimated time: </span>
-              <span className="text-white">{course.estHours}</span>
+              <div className="text-xs font-medium uppercase tracking-wide text-faint">Estimated time</div>
+              <div className="mt-1 font-medium text-ink">{course.estHours}</div>
             </div>
           )}
           {course.prereqs.length > 0 && (
             <div>
-              <span className="text-dim">Prerequisites:</span>
-              <ul className="mt-1 list-disc pl-5 text-dim">
+              <div className="text-xs font-medium uppercase tracking-wide text-faint">Prerequisites</div>
+              <ul className="mt-1.5 space-y-1 text-sm text-dim">
                 {course.prereqs.map((p) => (
-                  <li key={p}>{p}</li>
+                  <li key={p} className="flex gap-2">
+                    <span className="text-teal">▸</span>
+                    <span>{p}</span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -49,22 +63,30 @@ export default async function CoursePage({ params }: { params: Promise<{ course:
       )}
 
       {course.challenges.length > 0 && (
-        <div className="max-w-sm">
+        <div className="max-w-md">
           <ProgressBar value={done} total={course.challenges.length} />
         </div>
       )}
 
       <section>
-        <h2 className="mb-3 text-lg font-semibold text-white">Guide</h2>
-        <div className="grid gap-2">
+        <h2 className="mb-4 text-lg font-semibold text-ink" style={{ fontFamily: 'var(--font-display)' }}>
+          Guide
+        </h2>
+        <div className="grid gap-3">
           {course.modules.map((m) => (
             <Link
               key={m.id}
               href={`/courses/${course.slug}/modules/${m.id}`}
-              className="flex items-center gap-3 rounded-lg border border-border bg-panel px-4 py-3 hover:border-green"
+              className="glass float flex items-center gap-4 rounded-xl px-5 py-3.5"
             >
-              <span className="mono text-sm text-greendim">{String(m.order).padStart(2, '0')}</span>
-              <span className="text-white">{m.title}</span>
+              <span
+                className="grid h-7 w-7 shrink-0 place-items-center rounded-lg text-xs font-semibold"
+                style={{ background: 'rgba(50,108,229,0.1)', color: 'var(--color-accent-ink)' }}
+              >
+                {String(m.order).padStart(2, '0')}
+              </span>
+              <span className="flex-1 font-medium text-ink">{m.title}</span>
+              <span className="text-faint">→</span>
             </Link>
           ))}
           {course.modules.length === 0 && <p className="text-sm text-dim">Modules coming soon.</p>}
@@ -72,23 +94,34 @@ export default async function CoursePage({ params }: { params: Promise<{ course:
       </section>
 
       <section>
-        <h2 className="mb-3 text-lg font-semibold text-white">Challenges</h2>
-        <div className="grid gap-2">
+        <h2 className="mb-4 text-lg font-semibold text-ink" style={{ fontFamily: 'var(--font-display)' }}>
+          Challenges
+        </h2>
+        <div className="grid gap-3">
           {course.challenges.map((ch) => {
             const chSolved = solved[challengeKey(course.id, ch.slug)];
             return (
               <Link
                 key={ch.slug}
                 href={`/courses/${course.slug}/challenges/${ch.slug}`}
-                className="flex items-center gap-3 rounded-lg border border-border bg-panel px-4 py-3 hover:border-green"
+                className="glass float flex items-center gap-4 rounded-xl px-5 py-3.5"
               >
-                <span className={`w-4 text-center ${chSolved ? 'text-green' : 'text-dim'}`}>
-                  {chSolved ? '✓' : '○'}
+                <span
+                  className="grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs"
+                  style={
+                    chSolved
+                      ? { background: 'rgba(15,157,143,0.15)', color: '#0b8277', border: '1px solid rgba(15,157,143,0.4)' }
+                      : { border: '1px solid rgba(18,38,71,0.18)', color: 'transparent' }
+                  }
+                >
+                  {chSolved ? '✓' : ''}
                 </span>
-                <span className="flex-1 text-white">{ch.title}</span>
-                <span className="hidden text-xs text-dim sm:inline">{ch.flagType}</span>
+                <span className="flex-1 font-medium text-ink">{ch.title}</span>
+                <span className="hidden text-xs text-faint sm:inline">
+                  {ch.flagType === 'verifier' ? 'verifier' : 'discovery'}
+                </span>
                 <DifficultyBadge difficulty={ch.difficulty} />
-                <span className="mono text-xs text-greendim">{ch.points}pt</span>
+                <span className="text-xs font-medium text-faint">{ch.points} pts</span>
               </Link>
             );
           })}

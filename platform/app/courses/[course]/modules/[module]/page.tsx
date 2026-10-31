@@ -15,22 +15,34 @@ export default async function ModulePage({
   if (!data) notFound();
 
   return (
-    <article className="space-y-6">
-      <Link href={`/courses/${course}`} className="text-sm text-dim hover:text-green">
+    <article className="space-y-8">
+      <Link href={`/courses/${course}`} className="text-sm text-dim transition-colors hover:text-accent">
         ← {data.course.title}
       </Link>
-      <MarkdownView source={data.content} />
-      <nav className="flex justify-between border-t border-border pt-4 text-sm">
+
+      <div className="glass-strong rounded-2xl px-6 py-8 sm:px-10 sm:py-10">
+        <MarkdownView source={data.content} />
+      </div>
+
+      <nav className="flex flex-col gap-3 sm:flex-row sm:justify-between">
         {data.prev ? (
-          <Link href={`/courses/${course}/modules/${data.prev.id}`} className="text-green hover:underline">
-            ← {data.prev.title}
+          <Link
+            href={`/courses/${course}/modules/${data.prev.id}`}
+            className="glass float rounded-xl px-5 py-3 text-sm"
+          >
+            <span className="block text-xs text-faint">Previous</span>
+            <span className="font-medium text-ink">{data.prev.title}</span>
           </Link>
         ) : (
           <span />
         )}
         {data.next ? (
-          <Link href={`/courses/${course}/modules/${data.next.id}`} className="text-green hover:underline">
-            {data.next.title} →
+          <Link
+            href={`/courses/${course}/modules/${data.next.id}`}
+            className="glass float rounded-xl px-5 py-3 text-right text-sm"
+          >
+            <span className="block text-xs text-faint">Next</span>
+            <span className="font-medium text-ink">{data.next.title}</span>
           </Link>
         ) : (
           <span />
