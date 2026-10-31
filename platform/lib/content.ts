@@ -41,6 +41,8 @@ export type Course = {
   title: string;
   order: number;
   difficulty: string;
+  estHours: string;
+  prereqs: string[];
   description: string;
   tags: string[];
   status: string;
@@ -145,6 +147,8 @@ export function listCourses(): Course[] {
       title: (meta.title as string) ?? entry.name,
       order: (meta.order as number) ?? 999,
       difficulty: (meta.difficulty as string) ?? '',
+      estHours: (meta.estHours as string) ?? '',
+      prereqs: (meta.prereqs as string[]) ?? [],
       description: (meta.description as string) ?? '',
       tags: (meta.tags as string[]) ?? [],
       status: (meta.status as string) ?? 'available',

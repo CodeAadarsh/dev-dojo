@@ -27,6 +27,27 @@ export default async function CoursePage({ params }: { params: Promise<{ course:
         </div>
       </div>
 
+      {(course.estHours || course.prereqs.length > 0) && (
+        <div className="space-y-2 rounded-lg border border-border bg-panel p-4 text-sm">
+          {course.estHours && (
+            <div>
+              <span className="text-dim">⏱ Estimated time: </span>
+              <span className="text-white">{course.estHours}</span>
+            </div>
+          )}
+          {course.prereqs.length > 0 && (
+            <div>
+              <span className="text-dim">Prerequisites:</span>
+              <ul className="mt-1 list-disc pl-5 text-dim">
+                {course.prereqs.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
       {course.challenges.length > 0 && (
         <div className="max-w-sm">
           <ProgressBar value={done} total={course.challenges.length} />

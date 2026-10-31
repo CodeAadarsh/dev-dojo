@@ -56,6 +56,7 @@ export default function Home() {
               {total > 0 && <ProgressBar value={done} total={total} />}
               <div className="mt-3 text-xs text-dim">
                 {c.modules.length} modules · {total} challenges
+                {c.estHours ? ` · ⏱ ${c.estHours}` : ''}
               </div>
             </Link>
           );
