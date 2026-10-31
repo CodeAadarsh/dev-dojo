@@ -1,0 +1,16 @@
+# node / next (platform has its own .gitignore too)
+node_modules
+.next
+.data
+
+# os
+.DS_Store
+*.log
+
+# local kube artifacts
+*.kubeconfig
+
+# each course under courses/ is its OWN git repo (see README) — the root repo
+# tracks the platform, labs, and docs only, not course content
+/courses/
+
