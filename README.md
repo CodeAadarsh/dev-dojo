@@ -4,17 +4,37 @@ An HTB-style, **local-first** learning platform for production Docker, Kubernete
 & ArgoCD. Browse courses in a web UI, read the guide, then do the real work in
 **your own terminal** against a disposable `kind` cluster, and capture flags.
 
+What began as a Kubernetes dojo is now a general engineering dojo — the platform
+is a pure content reader, so courses span K8s, backend, and AI. See
+**[ROADMAP.md](./ROADMAP.md)** for what's shipped and what's planned.
+
 ```
 kube-dojo/
-├── platform/        the web app (Next.js) — the "HTB UI": courses, guides, flag submission, progress
-├── labs/bootstrap/  scripts to install kind, create the cluster, install ArgoCD/ingress
-├── courses/         each course is its own self-contained repo of content + challenges
-│   ├── course-01-ops-security/     Kubernetes Ops + Security  (balanced)   ← start here
-│   ├── course-02-sre-production/    Production SRE
-│   ├── course-03-security-ctf/      Attack & Defend (CTF)
-│   └── course-04-cert-cka-ckad-cks/ Cert Prep: CKA · CKAD · CKS
-└── CONTENT_SPEC.md  the contract for authoring courses/challenges
+├── platform/        the web app (Next.js) — courses, guides, flag submission, progress
+├── labs/bootstrap/  scripts: kind, ArgoCD, ingress, metrics-server, monitoring, local registry
+├── courses/         each course is its own self-contained content repo
+└── CONTENT_SPEC.md  the authoring contract   ·   ROADMAP.md  the course plan
 ```
+
+### Courses (12 live)
+
+| # | Course | Focus | Verifier |
+|---|--------|-------|----------|
+| 01 | Kubernetes Ops + Security ← **start here** | balanced ops + attack/defend | kind |
+| 02 | Production SRE | reliability, autoscaling, SLOs | kind |
+| 03 | Attack & Defend (CTF) | K8s offense → hardening | kind |
+| 04 | Cert Prep: CKA · CKAD · CKS | timed exam drills | kind |
+| 05 | Internals, Cluster & Repo Mgmt | control plane, etcd, registries | kind |
+| 06 | Observability (LGTM) | Prometheus/Loki/Grafana/Tempo | kind |
+| 07 | Networking & Service Mesh | CNI, Gateway API, Istio, mTLS | kind |
+| 08 | Stateful Workloads & Data | StatefulSets, storage, backups | kind |
+| 09 | Platform Engineering & DevEx | Helm, operators, policy, tenancy | kind |
+| 10 | Backend Engineering (SDE 1→3) | APIs, data, caching, system design | local + kind |
+| 11 | Generative AI: RAG & Applied AI | LLMs, embeddings, RAG, agents | local + kind |
+| 12 | Python Flask in Production | app factory → deploy | local + kind |
+
+More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
+[ROADMAP.md](./ROADMAP.md).
 
 ## Prerequisites
 
