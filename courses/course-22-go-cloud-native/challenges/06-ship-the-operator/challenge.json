@@ -1,0 +1,11 @@
+{
+  "slug": "06-ship-the-operator",
+  "title": "Ship the Operator",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 35,
+  "estMinutes": 40,
+  "tags": ["go", "operator", "kubernetes", "deploy"],
+  "objective": "Build a minimal Widget operator image, load it into the dojo kind cluster, apply CRD + RBAC + manager Deployment, and prove the CRD is Established and the controller is running."
+}

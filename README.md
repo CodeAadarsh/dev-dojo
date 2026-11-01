@@ -18,7 +18,7 @@ dev-dojo/
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (21 live)
+### Courses (23 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -43,6 +43,8 @@ dev-dojo/
 | 19 | Redis: Internals & Practice | encodings, persistence, cluster, patterns | local (Docker) |
 | 20 | Database Engineering (Complete) | storage engines → Raft, vendor-agnostic | local + Docker |
 | 21 | Data Science with Python | NumPy → ML, leakage-aware, pytest-judged | local |
+| 22 | Go for Cloud-Native | Go → build & deploy an operator | local + kind |
+| 23 | Terraform & IaC | HCL, state/drift, modules (cloud-free) | local |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

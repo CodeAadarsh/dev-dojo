@@ -1,0 +1,11 @@
+{
+  "slug": "05-detect-the-drift",
+  "title": "Detect and Fix Configuration Drift",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": ["terraform", "state", "drift"],
+  "objective": "Understand configuration drift: apply a managed file, mutate it out-of-band, observe terraform plan's exit code 2, then restore the managed content with a follow-up apply."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "course-23-terraform-iac",
+  "slug": "terraform-iac",
+  "title": "Terraform & Infrastructure as Code",
+  "order": 23,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "14–20 h",
+  "prereqs": ["Terraform CLI (1.5+)", "Basic command-line comfort", "Internet once (to download providers)"],
+  "tags": ["terraform", "iac", "hcl", "state", "modules", "devops"],
+  "description": "Infrastructure as Code with Terraform, hands-on and cloud-free: HCL syntax, providers & resources, variables/outputs/locals, the state file (drift, locking, remote state), modules & composition, count/for_each, and the plan → apply → destroy workflow with CI. Every challenge runs real `terraform` against local-only providers (local/random/null) — no cloud account or credentials required."
+}

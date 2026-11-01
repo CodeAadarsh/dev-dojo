@@ -1,0 +1,11 @@
+{
+  "slug": "02-variables-and-outputs",
+  "title": "Variables and Outputs",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["terraform", "variables", "outputs"],
+  "objective": "Parameterize a local_file resource with typed input variables (including a validation rule) and expose the resulting file path as a Terraform output."
+}

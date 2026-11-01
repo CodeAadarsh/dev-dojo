@@ -1,0 +1,11 @@
+{
+  "slug": "01-first-resource",
+  "title": "Your First Resource",
+  "order": 1,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 15,
+  "estMinutes": 20,
+  "tags": ["terraform", "hcl", "local-provider"],
+  "objective": "Write your first Terraform configuration: declare a local_file resource, run apply, and watch the file appear on disk."
+}

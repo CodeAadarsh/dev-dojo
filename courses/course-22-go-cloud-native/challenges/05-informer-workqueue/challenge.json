@@ -1,0 +1,11 @@
+{
+  "slug": "05-informer-workqueue",
+  "title": "Informer + Workqueue",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["go", "client-go", "informers"],
+  "objective": "Wire a rate-limited workqueue to an informer's event handlers so each unique object key is deduplicated and drained by a process loop — without a live cluster."
+}

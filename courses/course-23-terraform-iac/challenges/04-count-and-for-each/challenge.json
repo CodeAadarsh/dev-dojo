@@ -1,0 +1,11 @@
+{
+  "slug": "04-count-and-for-each",
+  "title": "Iterate With for_each",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["terraform", "for_each", "iteration"],
+  "objective": "Use for_each over a map to create one local_file per key, with per-key templated content — all three service manifests must appear with the correct body."
+}

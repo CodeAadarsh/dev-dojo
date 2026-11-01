@@ -1,0 +1,5 @@
+[
+  "The `New` function must return a `*Controller` with `c.queue` initialised to `workqueue.NewRateLimitingQueue(workqueue.DefaultControllerRateLimiter())`. As long as `New` returns `nil`, every other method call will panic — start here.",
+  "`Enqueue` must call `cache.MetaNamespaceKeyFunc(obj)` from `\"k8s.io/client-go/tools/cache\"` to get a `\"namespace/name\"` string, then `c.queue.Add(key)`. The workqueue's dedup guarantee only applies to string keys added via `Add` — if you pass the raw object, the queue cannot detect duplicates.",
+  "`ProcessNext` follows the pattern: `item, quit := c.queue.Get()` — if `quit` is true, return `false`. Otherwise `defer c.queue.Done(item)`, type-assert `item.(string)` to get the key, call `c.handler(key)`, return `true`. The `defer Done` is critical: forgetting it permanently stalls re-queuing of that key after the first processing."
+]

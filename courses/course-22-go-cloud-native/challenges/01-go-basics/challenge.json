@@ -1,0 +1,11 @@
+{
+  "slug": "01-go-basics",
+  "title": "Go Fundamentals: WordFreq + Generics",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["go", "fundamentals"],
+  "objective": "Implement a word-frequency counter and two generic higher-order functions (Map, Filter) that pass a hidden go-test harness including edge cases."
+}

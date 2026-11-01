@@ -1,0 +1,11 @@
+{
+  "slug": "03-write-a-module",
+  "title": "Write a Reusable Module",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["terraform", "modules"],
+  "objective": "Refactor a local_file configuration into a reusable child module, call it from the root with explicit inputs, and wire the module's output back to a root output."
+}

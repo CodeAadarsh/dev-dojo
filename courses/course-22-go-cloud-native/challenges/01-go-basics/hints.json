@@ -1,0 +1,5 @@
+[
+  "For WordFreq, `strings.Fields(s)` splits on any whitespace run and returns an empty slice for empty input — no manual trimming needed. Pipe each token through `strings.ToLower` before incrementing the map counter.",
+  "For Map, allocate the output with `make([]U, len(in))` and assign by index (`out[i] = f(v)`) — this avoids the nil-slice vs empty-slice distinction automatically, because `make` always returns a non-nil slice even for length 0.",
+  "For Filter, use `make([]T, 0, len(in))` and `append`. The `0` length ensures an empty result is `[]T{}` (non-nil, len 0), not nil — callers that JSON-encode the result get `[]` not `null`."
+]

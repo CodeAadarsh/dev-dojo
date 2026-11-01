@@ -1,0 +1,5 @@
+[
+  "The `local_file` resource takes two required arguments: `filename` (absolute path where the file should be created) and `content` (the string to write). Run `terraform providers schema -json` or search the Terraform registry for `hashicorp/local` to see the full argument list.",
+  "Use `\"${path.module}/output/hello.txt\"` as the filename. `path.module` is a built-in Terraform expression that always resolves to the directory containing your `.tf` file — this makes the path absolute and stable regardless of where you invoke terraform from.",
+  "HCL double-quoted strings interpret `\\n` as a real newline character, just like Go or C. Set `content = \"Hello, Terraform!\\n\"` to get the file body with a trailing newline. Run `terraform validate` after editing to catch syntax errors before apply."
+]

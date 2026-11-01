@@ -1,0 +1,12 @@
+{
+  "id": "course-22-go-cloud-native",
+  "slug": "go-cloud-native",
+  "title": "Go for Cloud-Native",
+  "order": 22,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "20–28 h",
+  "prereqs": ["Some programming experience", "Go toolchain (1.22+)", "Docker + kind for the operator deploy challenge", "Courses 1 & 9 help for the operator parts"],
+  "tags": ["go", "golang", "operators", "kubebuilder", "controller-runtime", "concurrency"],
+  "description": "Go as the language of the cloud-native world: types/slices/maps/interfaces, goroutines & channels & the concurrency model, errors, modules & tooling — then the Kubernetes client-go / controller-runtime stack, culminating in building, testing and deploying your own CRD + controller (operator) with kubebuilder. Each step is go-test-judged; the finale deploys to a kind cluster."
+}

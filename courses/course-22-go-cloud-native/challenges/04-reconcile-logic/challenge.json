@@ -1,0 +1,11 @@
+{
+  "slug": "04-reconcile-logic",
+  "title": "Reconcile Logic",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["go", "controller-runtime", "reconcile"],
+  "objective": "Implement a pure reconcile function that uses a fake controller-runtime client to ensure a Deployment exists for each Widget CR with the correct replica count, idempotently."
+}

@@ -1,0 +1,5 @@
+[
+  "Use `fmt.Errorf(\"...: %w\", ErrNotFound)` — the `%w` verb wraps the error into the chain so `errors.Is` can unwrap it. Using `%v` embeds only the string and breaks `errors.Is` completely.",
+  "For `NewMemoryStore`, return a pointer to a private struct (`*memoryStore`). All three interface methods need pointer receivers because `Set` and `Delete` mutate the map. If any method has a pointer receiver, only `*T` (not `T`) satisfies the interface.",
+  "For `NewPrefixStore`, the struct holds the prefix string and an `inner Store`. Each method prepends the prefix before delegating: `p.inner.Set(p.prefix+key, value)`. The error returned by `inner.Get` already wraps `ErrNotFound` correctly — do not re-wrap it."
+]

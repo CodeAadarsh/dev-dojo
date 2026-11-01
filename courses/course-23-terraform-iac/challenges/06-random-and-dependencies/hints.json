@@ -1,0 +1,5 @@
+[
+  "Inside a resource block, `random_pet.app_name.id` and `random_id.build_id.hex` are the attributes that hold the generated values. Interpolate them directly into the `content` string: `\"app_name = ${random_pet.app_name.id}\\nbuild_id = ${random_id.build_id.hex}\\n\"`. This also creates the implicit dependency so Terraform creates the random resources first.",
+  "The `null_resource` triggers map must reference `local_file.deploy_manifest.content` so Terraform re-creates the null_resource whenever the manifest changes. Replace the `always_run = \"FIXME\"` entry with `manifest_hash = local_file.deploy_manifest.content`. This expression also creates an implicit graph edge — but add `depends_on = [local_file.deploy_manifest]` anyway for explicit ordering.",
+  "The verifier checks for `FIXME` strings in main.tf and fails if any remain — all three stubs must be filled. It also cross-checks that the `app_name` and `build_id` output values appear verbatim inside `deploy-manifest.txt`, confirming the interpolation resolved before the file was written."
+]

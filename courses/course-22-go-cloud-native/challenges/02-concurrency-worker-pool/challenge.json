@@ -1,0 +1,11 @@
+{
+  "slug": "02-concurrency-worker-pool",
+  "title": "Bounded Worker Pool",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["go", "concurrency"],
+  "objective": "Implement a bounded goroutine worker pool that is provably race-free under go test -race, processes every job exactly once, and closes the results channel on completion."
+}

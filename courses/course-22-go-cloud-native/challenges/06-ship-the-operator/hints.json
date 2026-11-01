@@ -1,0 +1,5 @@
+[
+  "The most common first failure: `ErrImagePull` on the manager pod. This means the image was built on your host but never loaded into the kind node's image store. Run `kind load docker-image widget-controller:dev --name dojo`, then confirm with `docker exec dojo-control-plane crictl images | grep widget-controller`.",
+  "If the CRD is not Established after applying, the operator will crash-loop on startup because `ctrl.NewControllerManagedBy` can't register a watch for a GVK the API server doesn't know. Always `kubectl wait --for=condition=Established crd/widgets.dojo.dev --timeout=30s` before deploying the manager Deployment.",
+  "If the controller pod is in `Running` state but logs show `Forbidden` on every reconcile, the ClusterRoleBinding was not applied before the Deployment. Apply `kubectl apply -f config/rbac/` and then delete and recreate the pod (`kubectl -n dojo-operator rollout restart deployment/widget-controller-manager`) so it picks up the now-valid RBAC."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "03-interfaces-and-errors",
+  "title": "Interfaces and Sentinel Errors",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["go", "interfaces", "errors"],
+  "objective": "Implement a Store interface with MemoryStore and PrefixStore backends, and ensure errors.Is(err, ErrNotFound) works correctly through wrapping."
+}

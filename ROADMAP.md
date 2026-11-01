@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**21 courses live · 137 modules · 150 challenges — all complete.**
+**23 courses live · 151 modules · 162 challenges — all complete.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -39,6 +39,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 19 | Redis: Internals & Practice | 7 | 6 | ✅ |
 | 20 | Database Engineering (Complete) | 7 | 6 | ✅ |
 | 21 | Data Science with Python | 7 | 6 | ✅ |
+| 22 | Go for Cloud-Native | 7 | 6 | ✅ |
+| 23 | Terraform & IaC | 7 | 6 | ✅ |
 
 ---
 

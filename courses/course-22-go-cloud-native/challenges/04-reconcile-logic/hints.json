@@ -1,0 +1,5 @@
+[
+  "Start with `c.Get(ctx, types.NamespacedName{Name: widget.Name, Namespace: widget.Namespace}, deploy)`. The result tells you whether the Deployment already exists. Use `apierrors.IsNotFound(err)` — not a raw `err != nil` check — to branch into create vs. update.",
+  "To create: build an `*appsv1.Deployment` with `ObjectMeta.Name/Namespace` matching the Widget, `Spec.Replicas` pointing to a local copy of `widget.Spec.Replicas` (copy to a local `int32` first — you need `&localVar`, not `&widget.Spec.Replicas`), and a matching `Selector` + `Template.Labels` on `\"app\": widget.Name`.",
+  "For idempotency: after a successful `c.Get`, compare `*deploy.Spec.Replicas != widget.Spec.Replicas`. Only call `c.Update` when they differ — returning `nil` immediately when already at desired state is what makes the second reconcile a no-op and keeps the hidden test green."
+]

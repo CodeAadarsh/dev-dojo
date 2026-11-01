@@ -1,0 +1,5 @@
+[
+  "Channels are concurrency-safe to receive from: multiple goroutines can all `for job := range jobs` on the same channel and the runtime ensures each job goes to exactly one receiver. No mutex needed around the receive. Your only job is to start exactly n of those goroutines.",
+  "Use `sync.WaitGroup`: call `wg.Add(n)` BEFORE the loop that spawns goroutines, then `defer wg.Done()` inside each goroutine. After the loop, `wg.Wait()` blocks until all n goroutines have returned from their `range jobs` loop.",
+  "Close `results` AFTER `wg.Wait()`, in the same goroutine that called `wg.Wait()`. Closing inside a worker goroutine panics (another worker may still be writing); closing before `wg.Wait()` is a race. The safe sequence is: spawn workers → wait → close."
+]

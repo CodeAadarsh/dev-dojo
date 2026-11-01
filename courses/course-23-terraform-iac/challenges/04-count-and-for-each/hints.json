@@ -1,0 +1,5 @@
+[
+  "A `for_each` resource exposes two magic variables inside its block: `each.key` (the map key) and `each.value` (the map value). Set `for_each = local.services` and build `filename` and `content` from those two — no loops, no `count.index`.",
+  "The `filename` must be `\"${path.module}/output/${each.key}.txt\"` — the `path.module` prefix keeps it relative to the module directory, and `each.key` gives you the per-service name. `content` needs both `each.key` and `each.value` to pass the line-by-line check.",
+  "The verifier checks the literal strings `Service: auth-service` and `Description: Handles authentication and token issuance` inside `output/auth-service.txt`. Your content template must interpolate exactly: `\"Service: ${each.key}\\nDescription: ${each.value}\\n\"`."
+]

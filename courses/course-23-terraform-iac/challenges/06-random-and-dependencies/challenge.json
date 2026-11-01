@@ -1,0 +1,11 @@
+{
+  "slug": "06-random-and-dependencies",
+  "title": "Random Values and Explicit Dependencies",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["terraform", "random", "null", "depends_on"],
+  "objective": "Use random_pet and random_id to generate stable values, write them into a local_file, and wire a null_resource trigger + depends_on to enforce correct apply ordering."
+}

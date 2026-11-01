@@ -1,0 +1,5 @@
+[
+  "Drift detection uses `terraform plan -detailed-exitcode`. The exit codes are: 0 = no changes, 1 = error, 2 = changes pending. A return code of 2 after you mutate the file out-of-band is the signal that drift was detected. The resource in main.tf is already correct — just run the verify sequence.",
+  "The verifier mutates `app-config.txt` itself and then checks that `terraform plan -detailed-exitcode` exits with code 2. If you see exit code 0, Terraform thinks nothing changed — which means either the resource isn't tracking the file, or the file content in your resource matches what was written to disk.",
+  "After detecting drift (exit code 2), `terraform apply -auto-approve` restores the managed content. The verifier then `grep`s for `environment = production` in `app-config.txt`. Your `content` block must include that exact string — the `<<-EOT` heredoc in main.tf strips leading tabs, so `environment = production` lands as-is with a leading space (four spaces after strip). The grep checks for the string anywhere in the file, so it will match."
+]

@@ -1,0 +1,5 @@
+[
+  "A Terraform module is just a directory with `.tf` files. The root `main.tf` calls it with `module \"filemaker\" { source = \"./modules/filemaker\"; ... }`. After adding a module block, run `terraform init` again — Terraform records the module path in `.terraform/modules/modules.json` and will refuse to plan without it.",
+  "The module must declare `variable` blocks for every input the root passes. A variable with no `default` is required — the caller must supply it. Inside the module, reference inputs with `var.<name>`. The `local_file` resource filename should be `\"${var.output_dir}/message.txt\"` — the module receives the directory, constructs the full path itself.",
+  "Wire the outputs explicitly at each layer. Inside the module: `output \"file_path\" { value = local_file.out.filename }`. In the root: `output \"created_path\" { value = module.filemaker.file_path }`. The reference `module.<label>.<output_name>` works only after `terraform apply` has populated the module's outputs into state."
+]
