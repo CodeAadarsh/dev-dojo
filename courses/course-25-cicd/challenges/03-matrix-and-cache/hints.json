@@ -1,0 +1,5 @@
+[
+  "The matrix lives inside a job, not at the top level. The structure is: `jobs:\\n  ci:\\n    strategy:\\n      matrix:\\n        python-version: [\"3.11\", \"3.12\"]`. Reference the current version in setup steps with `${{ matrix.python-version }}`.",
+  "The easiest cache opt-in is a single line in the `actions/setup-python@v5` block: add `cache: 'pip'` under `with:`. This automatically caches `~/.cache/pip` and uses a cache key that includes the Python version and a hash of your requirements files — no separate `actions/cache` step needed.",
+  "The verifier checks `strategy.matrix` for at least one key with a list of 2+ values, AND checks for either `actions/cache` in `uses:` or a `setup-python` step with `with.cache` set to any truthy value. Both the `cache: 'pip'` shorthand and a standalone `actions/cache@v4` step pass."
+]

@@ -1,0 +1,12 @@
+{
+  "id": "course-24-mlops",
+  "slug": "mlops",
+  "title": "MLOps",
+  "order": 24,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "20–28 h",
+  "prereqs": ["Python + ML basics (Course 21 helps)", "pip install scikit-learn fastapi httpx pytest", "Docker + kind for the serving challenge"],
+  "tags": ["mlops", "ml-serving", "pipelines", "drift", "model-registry", "kserve"],
+  "description": "Operationalize machine learning: reproducible training, leakage-free data & feature pipelines & feature stores, experiment tracking & a model registry, model serving (REST/gRPC, batching, KServe/BentoML), CI/CD for ML & retraining, and production monitoring (data/concept drift via PSI/KS, performance decay) — each a runnable, pytest-judged exercise, with a finale that serves a model on Kubernetes."
+}

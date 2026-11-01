@@ -1,0 +1,11 @@
+{
+  "slug": "04-serve-a-model",
+  "title": "Serve a Model",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["mlops", "serving", "fastapi"],
+  "objective": "Implement a /predict endpoint that validates input with Pydantic, loads the model artifact exactly once at startup, and returns the correct predictions on known inputs."
+}

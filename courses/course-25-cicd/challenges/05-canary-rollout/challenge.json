@@ -1,0 +1,11 @@
+{
+  "slug": "05-canary-rollout",
+  "title": "Canary Rollout: Traffic Split by Replica Ratio",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 35,
+  "tags": ["cicd", "progressive-delivery", "kubernetes"],
+  "objective": "Add a canary Deployment for v1.1 alongside the stable v1.0 Deployment already running in dojo-cicd, using a shared Service selector so replica count controls the traffic split — the foundational pattern for progressive delivery without a service mesh."
+}

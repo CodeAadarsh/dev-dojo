@@ -1,0 +1,5 @@
+[
+  "The `lifespan` context manager is the right place to load the model — code before the `yield` runs once at startup. Call `model_state.load(MODEL_PATH)` there, not inside the endpoint function.",
+  "Pydantic `@field_validator` is the cleanest way to enforce the 4-element constraint — it runs before the endpoint body and makes FastAPI return 422 automatically. A manual `if len(...) != 4: raise HTTPException(422, ...)` inside the endpoint also passes the harness.",
+  "sklearn's `predict()` returns a numpy array. `int(_model.predict([features])[0])` converts the numpy int64 to a plain Python int so Pydantic can serialize it. Missing this conversion raises a `TypeError` at response serialization time, not at prediction time — easy to miss in local tests if you never inspect the actual JSON response."
+]

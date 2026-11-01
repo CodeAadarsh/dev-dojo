@@ -1,0 +1,11 @@
+{
+  "slug": "03-matrix-and-cache",
+  "title": "Matrix Builds and Dependency Cache",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["cicd", "github-actions", "matrix"],
+  "objective": "Author a GitHub Actions workflow with a build matrix covering at least two versions and a dependency cache step, so regressions are caught per-version without paying full install time on every run."
+}

@@ -1,0 +1,5 @@
+[
+  "kind nodes do not share your host's Docker daemon. An image built with `docker build` is invisible to kind pods until you run `kind load docker-image <image> --name dojo`. After loading, set `imagePullPolicy: IfNotPresent` in the Deployment — otherwise kubelet tries a registry pull and fails with ErrImagePull.",
+  "The readinessProbe must be `httpGet.path: /healthz` on port 8080. The server's `/healthz` endpoint returns 200 only after the model has loaded — so the probe gates traffic until the model is ready. Without `initialDelaySeconds: 5`, Kubernetes probes before uvicorn has bound the port and the pod immediately restarts.",
+  "The verify.sh checks six things via `-o jsonpath`: namespace exists, Deployment exists, `readyReplicas >= 1`, `spec.template.spec.containers[0].image == dojo-model-server:v1`, `readinessProbe.httpGet.path == /healthz`, and `imagePullPolicy == IfNotPresent`. Confirm each with `kubectl -n dojo-mlops get deployment model-server -o jsonpath='{...}'` before running the verifier."
+]

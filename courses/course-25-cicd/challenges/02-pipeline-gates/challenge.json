@@ -1,0 +1,11 @@
+{
+  "slug": "02-pipeline-gates",
+  "title": "Pipeline Gates",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["cicd", "gates", "make"],
+  "objective": "Fix a broken Makefile gate that silently swallows test failures, add a 'ci' target chaining lint->test->build, and fix the underlying bug so make ci exits 0."
+}

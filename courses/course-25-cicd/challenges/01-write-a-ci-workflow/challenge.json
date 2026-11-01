@@ -1,0 +1,11 @@
+{
+  "slug": "01-write-a-ci-workflow",
+  "title": "Write a CI Workflow",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["cicd", "github-actions"],
+  "objective": "Author a GitHub Actions workflow that triggers on push and pull_request, with a single job containing checkout, setup, lint, and test steps."
+}

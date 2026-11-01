@@ -1,0 +1,5 @@
+[
+  "There are two separate bugs: a feature-column bug and a split-order bug. The feature bug: LEAKY_COLS contains columns derived from the target — drop them from X before anything else. The split-order bug: StandardScaler must be fitted after train_test_split, not before.",
+  "The correct sequence is: drop(LEAKY_COLS + ['target']) → train_test_split → scaler.fit(X_train) → scaler.transform(X_train) and scaler.transform(X_test). Calling scaler.fit_transform(X) before the split bakes test-set statistics into the scaler.",
+  "The verifier computes the expected scaler.mean_ independently: it drops LEAKY_COLS, splits with the same SEED, and calls X_tr_raw.mean(axis=0). Your scaler.mean_ must match this to 1e-6 tolerance. If it matches the full-dataset mean instead, the split happened after the fit."
+]

@@ -1,0 +1,5 @@
+[
+  "There are two valid approaches: PSI (Population Stability Index) sums a log-ratio term per bin per feature; KS (Kolmogorov-Smirnov) takes the max statistic across `scipy.stats.ks_2samp` per feature. PSI uses threshold=0.2; KS uses threshold=0.1.",
+  "For PSI: bin each feature with `np.histogram(reference[:, i], bins=10)` to get the edges, then apply the same edges to the current sample. Compute `p_ref` and `p_cur` as per-bin proportions (divide by total sample size). Replace zeros with a small epsilon (1e-4) before taking `log` — otherwise you get `nan`.",
+  "The final PSI score is `sum((p_cur - p_ref) * log(p_cur / p_ref))` across all bins of all features. For KS the score is `max(ks_2samp(ref[:, i], cur[:, i]).statistic for i in range(4))`. Return `{'score': float(score), 'drift': score >= threshold}`."
+]

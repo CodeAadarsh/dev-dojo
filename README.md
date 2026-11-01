@@ -18,7 +18,7 @@ dev-dojo/
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (23 live)
+### Courses (25 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -45,6 +45,8 @@ dev-dojo/
 | 21 | Data Science with Python | NumPy → ML, leakage-aware, pytest-judged | local |
 | 22 | Go for Cloud-Native | Go → build & deploy an operator | local + kind |
 | 23 | Terraform & IaC | HCL, state/drift, modules (cloud-free) | local |
+| 24 | MLOps | train → serve → monitor → deploy, pytest-judged | local + kind |
+| 25 | CI/CD Pipelines | GitHub Actions, gates, progressive delivery | local + kind |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

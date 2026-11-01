@@ -1,0 +1,11 @@
+{
+  "slug": "06-gitops-handoff",
+  "title": "GitOps Handoff: CI Builds, CD Syncs",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 30,
+  "tags": ["cicd", "gitops", "argocd"],
+  "objective": "Model the CI/CD boundary: create an ArgoCD Application with automated sync that deploys a Git path to dojo-cicd-gitops, representing the handoff where CI ends (image tagged, manifest updated) and CD takes over (cluster converges to Git)."
+}

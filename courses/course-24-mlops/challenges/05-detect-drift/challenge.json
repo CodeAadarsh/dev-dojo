@@ -1,0 +1,11 @@
+{
+  "slug": "05-detect-drift",
+  "title": "Detect Drift",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["mlops", "drift", "monitoring"],
+  "objective": "Implement a drift detector using Population Stability Index (PSI) or the Kolmogorov-Smirnov statistic that correctly flags distribution shift in production feature data."
+}

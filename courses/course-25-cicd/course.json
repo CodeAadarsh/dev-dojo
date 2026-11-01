@@ -1,0 +1,12 @@
+{
+  "id": "course-25-cicd",
+  "slug": "cicd",
+  "title": "CI/CD Pipelines",
+  "order": 25,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "14–20 h",
+  "prereqs": ["Git + command-line comfort", "python3 + pyyaml for the config challenges", "Docker + kind for the build/deploy challenges"],
+  "tags": ["cicd", "github-actions", "pipelines", "progressive-delivery", "gitops", "supply-chain"],
+  "description": "Build delivery pipelines that are fast, safe and secure: GitHub Actions (workflows, jobs, matrix, caching, secrets, OIDC), build/test/lint gates & coverage, container build + scan (trivy) + sign (cosign/SBOM), deployment strategies (blue-green, canary, progressive), GitOps handoff to Argo CD, and pipeline supply-chain security (pinned actions, least privilege). Challenges author real pipeline config and run real gates."
+}

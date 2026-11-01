@@ -1,0 +1,11 @@
+{
+  "slug": "04-dockerize-multistage",
+  "title": "Dockerize Multi-Stage: Build Slim, Run Non-Root",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["cicd", "docker", "build"],
+  "objective": "Write a multi-stage Dockerfile for a Go HTTP server — compile in a full SDK stage, copy only the binary into a minimal Alpine runtime stage, and enforce a non-root user — reducing image size by ~98% and zeroing out SDK-layer CVEs."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "01-reproducible-training",
+  "title": "Reproducible Training",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["mlops", "reproducibility"],
+  "objective": "Implement train() to be fully reproducible — identical predictions on every run — while meeting the accuracy threshold and saving a model artifact."
+}

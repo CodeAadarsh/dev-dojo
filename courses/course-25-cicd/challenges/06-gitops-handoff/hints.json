@@ -1,0 +1,5 @@
+[
+  "An ArgoCD Application has three required sections: spec.source (repoURL + path + targetRevision), spec.destination (server + namespace), and spec.syncPolicy. The Application resource itself must live in the 'argocd' namespace, applied with: kubectl apply -f application.yaml -n argocd.",
+  "Automated sync requires 'spec.syncPolicy.automated' to be present (not just spec.syncPolicy). Setting 'automated: {}' enables it with defaults. Without this key, ArgoCD detects drift but never acts on it — the verifier specifically checks for this field.",
+  "The destination namespace must be 'dojo-cicd-gitops'. Use the public guestbook repo for a zero-config source: repoURL: https://github.com/argoproj/argocd-example-apps.git, path: guestbook. Add syncOptions: [CreateNamespace=true] so ArgoCD creates the namespace if needed. After applying, watch convergence: kubectl -n argocd get application dojo-gitops-handoff -w"
+]

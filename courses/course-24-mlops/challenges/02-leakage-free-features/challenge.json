@@ -1,0 +1,11 @@
+{
+  "slug": "02-leakage-free-features",
+  "title": "Leakage-Free Feature Pipeline",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["mlops", "features", "leakage"],
+  "objective": "Rebuild a leaky feature pipeline so transforms are fit on train data only and no target-derived features reach the model."
+}

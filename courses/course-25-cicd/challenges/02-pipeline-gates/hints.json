@@ -1,0 +1,5 @@
+[
+  "Start by running `pytest tests/ -v` directly (without make). The test output tells you exactly what is wrong with app.py. A function is returning the wrong value for its operation.",
+  "The broken gate is `|| true` at the end of the `test:` recipe. Remove it. GNU Make stops a recipe on a non-zero exit by default — you do not need any other change to make it gate correctly. Then add a `ci:` rule whose prerequisites are `lint test build` (no recipe body needed; Make runs each prereq in order and stops on the first failure).",
+  "The bug in app.py is a subtraction where there should be an addition. The test `test_add` asserts `add(2, 3) == 5.0`; the current implementation returns `-1.0`. Once fixed, `make ci` should run lint → test (all green) → build and exit 0."
+]

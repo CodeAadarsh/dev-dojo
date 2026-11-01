@@ -1,0 +1,11 @@
+{
+  "slug": "06-deploy-model-to-kind",
+  "title": "Deploy Model to kind",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 60,
+  "tags": ["mlops", "serving", "kubernetes", "deploy"],
+  "objective": "Build a model-serving container, load it into the dojo cluster, and deploy it as a Kubernetes Deployment + Service in the dojo-mlops namespace with a /healthz readinessProbe."
+}

@@ -1,0 +1,5 @@
+[
+  "Each version needs its own directory under root/<name>/<version>/. Store the artifact as model.pkl (pickle.dump) and the metadata as metadata.json (json.dumps). Check if the version dir already exists in register() and raise ValueError if it does.",
+  "promote() needs to persist the alias → version mapping so a fresh ModelRegistry instance can resolve it. A simple approach: write root/<name>/aliases.json as {\"production\": \"2\", ...}. load() reads that file first, resolves the alias to a version string, then loads the corresponding model.pkl.",
+  "list_versions() iterates sorted(Path(root/name).iterdir()), skips non-directories, reads each version's metadata.json, and returns [{\"version\": dir.name, \"metadata\": {...}}, ...]. The test creates a fresh ModelRegistry(same_dir) after registering — all state must come from disk, not instance variables."
+]

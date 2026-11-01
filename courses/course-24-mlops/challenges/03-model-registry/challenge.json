@@ -1,0 +1,11 @@
+{
+  "slug": "03-model-registry",
+  "title": "Model Registry",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["mlops", "registry", "versioning"],
+  "objective": "Implement a file-backed model registry with register, list, promote, and load operations so versioned models and production aliases survive process restarts."
+}

@@ -1,0 +1,5 @@
+[
+  "In YAML, `on:` is the event trigger key. A minimal two-trigger block is `on:\\n  push:\\n  pull_request:` — both as sub-keys with no value (GitHub Actions treats a bare trigger as 'all branches'). PyYAML parses `on` as a boolean `True` internally, but your YAML file just needs the literal text `on:`.",
+  "Every Actions workflow needs `jobs:` at the top level, then a named job (e.g. `ci:`), then `runs-on: ubuntu-latest`, then `steps:`. The first step is almost always `- uses: actions/checkout@v4`. Follow it with `- uses: actions/setup-python@v5` with a `with: python-version:` block, then install deps with `run: pip install -r requirements-dev.txt`.",
+  "The verifier checks step names and `run:` commands. Name your lint step 'Lint' and run `ruff check .`; name your test step 'Test' and run `pytest tests/ -v`. That covers all four required step checks (checkout, setup, lint, test) and the workflow will parse cleanly."
+]

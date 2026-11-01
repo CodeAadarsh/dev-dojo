@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**23 courses live · 151 modules · 162 challenges — all complete.**
+**25 courses live · 165 modules · 174 challenges — all complete.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -41,6 +41,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 21 | Data Science with Python | 7 | 6 | ✅ |
 | 22 | Go for Cloud-Native | 7 | 6 | ✅ |
 | 23 | Terraform & IaC | 7 | 6 | ✅ |
+| 24 | MLOps | 7 | 6 | ✅ |
+| 25 | CI/CD Pipelines | 7 | 6 | ✅ |
 
 ---
 

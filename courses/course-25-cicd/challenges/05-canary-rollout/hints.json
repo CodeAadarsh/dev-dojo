@@ -1,0 +1,5 @@
+[
+  "The traffic split is controlled entirely by replica count. If stable has 3 replicas and canary has 1, the Service distributes connections across 4 endpoints — roughly 25% hit canary. The Service selector must match a label that both pod templates carry.",
+  "Use a shared label like 'app: dojo-web' on both Deployments' pod templates so the Service selects both. Each Deployment also needs a unique label (track: stable / track: canary) in its own matchLabels selector — this keeps the Deployment controllers from interfering with each other's pods.",
+  "The stable Deployment already has 'app: dojo-web' in its pod template labels, and the Service selects on that label. Your canary Deployment needs: metadata.labels.track: canary, spec.selector.matchLabels including track: canary, and spec.template.metadata.labels including both app: dojo-web AND track: canary. Apply with: kubectl apply -f ~/.kube-dojo-work/05-canary-rollout/canary.yaml"
+]

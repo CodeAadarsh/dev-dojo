@@ -1,0 +1,5 @@
+[
+  "A multi-stage Dockerfile has at least two FROM instructions. The first stage handles compilation and has access to the full SDK; the second stage receives only the compiled artifact via COPY --from=<stage>. Nothing else from the builder stage enters the final image.",
+  "In Alpine-based images, create a non-root system user with: RUN addgroup -S app && adduser -S app -G app. Then switch with USER app. Confirm the USER is set correctly after building: docker inspect <image> --format '{{.Config.User}}' — it should return 'app', not empty or 'root'.",
+  "Builder stage: FROM golang:1.22-alpine AS builder, then RUN CGO_ENABLED=0 go build -o /out/server . Runtime stage: FROM alpine:3.19, then RUN adduser..., USER app, COPY --from=builder /out/server /app/server, EXPOSE 8080, ENTRYPOINT [\"/app/server\"]. The USER instruction must appear before ENTRYPOINT."
+]

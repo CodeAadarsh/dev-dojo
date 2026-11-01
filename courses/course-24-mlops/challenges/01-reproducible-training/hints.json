@@ -1,0 +1,5 @@
+[
+  "train_test_split accepts a random_state parameter. Without it, the split changes on every Python process. Pass random_state=SEED.",
+  "The estimator also has its own RNG. RandomForestClassifier(random_state=SEED, n_jobs=1) pins both the bootstrap sampling and the feature-subset selection. n_jobs=1 eliminates floating-point thread races.",
+  "Save the model with pickle.dump(model, open('model.pkl', 'wb')). verify.sh cd's to $WORK before running, so the relative path 'model.pkl' resolves correctly. Return float(accuracy_score(y_test, model.predict(X_test))) — wrap in float() to satisfy the isinstance check."
+]
