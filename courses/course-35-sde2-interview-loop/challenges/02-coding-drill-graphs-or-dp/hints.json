@@ -1,0 +1,5 @@
+[
+  "A brute-force DFS from every cell visits the same subpaths repeatedly. What's the maximum number of times you could recompute `dfs(r, c)` in the brute-force version — and can the answer for `(r, c)` ever change depending on how you reached it?",
+  "The path is always strictly increasing, so there are no cycles — the DFS is on a DAG. `dfs(r, c)` always gives the same answer no matter what path led to it. That makes memoization safe: add a 2D `memo` array initialized to `0`; at the start of `dfs(r, c)`, return `memo[r][c]` if it's non-zero.",
+  "Full pattern: `memo = [[0]*n for _ in range(m)]`. `dfs(r, c)`: if `memo[r][c]`, return it. Set `best = 1`. For each of the 4 neighbors `(nr, nc)` that are in-bounds AND `matrix[nr][nc] > matrix[r][c]`, do `best = max(best, 1 + dfs(nr, nc))`. Store `memo[r][c] = best` and return it. Also add `sys.setrecursionlimit(m*n+10)` before calling dfs on large inputs."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "03-cloud-loadbalancer",
+  "title": "Cloud LoadBalancer — Internal NLB with IP Target Mode",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["managed-k8s", "networking", "loadbalancer"],
+  "objective": "Author a Service of type LoadBalancer with the correct AWS annotations for an internal NLB in IP target mode with cross-zone load balancing — verified by YAML parsing, no cloud account needed."
+}

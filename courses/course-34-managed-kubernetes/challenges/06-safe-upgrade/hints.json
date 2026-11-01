@@ -1,0 +1,5 @@
+[
+  "There are two independent fixes: (1) add a readinessProbe to containers[0] so Kubernetes knows when the pod is warm enough to accept traffic, and (2) set spec.strategy.rollingUpdate.maxUnavailable: 0 so no pod is terminated before its replacement is Ready. The PDB needs spec.minAvailable >= 1.",
+  "readinessProbe example: httpGet: {path: /healthz, port: 8080}, initialDelaySeconds: 5, periodSeconds: 10. For maxUnavailable, the value must be the integer 0 (not the string \"1\" or absent). Also set maxSurge: 1 — required when maxUnavailable is 0, otherwise the rollout deadlocks.",
+  "For pdb.yaml: set spec.minAvailable: 2 (for a 3-replica Deployment, this allows at most 1 pod to be evicted at a time). The selector must match the Deployment's pod template labels exactly — in this scenario that means matchLabels: {app: checkout}."
+]

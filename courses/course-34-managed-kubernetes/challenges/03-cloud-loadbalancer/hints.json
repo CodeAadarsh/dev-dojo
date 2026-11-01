@@ -1,0 +1,5 @@
+[
+  "All four annotations share the prefix `service.beta.kubernetes.io/aws-load-balancer-`. The controller dispatch annotation is `aws-load-balancer-type: external` — without it, the in-tree controller ignores your other annotations and provisions a Classic ELB instead.",
+  "`spec.type` must be exactly `LoadBalancer` (capital L and B). `ClusterIP` or `NodePort` never provision a cloud load balancer, regardless of annotations.",
+  "The cross-zone annotation value must be the string `\"true\"` (quoted in YAML), not the boolean `true`. YAML booleans and strings are different types — the verifier does a string comparison against `\"true\"`."
+]

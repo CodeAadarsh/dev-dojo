@@ -1,0 +1,11 @@
+{
+  "slug": "04-cluster-autoscaler-wiring",
+  "title": "Wire the Cluster Autoscaler",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["managed-k8s", "autoscaling"],
+  "objective": "Author the Cluster Autoscaler Deployment and node-group config with the correct auto-discovery tags and min/max bounds so the CA can find and scale the right node group."
+}

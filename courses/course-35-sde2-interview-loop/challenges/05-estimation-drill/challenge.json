@@ -1,0 +1,14 @@
+{
+  "slug": "05-estimation-drill",
+  "title": "Estimation Drill: Metrics Ingestion Pipeline",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": [
+    "interview",
+    "estimation"
+  ],
+  "objective": "Given a concrete metrics-pipeline spec (hosts, scrape interval, point size), derive ingest QPS, storage per year, and write bandwidth within 10% tolerance — showing your work."
+}

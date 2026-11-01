@@ -1,0 +1,11 @@
+{
+  "slug": "02-karpenter-nodepool",
+  "title": "Karpenter NodePool — Spot + Consolidation",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["managed-k8s", "autoscaling", "karpenter"],
+  "objective": "Author a Karpenter NodePool (+ EC2NodeClass) that provisions spot and on-demand nodes with sane limits, instance constraints, and consolidation — verified by YAML parsing, no cloud account needed."
+}

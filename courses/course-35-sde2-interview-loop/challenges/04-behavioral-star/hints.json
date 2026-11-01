@@ -1,0 +1,5 @@
+[
+  "The verifier requires the exact markers written verbatim: `**Situation:**`, `**Task:**`, `**Action:**`, `**Result:**`. Check that your headers match character for character — a missing asterisk or trailing space will fail the check.",
+  "The Result section must contain at least one digit. A sentence like 'reduced deploy time by 40%' or 'unblocked 3 engineers' passes. A sentence like 'things improved significantly' fails. If you do not have an exact figure, derive a reasonable estimate and state your assumption.",
+  "Use 'I', not 'we', in the Action section. The verifier does not check this, but the interviewer will. If you find yourself writing 'we', pause and name your specific step: not 'we debugged it' but 'I added structured logging to the retry path, which revealed the root cause in under 10 minutes'."
+]

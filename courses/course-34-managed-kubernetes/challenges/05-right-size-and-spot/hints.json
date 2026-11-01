@@ -1,0 +1,5 @@
+[
+  "Start with pod density: how many pods can fit on one m5.large? Use the formula: pods_per_node = min(floor(allocatable_cpu / pod_cpu_request), floor(allocatable_ram / pod_ram_request)). Effective allocatable = node_capacity × 0.9.",
+  "For m5.large (1.8 vCPU, 7.2 GiB usable): pods_by_cpu = floor(1.8/0.5) = 3, pods_by_ram = floor(7.2/1.0) = 7. CPU is the binding constraint — 3 pods/node. You need ceil(12/3) = 4 nodes.",
+  "current = 2 × $0.384 × 730 = $560.64. rightsized = 4 × $0.096 × 730 = $280.32. mixed (2 on-demand + 2 spot): (2×$0.096 + 2×$0.029) × 730 = $182.50."
+]

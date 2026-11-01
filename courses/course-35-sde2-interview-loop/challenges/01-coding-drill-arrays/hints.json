@@ -1,0 +1,5 @@
+[
+  "Intervals that don't overlap can never affect each other. What ordering makes it easy to decide whether two intervals overlap — and guarantees you never need to backtrack?",
+  "Sort by start time. Then sweep left to right, maintaining an 'open' interval. If the next interval's start is <= the open interval's end, they overlap — extend the open interval's end to max(current_end, next_end). Otherwise, close the open interval and start a new one.",
+  "The merge condition is `start <= merged[-1][1]` (use `<=`, not `<` — touching endpoints [1,4],[4,5] should merge). When extending, use `merged[-1][1] = max(merged[-1][1], end)` — a contained interval must not shrink the open window."
+]

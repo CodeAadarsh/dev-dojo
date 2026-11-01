@@ -1,0 +1,11 @@
+{
+  "slug": "01-irsa-workload-identity",
+  "title": "IRSA / Workload Identity — Scoped Pod Access",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["managed-k8s", "iam", "irsa"],
+  "objective": "Author a ServiceAccount annotated for IRSA (EKS) or Workload Identity (GKE), bind it to a Deployment, and prove the pod never falls back to node-wide IAM credentials."
+}

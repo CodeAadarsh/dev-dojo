@@ -1,0 +1,5 @@
+[
+  "The `capacity-type` requirement key for AWS EKS is `karpenter.k8s.aws/capacity-type`. The operator must be `In` and values must include `\"spot\"`. If your values array is a YAML sequence it should look like `values: [\"spot\", \"on-demand\"]`.",
+  "Limits live at `spec.limits` (not under `spec.template`). They take string values: `cpu: \"1000\"` means 1000 vCPUs total across all nodes this NodePool can provision. `spec.disruption` is a sibling of `spec.limits`, not nested under template.",
+  "Consolidation requires two fields: `consolidationPolicy: WhenEmptyOrUnderutilized` (or `WhenEmpty`) AND `consolidateAfter: 30s`. Neither alone is enough — policy sets the condition, consolidateAfter sets the dwell time before termination fires."
+]

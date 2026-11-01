@@ -1,0 +1,5 @@
+[
+  "Start from ingest_qps: hosts × metrics_per_host / scrape_interval_seconds. How many data points arrive at the ingestion API every second? That number is the foundation for the other two.",
+  "For storage: total samples per year = ingest_qps × 86400 × 365. Then multiply by bytes_per_point to get bytes per year. Convert to GiB using 1024^3 (binary), not 1000^3 (decimal). A factor-of-365 or factor-of-1024 mistake will push you outside tolerance.",
+  "Bandwidth is the simplest: ingest_bandwidth_mibps = ingest_qps × bytes_per_point / (1024^2). The 1024^2 converts bytes to mebibytes. All three answers share the same ingest_qps base — once that is right, the others are arithmetic."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "06-safe-upgrade",
+  "title": "Safe Node-Pool Upgrade",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["managed-k8s", "upgrades", "operations"],
+  "objective": "Author the PodDisruptionBudget and Deployment rolling-update settings that guarantee zero disruption during a node-pool drain, with a readiness probe gating traffic."
+}

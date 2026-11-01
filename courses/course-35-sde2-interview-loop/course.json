@@ -1,0 +1,12 @@
+{
+  "id": "course-35-sde2-interview-loop",
+  "slug": "sde2-interview-loop",
+  "title": "The SDE-2 Interview Loop",
+  "order": 35,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "20–30 h",
+  "prereqs": ["Courses 13 (DSA) & 14 (System Design)", "python3 for the coding drills"],
+  "tags": ["interview", "sde2", "coding", "system-design", "behavioral", "negotiation", "career"],
+  "description": "Pass the Tier-1 SDE-2 loop end to end: the round-by-round playbook, coding strategy & communication, the system-design round (trade-offs, SDE-2 vs SDE-3 leveling), behavioral/STAR & leadership principles, company-specific prep (Grafana, Uber, Atlassian, Razorpay, PhonePe, Microsoft), and the offer & negotiation (comp structure, levels, India vs international, counteroffers) — with timed coding drills and structured deliverables."
+}

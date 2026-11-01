@@ -1,0 +1,5 @@
+[
+  "The Cluster Autoscaler discovers node groups by scanning AWS Auto Scaling Groups for specific tags. The --node-group-auto-discovery flag tells it which tag keys and values to match.",
+  "The flag format is: --node-group-auto-discovery=asg:tag=<key>=<value>,<key>=<value>. Two tag keys are required: k8s.io/cluster-autoscaler/enabled (value: true) and k8s.io/cluster-autoscaler/<cluster-name> (value: owned).",
+  "In nodegroup.yaml: set minSize to an integer >= 1 (try minSize: 2), set maxSize to an integer larger than minSize (try maxSize: 10), and set both tag values — k8s.io/cluster-autoscaler/enabled: \"true\" and k8s.io/cluster-autoscaler/dojo-cluster: \"owned\"."
+]

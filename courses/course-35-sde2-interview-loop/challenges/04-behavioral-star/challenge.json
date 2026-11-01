@@ -1,0 +1,15 @@
+{
+  "slug": "04-behavioral-star",
+  "title": "Behavioral Interviews: STAR Stories with Quantified Impact",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": [
+    "interview",
+    "behavioral",
+    "star"
+  ],
+  "objective": "Write two STAR-format stories — one on conflict, one on failure — each with explicit Situation/Task/Action/Result markers and a quantified result, so the verifier confirms you're interview-ready."
+}

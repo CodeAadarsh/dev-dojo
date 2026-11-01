@@ -1,0 +1,11 @@
+{
+  "slug": "03-system-design-writeup",
+  "title": "System Design: Rate Limiter",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["interview", "system-design"],
+  "objective": "Write a complete rate limiter design covering requirements, capacity estimate, API, data model, high-level architecture, and trade-offs — as you would in a 45-minute design round."
+}

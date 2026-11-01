@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**33 courses live · 221 modules · 222 challenges — all complete.**
+**35 courses live · 235 modules · 234 challenges — the entire roadmap is COMPLETE. 🎉**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -51,6 +51,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 31 | Secrets & Zero Trust | 7 | 6 | ✅ |
 | 32 | Next.js in Production | 7 | 6 | ✅ |
 | 33 | TypeScript/Node Backend at Scale | 7 | 6 | ✅ |
+| 34 | Managed Kubernetes (EKS·GKE·AKS) | 7 | 6 | ✅ |
+| 35 | The SDE-2 Interview Loop | 7 | 6 | ✅ |
 
 ---
 

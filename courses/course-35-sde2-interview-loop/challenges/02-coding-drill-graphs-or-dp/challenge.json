@@ -1,0 +1,11 @@
+{
+  "slug": "02-coding-drill-graphs-or-dp",
+  "title": "Coding Drill: Longest Increasing Path in a Matrix",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["interview", "coding", "dp"],
+  "objective": "Find the length of the longest strictly increasing path in a matrix, moving only in the four cardinal directions — DFS with memoization, O(m*n) time."
+}

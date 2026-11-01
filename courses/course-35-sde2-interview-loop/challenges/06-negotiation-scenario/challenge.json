@@ -1,0 +1,15 @@
+{
+  "slug": "06-negotiation-scenario",
+  "title": "Negotiation Scenario: The Competing Offer Window",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 25,
+  "estMinutes": 20,
+  "tags": [
+    "interview",
+    "negotiation",
+    "career"
+  ],
+  "objective": "Given a concrete offer scenario with a deadline and a competing process in-flight, identify the single best negotiation move that preserves maximum leverage without burning either bridge."
+}

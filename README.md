@@ -18,7 +18,7 @@ dev-dojo/
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (33 live)
+### Courses (35 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -55,6 +55,8 @@ dev-dojo/
 | 31 | Secrets & Zero Trust | Vault, envelope crypto, mTLS, ESO | local + kind |
 | 32 | Next.js in Production | App Router, RSC, caching, actions, deploy | local + kind |
 | 33 | TypeScript/Node Backend at Scale | type-safe APIs, queues, streams, deploy | local + kind |
+| 34 | Managed Kubernetes (EKS·GKE·AKS) | cloud K8s, IAM, autoscaling, cost | local (config) |
+| 35 | The SDE-2 Interview Loop | coding, design, behavioral, negotiation | local |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

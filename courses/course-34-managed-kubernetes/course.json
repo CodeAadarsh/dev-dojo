@@ -1,0 +1,12 @@
+{
+  "id": "course-34-managed-kubernetes",
+  "slug": "managed-kubernetes",
+  "title": "Managed Kubernetes (EKS · GKE · AKS)",
+  "order": 34,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "14–20 h",
+  "prereqs": ["Courses 1 & 5", "python3 + pyyaml for the config challenges", "No cloud account needed — challenges verify config & decisions"],
+  "tags": ["eks", "gke", "aks", "managed-kubernetes", "cloud", "autoscaling", "iam"],
+  "description": "Run Kubernetes on the big clouds: the managed control-plane model, provisioning (eksctl/gcloud/az, node pools & groups), cloud IAM & workload identity (IRSA / GKE Workload Identity / AKS), cloud networking (VPC CNI, LoadBalancers, private clusters), autoscaling (Cluster Autoscaler, Karpenter), cloud storage & backups, and cost/ops (spot, right-sizing, upgrades, fleets). Challenges verify the manifests & decisions you author — no cloud account required."
+}

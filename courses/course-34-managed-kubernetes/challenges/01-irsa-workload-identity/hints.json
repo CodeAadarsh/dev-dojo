@@ -1,0 +1,5 @@
+[
+  "The ServiceAccount needs an annotation — not a label. For EKS: `eks.amazonaws.com/role-arn: arn:aws:iam::<account-id>:role/<role-name>`. For GKE: `iam.gke.io/gcp-service-account: <name>@<project>.iam.gserviceaccount.com`.",
+  "The Deployment field is `spec.template.spec.serviceAccountName` (under the pod spec, not the deployment metadata). It must match the `metadata.name` of your ServiceAccount exactly — a typo silently falls back to `default`.",
+  "The verifier cross-references the SA name in both files. If the name in `serviceaccount.yaml` is `ml-trainer`, then `deployment.yaml` must have `serviceAccountName: ml-trainer`. Also double-check your ARN starts with `arn:aws:iam::` and contains `:role/`."
+]

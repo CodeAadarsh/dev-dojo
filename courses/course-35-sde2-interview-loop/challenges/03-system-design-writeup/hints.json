@@ -1,0 +1,5 @@
+[
+  "Structure first: before writing anything, list the six required sections as headings. The verifier will reject your doc if any are missing. Design the skeleton in 2 minutes, then fill each section in order.",
+  "For the capacity estimate, derive — don't guess. Start from the spec: 50 000 req/s, 10M keys. How much Redis memory does one key need under your chosen algorithm? How many Redis ops/s? Is that within one node's limits (~100–200K ops/s for simple commands)?",
+  "The trade-off section is what levels you from SDE-1 to SDE-2. Compare your chosen algorithm (token bucket / sliding window / fixed window) to the alternatives — state what you get and what you give up. Then answer: what is your failure mode when Redis is unavailable — fail-open or fail-closed — and why does that choice depend on the specific API using the rate limiter?"
+]

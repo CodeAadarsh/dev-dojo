@@ -1,0 +1,11 @@
+{
+  "slug": "01-coding-drill-arrays",
+  "title": "Coding Drill: Merge Intervals",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["interview", "coding", "arrays"],
+  "objective": "Given a list of intervals, merge all overlapping ones and return the result sorted — O(n log n) time. Practice the full timed-round communication protocol alongside the algorithm."
+}

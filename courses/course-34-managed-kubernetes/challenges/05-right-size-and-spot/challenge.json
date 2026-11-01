@@ -1,0 +1,11 @@
+{
+  "slug": "05-right-size-and-spot",
+  "title": "Right-size + Spot: FinOps on EKS",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["managed-k8s", "cost", "finops"],
+  "objective": "Given a real workload profile and AWS on-demand/spot pricing, compute the monthly cost and the savings from right-sizing your node type and mixing in spot instances."
+}
