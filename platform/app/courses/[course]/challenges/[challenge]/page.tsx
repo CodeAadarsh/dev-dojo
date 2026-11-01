@@ -48,7 +48,7 @@ export default async function ChallengePage({
   let step = 0;
 
   return (
-    <div className="space-y-10">
+    <div className="mx-auto max-w-3xl space-y-10">
       <Link href={`/courses/${course}`} className="text-sm text-dim transition-colors hover:text-accent">
         ← {data.course.title}
       </Link>

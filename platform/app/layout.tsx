@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <span />
         </div>
         <Nav />
-        <main className="relative z-10 mx-auto max-w-5xl px-5 pb-28 pt-10 sm:px-8">{children}</main>
+        <main className="relative z-10 mx-auto max-w-7xl px-5 pb-28 pt-10 sm:px-8">{children}</main>
       </body>
     </html>
   );

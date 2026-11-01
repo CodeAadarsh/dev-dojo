@@ -15,7 +15,7 @@ export default async function ModulePage({
   if (!data) notFound();
 
   return (
-    <article className="space-y-8">
+    <article className="mx-auto max-w-3xl space-y-8">
       <Link href={`/courses/${course}`} className="text-sm text-dim transition-colors hover:text-accent">
         ← {data.course.title}
       </Link>

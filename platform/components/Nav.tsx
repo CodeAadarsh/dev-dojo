@@ -3,7 +3,7 @@ import Link from 'next/link';
 export function Nav() {
   return (
     <div className="sticky top-4 z-30 px-4">
-      <header className="glass-strong mx-auto flex h-14 max-w-5xl items-center justify-between rounded-2xl px-4 sm:px-5">
+      <header className="glass-strong mx-auto flex h-14 max-w-7xl items-center justify-between rounded-2xl px-4 sm:px-5">
         <Link
           href="/"
           className="flex items-center gap-2.5 font-semibold tracking-tight text-ink"

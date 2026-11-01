@@ -15,7 +15,7 @@ export default async function CoursePage({ params }: { params: Promise<{ course:
   const done = course.challenges.filter((ch) => solved[challengeKey(course.id, ch.slug)]).length;
 
   return (
-    <div className="space-y-10">
+    <div className="mx-auto max-w-5xl space-y-10">
       <div>
         <Link href="/" className="text-sm text-dim transition-colors hover:text-accent">
           ← All courses
