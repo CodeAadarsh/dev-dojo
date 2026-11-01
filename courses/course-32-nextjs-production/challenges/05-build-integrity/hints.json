@@ -1,0 +1,5 @@
+[
+  "Run `npx next build 2>&1 | head -60` — read the first Error block carefully. Next.js tells you the file and why the boundary was violated.",
+  "The error mentions a Client Component importing a module that can only be used server-side. Find which file has `'use client'` and also imports something with `import 'server-only'` in its chain.",
+  "`app/dashboard/page.tsx` has `'use client'` but imports `ServerData` which uses `server-only`. Remove the `'use client'` directive — the component has no client-side APIs and does not need it."
+]

@@ -1,0 +1,5 @@
+[
+  "A Server Action that throws delivers no typed data to the client. Your function must catch every failure case and return `{ ok: false, error: '...' }` — never `throw`. If your test sees an uncaught exception, that's the bug.",
+  "Trim before you check: `const name = input.name.trim(); if (name === '') return { ok: false, ... }`. Without the trim, a whitespace-only string passes `name.length > 0` and slips through.",
+  "For the `id` field: `crypto.randomUUID()` is a Node 18+ global — no import. For `createdAt`: `new Date().toISOString()` gives the ISO 8601 string the test checks for. Both are available in the Next.js server runtime and in plain Node."
+]

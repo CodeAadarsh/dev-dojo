@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**31 courses live · 207 modules · 210 challenges — all complete.**
+**33 courses live · 221 modules · 222 challenges — all complete.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -49,6 +49,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 29 | Performance Engineering | 7 | 6 | ✅ |
 | 30 | Supply-Chain Security | 7 | 6 | ✅ |
 | 31 | Secrets & Zero Trust | 7 | 6 | ✅ |
+| 32 | Next.js in Production | 7 | 6 | ✅ |
+| 33 | TypeScript/Node Backend at Scale | 7 | 6 | ✅ |
 
 ---
 

@@ -1,0 +1,11 @@
+{
+  "slug": "04-middleware-auth",
+  "title": "Middleware Auth Guard",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["nextjs", "middleware", "auth"],
+  "objective": "Implement Next.js middleware that redirects unauthenticated requests to /login for protected paths and passes through public paths and static assets."
+}

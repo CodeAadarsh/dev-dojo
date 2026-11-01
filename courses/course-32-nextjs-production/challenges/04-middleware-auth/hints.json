@@ -1,0 +1,5 @@
+[
+  "What paths should never redirect regardless of auth state? Think about what the browser fetches before any React code runs.",
+  "Next.js static assets live under /_next/. API routes under /api/ handle their own auth. Exact public pages: /, /login, /signup. Anything else under /dashboard, /settings, /account, /admin is protected.",
+  "Parse the pathname from req.url with `new URL(req.url).pathname`. Check `/_next/` and `/api/` first, then the public exact-match list, then prefix-match protected routes with `pathname === prefix || pathname.startsWith(prefix + '/')`. Return `{ redirect: '/login' }` or `{ next: true }`."
+]

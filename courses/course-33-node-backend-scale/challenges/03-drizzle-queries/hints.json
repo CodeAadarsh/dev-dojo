@@ -1,0 +1,5 @@
+[
+  "For `getPostsByAuthor`: `db.select().from(posts).where(eq(posts.authorId, authorId)).all()` — import `eq` from `'drizzle-orm'`. The return type is `Post[]` inferred from the schema.",
+  "For `getAuthorsWithPosts`: use `.leftJoin(posts, eq(posts.authorId, authors.id))` to fetch all rows in one query, then group with a `Map<number, { author, posts[] }>` — iterate `rows`, create a map entry per `row.authors.id`, push `row.posts` if it is not null (LEFT JOIN can produce null for authors with no posts).",
+  "For `createAuthorWithPost`: wrap both inserts in `db.transaction(tx => { ... })`. Inside, use `tx.insert(authors).values(authorData).returning().get()!` to get the newly created author (with its auto-assigned id), then insert the post with `{ ...postData, authorId: author.id }`. Return `{ author, post }`."
+]

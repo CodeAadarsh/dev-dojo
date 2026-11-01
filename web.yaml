@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: web-s
+  name: web-s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-s
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: web-s
+    spec:
+      containers:
+      - image: nginx:1.27-alpine
+        name: ngnix
+        resources: {}
+status: {}

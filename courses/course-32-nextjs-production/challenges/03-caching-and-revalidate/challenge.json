@@ -1,0 +1,11 @@
+{
+  "slug": "03-caching-and-revalidate",
+  "title": "Caching and Tag-Based Revalidation",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["nextjs", "caching"],
+  "objective": "Implement a cached data-access layer using unstable_cache with tag-based revalidation, verified by a call-count harness that confirms repeated reads hit the cache and revalidation busts it."
+}

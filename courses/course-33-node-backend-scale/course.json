@@ -1,0 +1,12 @@
+{
+  "id": "course-33-node-backend-scale",
+  "slug": "node-backend-scale",
+  "title": "TypeScript/Node Backend at Scale",
+  "order": 33,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "18–24 h",
+  "prereqs": ["TypeScript + Node 20+", "npm/pnpm", "Course 10 (backend) helps; Docker + kind for deploy"],
+  "tags": ["typescript", "nodejs", "api", "drizzle", "queues", "testing", "scaling"],
+  "description": "Production Node.js in TypeScript: type-safe API design, the event loop & async patterns, data access with Drizzle/Prisma, validation with zod, background jobs & queues, streaming & backpressure, error handling & observability, testing (node:test/vitest), performance (clustering, worker threads), and packaging + deploying to Kubernetes — each a runnable, test-judged exercise."
+}

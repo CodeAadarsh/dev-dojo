@@ -1,0 +1,5 @@
+[
+  "The Dockerfile needs two stages. The builder stage installs deps and runs `npm run build`. The runner stage uses only the output. Next.js standalone output goes into `.next/standalone/` — that is not the same as `.next/`.",
+  "In the runner stage you need to copy three things from the builder: `.next/standalone/` → `/app/`, `.next/static/` → `/app/.next/static/`, and `public/` → `/app/public/`. Missing the static copy means the app boots but serves 404s for all JS/CSS. The entrypoint is `node server.js` from the WORKDIR.",
+  "After `docker build -t dojo-nextjs:v1 .` run `kind load docker-image dojo-nextjs:v1 --name dojo`. Then apply a Deployment in namespace `dojo-nextjs` with `imagePullPolicy: IfNotPresent` and a readiness probe: `httpGet` on `/api/health` port 3000. The verifier checks `kubectl -n dojo-nextjs get deployment nextjs -o jsonpath='{.status.readyReplicas}'` >= 1."
+]

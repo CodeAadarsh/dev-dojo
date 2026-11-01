@@ -1,0 +1,11 @@
+{
+  "slug": "02-server-action",
+  "title": "Server Action: Validated Form Submission",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["nextjs", "server-actions"],
+  "objective": "Implement a Next.js Server Action that validates its input and returns a discriminated-union result type, tested by importing and calling the action directly."
+}

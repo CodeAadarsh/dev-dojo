@@ -1,0 +1,5 @@
+[
+  "The concurrency constraint means you must track `this.running` as a counter and only launch a new slot when `running < concurrency`. When the pool is full, `await Promise.race([...inflight])` yields until one slot frees — this is a promise-based semaphore.",
+  "Idempotency: check `this.processed.has(job.id)` *before* dispatching the job, not inside the handler. If the id is already there, `continue` to the next dequeue.",
+  "The backoff sleep belongs *before* calling the handler on a retry (attempt > 0): `await sleep(attempt * 100)`. Decrement `this.running` in a `finally` block — not after `await handler(job)` — or a throwing handler leaks a slot permanently."
+]

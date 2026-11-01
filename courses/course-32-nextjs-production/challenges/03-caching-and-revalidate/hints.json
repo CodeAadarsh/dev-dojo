@@ -1,0 +1,5 @@
+[
+  "Call `unstable_cache` once at module scope — not inside `fetchProducts`. If you call it inside the function, each call gets a fresh wrapper with an empty cache, so the DB is always hit. Store the result in a module-level const and call that from `fetchProducts`.",
+  "The first argument to `revalidateTag` must match the string in your `tags` array exactly. If you tagged the cache entry `['products']` then `revalidateTag('products')` is the right call. Case-sensitive, no wildcards.",
+  "The solution is four lines: `const _cached = unstable_cache(_fetchProductsFromDB, ['products'], { tags: ['products'] })` at module scope, `fetchProducts` returns `_cached()`, and `invalidateProducts` calls `revalidateTag('products')`."
+]

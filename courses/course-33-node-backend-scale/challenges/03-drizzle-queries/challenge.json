@@ -1,0 +1,11 @@
+{
+  "slug": "03-drizzle-queries",
+  "title": "Typed Queries and N+1 Prevention",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["node", "drizzle", "sql"],
+  "objective": "Implement typed Drizzle ORM queries: a basic filter, a LEFT JOIN that eliminates N+1 (verified by a query counter), and an atomic transaction that inserts two related records."
+}

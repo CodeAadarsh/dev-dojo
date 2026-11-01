@@ -1,0 +1,5 @@
+[
+  "The `Response` constructor takes `(body, init)` where `init` is `{ status, headers }`. `new Response(JSON.stringify(...), { status: 201 })` is the entire GET/POST return — no framework wrapper needed.",
+  "For the 422 case: check `typeof title !== 'string' || title.trim() === ''` before touching the store. Returning early with `{ status: 422 }` is the correct pattern — never let a validation failure reach the store logic.",
+  "The hidden test calls `_reset()` before state-dependent cases. Make sure your implementation uses the shared `_store` array and `_nextId` counter that `_reset()` clears — don't redeclare them inside the function bodies."
+]

@@ -1,0 +1,5 @@
+[
+  "`return Promise.resolve(computeBlocking(n))` still blocks — `computeBlocking(n)` evaluates synchronously as an argument before Promise.resolve is called. You need to defer the computation past the current synchronous frame. The simplest deferral is `setImmediate(step)` inside the Promise constructor.",
+  "Split the loop: maintain `let sum = 0, i = 1` outside a `step()` function. Each call to `step()` processes a fixed CHUNK of iterations, then calls `setImmediate(step)` to yield. When `i > n`, call `resolve(sum)`. CHUNK=50_000 works well for n=500_000.",
+  "For a worker-thread approach: `new Worker(new URL(import.meta.url), { workerData: n })` re-imports the same file in the worker context. Use `if (!isMainThread) { parentPort.postMessage(computeBlocking(workerData)) }` as the worker body and `worker.on('message', resolve)` in the main thread."
+]

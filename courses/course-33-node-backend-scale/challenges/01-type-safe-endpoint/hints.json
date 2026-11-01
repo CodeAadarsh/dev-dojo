@@ -1,0 +1,5 @@
+[
+  "Fastify's handler default status is 200. To return 201 on create, call `reply.status(201).send(product)` — the status is set on the reply object, not on the route decorator.",
+  "Use `ProductSchema.safeParse(request.body)` — not `parse()`. `safeParse` returns `{ success, data }` or `{ success: false, error }` instead of throwing, so you control the 400 response shape. Check `if (!result.success)` and return early with `reply.status(400).send({ issues: result.error.issues })`.",
+  "For 404: `store.get(id)` returns `undefined` for a missing key. The pattern is `const product = store.get(id); if (!product) return reply.status(404).send({ error: 'Product not found' })`. On PUT, check `store.has(id)` *before* parsing the body so the precondition error is reported accurately."
+]

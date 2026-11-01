@@ -1,0 +1,11 @@
+{
+  "slug": "06-dockerize-and-deploy",
+  "title": "Dockerize and Deploy to Kubernetes",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 60,
+  "tags": ["node", "docker", "kubernetes", "deploy"],
+  "objective": "Build a slim multi-stage Docker image of a Node/TS API, load it into kind, and deploy a Deployment + Service with a readinessProbe to the dojo-node namespace — then pass a kubectl verifier."
+}

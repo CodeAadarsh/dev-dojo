@@ -1,0 +1,11 @@
+{
+  "slug": "06-dockerize-and-deploy",
+  "title": "Dockerize and Deploy",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 55,
+  "tags": ["nextjs", "docker", "kubernetes", "deploy"],
+  "objective": "Build a Next.js standalone Docker image, load it into kind, and deploy it to the dojo-nextjs namespace with a readiness probe on /api/health."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "05-build-integrity",
+  "title": "Build Integrity",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["nextjs", "build"],
+  "objective": "Find and fix the build-breaking mistake in a small Next.js app so that `npx next build` exits 0."
+}

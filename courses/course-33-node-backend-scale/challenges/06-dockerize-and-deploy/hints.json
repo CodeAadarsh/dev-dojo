@@ -1,0 +1,5 @@
+[
+  "The most common failure: `ErrImagePull`. You must run `kind load docker-image dojo-node-api:1.0.0 --name dojo` after building — kind nodes have their own image store separate from your host Docker. Also set `imagePullPolicy: IfNotPresent` in the Deployment spec.",
+  "The readiness probe must match exactly: `httpGet.path: /health`, `port: 3000`. If the probe path is wrong or the port doesn't match what the container listens on, the pod will never become Ready (you'll see `Readiness probe failed: connection refused` in `kubectl describe pod`).",
+  "For the non-root check: set `securityContext.runAsNonRoot: true` at the pod spec level AND `USER node` in the Dockerfile. Without `chown -R node:node /app` before the `USER node` instruction, the app crashes on startup with `EACCES: permission denied` — check with `kubectl logs -n dojo-node <pod>`."
+]

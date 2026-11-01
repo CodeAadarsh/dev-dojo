@@ -1,0 +1,11 @@
+{
+  "slug": "02-no-blocking",
+  "title": "Don't Block the Event Loop",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["node", "event-loop", "async"],
+  "objective": "Refactor a CPU-heavy handler that blocks Node's event loop so that concurrent requests remain responsive — using setImmediate-based chunking or worker_threads — without changing the returned result."
+}

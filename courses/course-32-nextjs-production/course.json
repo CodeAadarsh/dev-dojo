@@ -1,0 +1,12 @@
+{
+  "id": "course-32-nextjs-production",
+  "slug": "nextjs-production",
+  "title": "Next.js in Production",
+  "order": 32,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "16–22 h",
+  "prereqs": ["TypeScript/React basics", "Node 20+ and pnpm/npm", "Docker + kind for the deploy challenge"],
+  "tags": ["nextjs", "react", "app-router", "rsc", "server-actions", "vercel"],
+  "description": "Ship Next.js like a pro (your primary stack): the App Router & file conventions, Server vs Client Components, data fetching & caching (fetch cache, revalidation, PPR), Server Actions & mutations, route handlers & middleware, streaming & Suspense, auth patterns, performance (bundle, images, fonts), and deploying — each a runnable, test/build-judged exercise."
+}

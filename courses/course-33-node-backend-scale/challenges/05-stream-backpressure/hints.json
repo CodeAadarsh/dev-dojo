@@ -1,0 +1,5 @@
+[
+  "Use `stream.pipeline` from `node:stream/promises` — not `.pipe()`. The pipeline function propagates errors and destroys all stages on failure, which is what the error-propagation test requires.",
+  "The `highWaterMark` option must be passed to the `Transform` constructor as `super({ objectMode: true, highWaterMark: hwm })`. Without it, Node uses the default (16 objects) and backpressure will not be observable within the test's hwm bound. Track `peakBuffered` by reading `this.readableLength` inside `_transform` before pushing.",
+  "You must call `callback()` at the end of both `_transform` and `_flush`, or the pipeline stalls — Node will never call `_transform` again until the previous chunk's callback fires. `_flush(callback) { callback(); }` is the minimal correct implementation when you have no buffered state to emit."
+]

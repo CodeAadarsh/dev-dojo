@@ -18,7 +18,7 @@ dev-dojo/
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (31 live)
+### Courses (33 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -53,6 +53,8 @@ dev-dojo/
 | 29 | Performance Engineering | load testing, profiling, capacity | local |
 | 30 | Supply-Chain Security | SBOM, scan, sign, SLSA, admission | local + kind |
 | 31 | Secrets & Zero Trust | Vault, envelope crypto, mTLS, ESO | local + kind |
+| 32 | Next.js in Production | App Router, RSC, caching, actions, deploy | local + kind |
+| 33 | TypeScript/Node Backend at Scale | type-safe APIs, queues, streams, deploy | local + kind |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

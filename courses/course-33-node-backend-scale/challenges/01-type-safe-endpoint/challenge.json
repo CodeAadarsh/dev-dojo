@@ -1,0 +1,11 @@
+{
+  "slug": "01-type-safe-endpoint",
+  "title": "Type-Safe Endpoint",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["node", "typescript", "zod", "api"],
+  "objective": "Implement a Fastify endpoint that validates the request body with Zod (returning 400 on bad input), returns 201 on create, and 404 on missing resource — with TypeScript types inferred end-to-end from the Zod schema."
+}

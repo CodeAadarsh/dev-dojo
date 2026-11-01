@@ -1,0 +1,11 @@
+{
+  "slug": "05-stream-backpressure",
+  "title": "Stream Backpressure",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["node", "streams", "backpressure"],
+  "objective": "Implement a Transform stream pipeline that processes large data with correct backpressure, keeping peak buffered items within the highWaterMark, and propagates errors to the pipeline."
+}
