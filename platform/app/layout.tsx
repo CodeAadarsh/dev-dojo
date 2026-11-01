@@ -23,14 +23,18 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Kube Dojo',
-  description: 'Hands-on production Kubernetes, Docker & ArgoCD — learn by capturing flags',
+  title: 'DevDojo',
+  description: 'The hands-on engineering dojo — 21 courses from Kubernetes to databases to AI. Read the guide, do the work in your terminal, capture the flag.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body>
+        <div className="aurora" aria-hidden="true" />
+        <div className="gridlines" aria-hidden="true">
+          <span />
+        </div>
         <Nav />
         <main className="relative z-10 mx-auto max-w-5xl px-5 pb-28 pt-10 sm:px-8">{children}</main>
       </body>

@@ -1,19 +1,21 @@
-# ⎈ KUBE-DOJO
+# ⛩ DevDojo
 
-An HTB-style, **local-first** learning platform for production Docker, Kubernetes
-& ArgoCD. Browse courses in a web UI, read the guide, then do the real work in
-**your own terminal** against a disposable `kind` cluster, and capture flags.
+A local-first, **hands-on engineering dojo**: 21 courses spanning Kubernetes,
+databases, backend, security and AI. Browse courses in a web UI, read the guide,
+then do the real work in **your own terminal** — against a disposable `kind`
+cluster, a throwaway Docker Postgres/Redis, or a plain Python project — and
+capture the flag. HTB-style: every challenge ends in a `KUBE{…}` flag you *earn*
+by making the system actually work.
 
-What began as a Kubernetes dojo is now a general engineering dojo — the platform
-is a pure content reader, so courses span K8s, backend, and AI. See
+The platform is a pure content **reader**, so courses span any domain — see
 **[ROADMAP.md](./ROADMAP.md)** for what's shipped and what's planned.
 
 ```
-kube-dojo/
+dev-dojo/
 ├── platform/        the web app (Next.js) — courses, guides, flag submission, progress
 ├── labs/bootstrap/  scripts: kind, ArgoCD, ingress, metrics-server, monitoring, local registry
-├── courses/         each course is its own self-contained content repo
-└── CONTENT_SPEC.md  the authoring contract   ·   ROADMAP.md  the course plan
+├── courses/         21 self-contained courses (K8s · backend · data · AI · security · interview)
+└── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
 ### Courses (21 live)
@@ -45,12 +47,20 @@ kube-dojo/
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).
 
-## Prerequisites
+## Setup
 
-- **Docker Desktop** running (`open -a Docker`)
-- `kubectl` and `helm` (you have them)
-- `kind` — install with `bash labs/bootstrap/install-kind.sh`
-- Node 20+ and `pnpm` (you have them)
+```bash
+git clone https://github.com/CodeAadarsh/dev-dojo.git
+cd dev-dojo
+```
+
+**Always needed** (the platform): Node 20+ and `pnpm`.
+**Per course, one of:**
+- K8s courses (1–9, 17) → **Docker Desktop** + `kind` (`bash labs/bootstrap/install-kind.sh`) + `kubectl` + `helm`
+- PostgreSQL / Redis / DB (18–20) → **Docker Desktop** only (challenges spin up throwaway containers)
+- Code & data courses (10–16, 20–21) → **Python 3** (`pip install` per challenge brief); the deploy "bridge" challenges also use Docker + kind
+
+Each challenge's brief lists exactly what it needs.
 
 ## 1. Start the platform
 

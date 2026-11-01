@@ -16,9 +16,9 @@ export function Nav() {
               boxShadow: 'inset 0 1px 0 rgba(255,255,255,.4), 0 6px 16px -6px rgba(50,108,229,.7)',
             }}
           >
-            ⎈
+            ⛩
           </span>
-          Kube Dojo
+          <span>Dev<span className="text-green">Dojo</span></span>
         </Link>
         <nav className="flex items-center gap-5 text-sm text-dim sm:gap-7">
           <Link href="/" className="transition-colors hover:text-ink">Courses</Link>

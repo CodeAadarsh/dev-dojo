@@ -211,3 +211,33 @@ code, pre, kbd, .mono { font-family: var(--font-mono); }
 @keyframes drift { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(6deg); } }
 .drift { animation: drift 7s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .drift { animation: none; } }
+
+/* ============ v2: rebrand — bento, grid lines, aurora, stagger ============ */
+:root { --line: rgba(18, 38, 71, 0.09); }
+
+/* drifting background aurora — slow ambient "flow" */
+.aurora { position: fixed; inset: -25%; z-index: 0; pointer-events: none; filter: blur(90px); opacity: 0.55; }
+.aurora::before, .aurora::after { content: ""; position: absolute; border-radius: 9999px; }
+.aurora::before { width: 42rem; height: 42rem; left: -8%; top: -12%; background: radial-gradient(circle, rgba(50, 108, 229, 0.26), transparent 62%); animation: auroraA 24s ease-in-out infinite; }
+.aurora::after { width: 38rem; height: 38rem; right: -6%; top: 16%; background: radial-gradient(circle, rgba(15, 157, 143, 0.22), transparent 62%); animation: auroraB 30s ease-in-out infinite; }
+@keyframes auroraA { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(7rem, 5rem) scale(1.08); } }
+@keyframes auroraB { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-6rem, 4rem) scale(1.1); } }
+
+/* structural vertical grid lines framing the content column */
+.gridlines { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: flex; justify-content: center; }
+.gridlines > span { width: min(64rem, 92%); height: 100%; border-left: 1px solid var(--line); border-right: 1px solid var(--line); -webkit-mask-image: linear-gradient(180deg, transparent, #000 10rem, #000 72%, transparent); mask-image: linear-gradient(180deg, transparent, #000 10rem, #000 72%, transparent); }
+
+/* bento tile: near-opaque so the 1px grid gap reads as a crisp divider line */
+.bento-tile { position: relative; background: rgba(255, 255, 255, 0.78); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.35s ease; }
+.bento-tile:hover { background: rgba(255, 255, 255, 0.95); transform: translateY(-3px); box-shadow: 0 26px 56px -24px rgba(50, 108, 229, 0.42); z-index: 2; }
+
+/* staggered entrance for the bento (delay set inline per tile) */
+.stagger > * { opacity: 0; animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora::before, .aurora::after { animation: none; }
+  .stagger > * { opacity: 1; animation: none; }
+  .bento-tile { transition: none; }
+  .bento-tile:hover { transform: none; }
+}
+
