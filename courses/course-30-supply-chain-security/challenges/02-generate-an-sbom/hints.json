@@ -1,0 +1,5 @@
+[
+  "The CycloneDX 1.4 top level needs exactly four keys: `bomFormat` (string \"CycloneDX\"), `specVersion` (string \"1.4\"), `version` (integer 1), and `components` (a list). Build the components list first, then wrap it.",
+  "For each package, construct a dict with `type`, `name`, `version`, and `purl`. The purl for a PyPI package is always `f\"pkg:pypi/{name}@{version}\"` — lowercase name, no extra spaces.",
+  "Once generate_sbom works, run `python sbom_gen.py` from the work directory. The `__main__` block reads packages.json and writes sbom.json. The verifier's last check opens sbom.json and validates its structure, so the file must exist on disk."
+]

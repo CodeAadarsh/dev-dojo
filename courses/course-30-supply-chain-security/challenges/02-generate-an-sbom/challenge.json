@@ -1,0 +1,11 @@
+{
+  "slug": "02-generate-an-sbom",
+  "title": "Generate an SBOM",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["supply-chain", "sbom"],
+  "objective": "Implement a CycloneDX 1.4 SBOM generator in Python that produces a valid components list with purls, then write the SBOM to disk."
+}

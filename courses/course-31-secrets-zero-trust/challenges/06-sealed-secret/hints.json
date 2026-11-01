@@ -1,0 +1,5 @@
+[
+  "The SealedSecret CRD API group is 'bitnami.com/v1alpha1', not 'k8s.io'. The kubeseal CLI fetches the controller's public cert automatically — you do not need to pass --cert manually if kubectl is pointed at kind-dojo.",
+  "Use --dry-run=client -o yaml to generate the plaintext Secret manifest WITHOUT applying it. Feed that to kubeseal via stdin: kubeseal --format=yaml < plaintext.yaml > sealed.yaml. Then kubectl apply -f sealed.yaml (the SealedSecret, not the plaintext).",
+  "The verifier checks the ownerReference on the Secret to confirm it was created by the controller (not manually applied). If you see 'Secret exists but ownerReference.kind != SealedSecret', you accidentally applied the plaintext manifest. Delete it, apply the SealedSecret instead, and retry."
+]

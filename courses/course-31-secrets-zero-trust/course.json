@@ -1,0 +1,12 @@
+{
+  "id": "course-31-secrets-zero-trust",
+  "slug": "secrets-zero-trust",
+  "title": "Secrets & Zero Trust",
+  "order": 31,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "14–20 h",
+  "prereqs": ["Courses 1 & 16 (auth)", "Docker + kind", "Optional: Vault / External Secrets Operator / sealed-secrets"],
+  "tags": ["secrets", "vault", "zero-trust", "external-secrets", "mtls", "spiffe"],
+  "description": "Stop shipping secrets in plaintext and trust nothing by default: secret managers (HashiCorp Vault — static & dynamic secrets, leases, rotation), External Secrets Operator & sealed-secrets on Kubernetes, encryption at rest & envelope encryption (DEK/KEK/KMS), workload identity & mTLS (SPIFFE/SPIRE), and zero-trust network posture — each a runnable exercise against a local Vault / kind, or pure-Python crypto."
+}

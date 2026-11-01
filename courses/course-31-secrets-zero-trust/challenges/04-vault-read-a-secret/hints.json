@@ -1,0 +1,5 @@
+[
+  "Vault stores KV v2 secrets under a 'data/' sub-path. The policy path must be 'dojo-kv/data/app/config', not 'dojo-kv/app/config' — they are different HTTP paths.",
+  "Write the policy HCL file with exactly: path \"dojo-kv/data/app/config\" { capabilities = [\"read\"] } — then run: vault policy write dojo-app-reader <file>. Create the token with: vault token create -policy=dojo-app-reader -field=token",
+  "Test the deny explicitly: VAULT_TOKEN=<scoped> vault kv get dojo-kv/other/config should return 'permission denied' (403). The verifier mints its own test token from the policy you wrote, so the policy itself is what is checked — not a specific token you created."
+]

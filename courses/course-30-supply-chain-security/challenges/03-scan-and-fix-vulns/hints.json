@@ -1,0 +1,5 @@
+[
+  "The match condition is two independent checks joined by AND: `dep[\"name\"] == advisory[\"package\"]` and `dep[\"version\"] in advisory[\"affected_versions\"]`. Use a nested loop: outer over deps, inner over advisories. When both conditions are true, append a finding dict.",
+  "The finding dict needs exactly five keys: `dep`, `version`, `cve`, `severity`, `fix`. Map them from the dep and advisory dicts: `cve` comes from `advisory[\"id\"]`, `fix` from `advisory[\"fixed_version\"]`.",
+  "After scan correctly identifies requests==2.28.0 (CVE-2023-32681, CRITICAL, fix=2.31.0), edit requirements.txt and change that line to `requests==2.31.0`. The last verifier test re-parses requirements.txt and calls your scan — it must return []."
+]

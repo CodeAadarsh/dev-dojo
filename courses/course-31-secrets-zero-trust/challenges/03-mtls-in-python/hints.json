@@ -1,0 +1,5 @@
+[
+  "Start with `create_ca`: generate an RSA 2048 key, build an `x509.CertificateBuilder` where subject == issuer (self-signed), add `BasicConstraints(ca=True, path_length=None)` as a critical extension, and sign with `hashes.SHA256()`. Write PEM files for both cert and key. `create_signed_cert` is the same but `issuer_name` must be the CA cert's `.subject`, signed with the CA's private key, and `BasicConstraints(ca=False)`.",
+  "For `server_ssl_context`: `ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)`, then `ctx.load_cert_chain(cert_path, key_path)` (server's identity), `ctx.load_verify_locations(ca_cert_path)` (what to trust for client certs), and crucially `ctx.verify_mode = ssl.CERT_REQUIRED`. That last line is what makes it mutual.",
+  "For `client_ssl_context`: `ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)`, load the client cert chain and CA, then `ctx.check_hostname = False` (the test uses `127.0.0.1`), `ctx.verify_mode = ssl.CERT_REQUIRED`. A client with a cert signed by a different CA will fail at the server's chain verification step — the server never sees the cert's contents, only that it can't be traced to the trusted CA."
+]

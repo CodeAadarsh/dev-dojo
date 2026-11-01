@@ -1,0 +1,5 @@
+[
+  "For find_unpinned: a dep is pinned only when its line matches `name==version` with an exact `==`. Use `re.match` to check for `==` after the package name; anything else (bare name, `>=`, `~=`, `!=`) is unpinned. Don't forget to skip blank lines and `#` comments.",
+  "For verify_hashes: open each artifact file in binary mode (`'rb'`) and compute `hashlib.sha256(f.read()).hexdigest()`. Compare to the `sha256` field in the lockfile entry. The file path is `os.path.join(artifacts_dir, f\"{name}-{version}.whl\")`. Return the names where the digest doesn't match.",
+  "The lockfile entry for click shows version `8.1.7`. Edit requirements.in and change the bare `click` to `click==8.1.7`. Then re-run verify.sh — the last hidden test reads requirements.in and calls your own find_unpinned on it."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "06-sealed-secret",
+  "title": "Sealed Secrets: Commit a Secret Safely",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["secrets", "sealed-secrets", "gitops"],
+  "objective": "Seal a plaintext Kubernetes Secret with kubeseal so it can safely live in Git, apply the SealedSecret CR, and confirm the controller unseals it into a real Secret in namespace dojo-sealed."
+}

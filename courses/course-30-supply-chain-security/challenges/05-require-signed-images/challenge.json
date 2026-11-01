@@ -1,0 +1,11 @@
+{
+  "slug": "05-require-signed-images",
+  "title": "Require Signed Images with Kyverno",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["supply-chain", "admission", "kyverno"],
+  "objective": "Author a Kyverno ClusterPolicy in Enforce mode that uses verifyImages rules to block unsigned images from running in the dojo-supplychain namespace."
+}

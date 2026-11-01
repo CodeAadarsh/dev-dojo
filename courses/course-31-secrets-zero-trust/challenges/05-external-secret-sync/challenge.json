@@ -1,0 +1,11 @@
+{
+  "slug": "05-external-secret-sync",
+  "title": "External Secrets Operator: Declare a Sync",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["secrets", "eso", "kubernetes"],
+  "objective": "Author a SecretStore and an ExternalSecret in namespace dojo-secrets so the External Secrets Operator would sync a backend secret into a native Kubernetes Secret."
+}

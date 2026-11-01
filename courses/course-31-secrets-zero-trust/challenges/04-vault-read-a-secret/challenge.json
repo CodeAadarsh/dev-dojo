@@ -1,0 +1,11 @@
+{
+  "slug": "04-vault-read-a-secret",
+  "title": "Vault: Read a Secret Under a Scoped Policy",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["secrets", "vault"],
+  "objective": "Write a secret to Vault KV v2, author a policy that allows reading only that path, bind a token to that policy, and prove the token is denied on every other path."
+}

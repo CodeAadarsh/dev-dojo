@@ -1,0 +1,5 @@
+[
+  "The verifier needs two Python files and attestation.json in your work directory. attestation.json is produced by running `python3 generate_attestation.py` after you implement the function. The key rule: compute the sha256 digest from the artifact file bytes — do not hard-code it.",
+  "For generate_attestation: read build_metadata.json (json.loads), compute hashlib.sha256 of artifact_path.read_bytes(), and build the dict with _type='https://in-toto.io/Statement/v0.1', subject (name + digest), predicateType='https://slsa.dev/provenance/v0.2', and predicate (builder, buildType, invocation, materials all from the metadata).",
+  "For check_attestation: check _type and predicateType are the expected URI strings, compute sha256_file(artifact_path), check that at least one subject entry has that exact digest under digest.sha256, and check that predicate.builder.id is a non-empty string. Return False (not raise) on any mismatch."
+]

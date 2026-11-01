@@ -1,0 +1,11 @@
+{
+  "slug": "04-sign-and-verify",
+  "title": "Sign and Verify Artifacts with cosign",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 30,
+  "tags": ["supply-chain", "cosign", "signing"],
+  "objective": "Generate a cosign key pair, sign a build artifact, verify the signature holds—and prove that a tampered copy is rejected."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "01-pin-and-verify-deps",
+  "title": "Pin and Verify Dependencies",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["supply-chain", "dependencies", "pinning"],
+  "objective": "Implement a checker that detects unpinned deps and tampered package hashes, then pin the offending dep in requirements.in."
+}

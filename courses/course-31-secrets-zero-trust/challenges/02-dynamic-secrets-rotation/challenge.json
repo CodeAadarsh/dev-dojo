@@ -1,0 +1,11 @@
+{
+  "slug": "02-dynamic-secrets-rotation",
+  "title": "Dynamic Secrets Rotation",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["secrets", "vault", "rotation"],
+  "objective": "Implement a lease-based dynamic credential backend: issue short-TTL credentials, auto-expire them, revoke on demand, and rotate without leaving two valid credentials in flight."
+}

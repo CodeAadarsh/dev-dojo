@@ -1,0 +1,5 @@
+[
+  "`validate` must check three things in order: does the lease exist? (`lease_id not in self._leases`), is it revoked? (`lease.revoked`), and is it past TTL? (`time.time() > lease.expires_at`). Return `False` for any of these — do not raise.",
+  "For `issue`, use `uuid.uuid4()` for the `lease_id` and `secrets.token_hex(6)` / `secrets.token_urlsafe(24)` for username and password — `secrets` is the stdlib crypto-safe random module. Store a `Lease` dataclass with `expires_at = time.time() + ttl_seconds`.",
+  "`rotate` must issue the new credential first, then revoke the old one — never the reverse. If you revoke before issuing and something goes wrong, the caller ends up with no credential. After `self.revoke(lease_id)`, `validate(old_lease_id)` must return `False` because `lease.revoked = True`."
+]

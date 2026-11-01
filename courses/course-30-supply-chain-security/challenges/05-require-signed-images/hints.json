@@ -1,0 +1,5 @@
+[
+  "The verifier checks four things via kubectl: (1) ClusterPolicy named 'require-signed-images' exists, (2) spec.validationFailureAction = 'Enforce', (3) a verifyImages field appears in the spec, (4) the string 'dojo-supplychain' appears in the policy YAML. You need to author and apply a ClusterPolicy that satisfies all four.",
+  "The minimal structure is: ClusterPolicy with validationFailureAction: Enforce, a rule with match.resources.kinds: [Pod] and match.resources.namespaces: [dojo-supplychain], and a verifyImages block under that rule. For the attestors.entries.keys.publicKeys, use the contents of any valid cosign.pub — the verifier does not check that the key is correct, only that the field structure is present.",
+  "If the verifier says 'no verifyImages rule found', make sure your YAML indentation is correct: verifyImages must be a direct child of the rule (same level as match and name), not nested inside match. Run `kubectl get clusterpolicy require-signed-images -o yaml` to inspect what the API server actually stored."
+]

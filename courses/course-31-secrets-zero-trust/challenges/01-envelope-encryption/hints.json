@@ -1,0 +1,5 @@
+[
+  "AES-GCM needs two things: a key (your DEK, 32 bytes) and a unique nonce per encryption. `os.urandom(12)` is the standard nonce. `AESGCM(dek).encrypt(nonce, plaintext, None)` returns the ciphertext with the 16-byte auth tag already appended — `decrypt` verifies it and raises `InvalidTag` on tamper.",
+  "AES Key Wrap (RFC 3394) is a key-wrapping standard built into `cryptography`: `aes_key_wrap(kek, dek, default_backend())` wraps, `aes_key_unwrap(kek, wrapped, default_backend())` unwraps. The kek and dek must each be 16, 24, or 32 bytes. Wrong kek → `InvalidUnwrap`.",
+  "`rotate_kek` is two lines: `unwrap_dek(wrapped_dek, old_kek)` to recover the DEK, then `wrap_dek(dek, new_kek)` to re-wrap it. The ciphertext blob never changes — only the stored `wrapped_DEK` is replaced with the new wrapping."
+]

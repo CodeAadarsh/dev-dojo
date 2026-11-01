@@ -18,7 +18,7 @@ dev-dojo/
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (29 live)
+### Courses (31 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -51,6 +51,8 @@ dev-dojo/
 | 27 | LLMOps & Agentic Systems | prompts, eval, guardrails, agents, serving | local + kind |
 | 28 | Chaos Engineering | fault injection, GameDays, resilience | local + kind |
 | 29 | Performance Engineering | load testing, profiling, capacity | local |
+| 30 | Supply-Chain Security | SBOM, scan, sign, SLSA, admission | local + kind |
+| 31 | Secrets & Zero Trust | Vault, envelope crypto, mTLS, ESO | local + kind |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

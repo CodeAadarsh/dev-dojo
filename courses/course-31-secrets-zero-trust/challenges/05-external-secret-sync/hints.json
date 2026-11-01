@@ -1,0 +1,5 @@
+[
+  "The CRD API group is 'external-secrets.io/v1beta1' — not 'k8s.io'. Check with: kubectl api-resources | grep external-secrets. If the CRD is missing, run setup.sh again.",
+  "A SecretStore is namespace-scoped. Your ExternalSecret must be in the same namespace (dojo-secrets) and its secretStoreRef.kind must be 'SecretStore' (not 'ClusterSecretStore'). The target.name is the Kubernetes Secret name the operator will create: 'dojo-synced-app'.",
+  "The exact data mapping the verifier checks: spec.data[0].secretKey = 'api_key' and spec.data[0].remoteRef.key = '/dojo/app/api-key'. Apply both objects with kubectl apply -f, then run verify.sh."
+]

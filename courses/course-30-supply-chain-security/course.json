@@ -1,0 +1,12 @@
+{
+  "id": "course-30-supply-chain-security",
+  "slug": "supply-chain-security",
+  "title": "Supply-Chain Security",
+  "order": 30,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "14–20 h",
+  "prereqs": ["Courses 1 & 3 (security)", "Docker + kind", "Optional: trivy / syft / cosign / Kyverno for specific challenges"],
+  "tags": ["supply-chain", "slsa", "sbom", "cosign", "sigstore", "trivy", "admission"],
+  "description": "Secure the path from code to cluster: dependency & lockfile integrity, SBOMs (SPDX/CycloneDX, syft), vulnerability scanning (trivy/grype, CVE triage), image signing & verification (cosign/sigstore keyless, Rekor), provenance & SLSA levels, and admission enforcement that only lets signed, scanned images run — each a hands-on exercise verifying the artifact or policy you produce."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "03-scan-and-fix-vulns",
+  "title": "Scan and Fix Vulnerabilities",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["supply-chain", "vulnerabilities"],
+  "objective": "Implement a dependency vulnerability scanner that matches deps against an advisory DB, then bump the flagged dep to its fixed version."
+}

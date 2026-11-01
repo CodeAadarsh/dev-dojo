@@ -1,0 +1,11 @@
+{
+  "slug": "06-provenance-attestation",
+  "title": "Generate a SLSA Provenance Attestation",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["supply-chain", "slsa", "provenance"],
+  "objective": "Implement generate_attestation.py to produce a valid in-toto Statement v0.1 with a SLSA Provenance v0.2 predicate, and check_attestation.py to verify—and reject tampered or incomplete attestations."
+}

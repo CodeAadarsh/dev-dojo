@@ -1,0 +1,11 @@
+{
+  "slug": "01-envelope-encryption",
+  "title": "Envelope Encryption",
+  "order": 1,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["secrets", "encryption", "envelope"],
+  "objective": "Implement envelope encryption: generate a DEK, encrypt data with AES-GCM, wrap the DEK with a KEK, and support KEK rotation without re-encrypting the data."
+}

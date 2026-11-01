@@ -1,0 +1,11 @@
+{
+  "slug": "03-mtls-in-python",
+  "title": "Mutual TLS in Python",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 60,
+  "tags": ["secrets", "mtls", "zero-trust"],
+  "objective": "Build mutual TLS from scratch: create a CA, sign server and client certs, configure server-side client-cert verification, and prove that an unknown client cert or no cert is rejected."
+}

@@ -1,0 +1,5 @@
+[
+  "The verifier needs four files in your work directory: cosign.pub, artifact.bin, artifact.sig, and artifact.tampered.bin. setup.sh plants artifact.bin and artifact.tampered.bin. You generate the other two.",
+  "Generate the key pair with `cosign generate-key-pair` (run from inside the work directory, so the files land there). Sign with `cosign sign-blob --key cosign.key artifact.bin > artifact.sig`. The `>` redirect writes the base64 signature to artifact.sig.",
+  "For the tampered-copy test: artifact.tampered.bin was already planted by setup.sh with one character changed. You do not need to modify it — the point is that your signature (over artifact.bin) does NOT validate against a different file, because the SHA-256 digest differs. Just confirm that `cosign verify-blob ... artifact.tampered.bin` exits non-zero."
+]
