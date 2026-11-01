@@ -18,7 +18,7 @@ dev-dojo/
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (25 live)
+### Courses (27 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -47,6 +47,8 @@ dev-dojo/
 | 23 | Terraform & IaC | HCL, state/drift, modules (cloud-free) | local |
 | 24 | MLOps | train → serve → monitor → deploy, pytest-judged | local + kind |
 | 25 | CI/CD Pipelines | GitHub Actions, gates, progressive delivery | local + kind |
+| 26 | Data Engineering | ETL/CDC → Kafka → Airflow → lakehouse | local |
+| 27 | LLMOps & Agentic Systems | prompts, eval, guardrails, agents, serving | local + kind |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

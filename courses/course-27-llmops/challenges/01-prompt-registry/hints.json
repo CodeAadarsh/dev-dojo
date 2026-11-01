@@ -1,0 +1,5 @@
+[
+  "The registry needs two nested data structures: one mapping (name, version) → PromptTemplate, and one mapping name → promoted_version. A plain dict-of-dicts works fine.",
+  "render() should call str.format(**kwargs) on self.template. For get/promote/get_production, raise KeyError when the name or version is absent — don't silently return None.",
+  "provenance is just an append-only list per prompt name: self._provenance.setdefault(name, []).append({\"version\": version, \"output\": output}). get_provenance returns that list (or [] if never recorded)."
+]

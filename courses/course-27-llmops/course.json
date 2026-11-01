@@ -1,0 +1,12 @@
+{
+  "id": "course-27-llmops",
+  "slug": "llmops",
+  "title": "LLMOps & Agentic Systems",
+  "order": 27,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "18–24 h",
+  "prereqs": ["Course 11 (GenAI) recommended", "Python; pip install pytest", "Local LLM via Ollama or an API key (optional — most challenges mock the model)"],
+  "tags": ["llmops", "llm", "agents", "evaluation", "guardrails", "serving", "observability"],
+  "description": "Operating LLMs & agents in production: how LLMOps differs from MLOps (prompts, non-determinism, eval, cost), prompt & model versioning, evaluation at scale (LLM-as-judge, regression suites), guardrails & safety (structured output, PII, prompt-injection defense), agentic systems (tool routing, multi-agent, loop & cost control), serving economics (semantic caching, batching, routing/fallback), and LLM observability (token/latency/cost tracing, output drift) — deterministic and pytest-judged, with the model mocked where needed."
+}

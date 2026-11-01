@@ -1,0 +1,11 @@
+{
+  "slug": "05-parquet-star-schema",
+  "title": "Parquet Star Schema",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["modeling", "parquet", "partitioning"],
+  "objective": "Model a denormalized dataset into a star schema (one fact table + two dimension tables) and write the fact table to partitioned Parquet, verifiable by a pytest harness."
+}

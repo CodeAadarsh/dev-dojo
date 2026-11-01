@@ -1,0 +1,5 @@
+[
+  "Layer the three stages in order inside `complete()`: check `self._exact` first (O(1) dict lookup on the prompt string), then iterate `self._semantic` comparing `cosine_similarity(embed(prompt), cached_emb) >= self.threshold`, then call the model. Return immediately on any cache hit — never call the model if either cache matches.",
+  "The fallback is a standard try/except: `try: response = self.primary.complete(prompt)` / `except Exception: response = self.fallback.complete(prompt)`. After whichever succeeds, store in BOTH caches: `self._exact[prompt] = response` and `self._semantic.append((embed(prompt), response))`.",
+  "The semantic cache stores `(embedding_vector, response)` tuples — the embedding is computed from the ORIGINAL prompt (not a normalised form). When searching, compare the new embedding against every stored tuple's first element. The test 'capital of france' → 'france capital' relies on a cosine of ~0.82, which exceeds the default threshold of 0.75."
+]

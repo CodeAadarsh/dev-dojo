@@ -1,0 +1,5 @@
+[
+  "The loop body is three lines: call `MOCK_PLANNER(query, history)`, check `action['action']`, dispatch. The entire reasoning state lives in `history` — every tool result you accumulate there is what lets the planner form its next step. An empty or missing history makes the planner loop forever.",
+  "For `action['action'] == 'tool_call'`: call `TOOLS[action['tool']](**action['args'])`, then `history.append({'tool': action['tool'], 'args': action['args'], 'result': result})` and `continue`. For `action['action'] == 'answer'`: `return action['value']`. Wrap the loop in `for _ in range(max_steps):` — fall through and raise `StepBudgetExceeded` after the loop exits without an answer.",
+  "The 'chain: capital then length' test requires two tool calls: first a `lookup`, then a `calculator` whose expression is built from the lookup result. If history is populated correctly, `MOCK_PLANNER` extracts `history[0]['result']` and uses `len(city)` as the calculator expression. If history is empty, the planner returns the lookup action again, the chain never progresses, and the budget is exceeded."
+]

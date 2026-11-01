@@ -1,0 +1,11 @@
+{
+  "slug": "06-llm-gateway-with-cache",
+  "title": "LLM Gateway with Cache",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["llmops", "serving", "caching"],
+  "objective": "Build an LLM gateway that wraps a mock model call with an exact-match cache and a semantic similarity cache, reducing redundant model calls, with automatic fallback to a secondary model on primary failure."
+}

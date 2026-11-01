@@ -1,0 +1,11 @@
+{
+  "slug": "05-tool-routing-agent",
+  "title": "Tool Routing Agent",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["llmops", "agents", "tool-use"],
+  "objective": "Implement an agent loop that routes queries to mock tools (calculator, lookup), feeds tool results back for multi-step reasoning, and enforces a per-run step budget to prevent infinite loops."
+}

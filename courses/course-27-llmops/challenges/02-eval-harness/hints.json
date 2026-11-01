@@ -1,0 +1,5 @@
+[
+  "run() should reset self.results to [] before iterating — do not append to the old list across calls. For each case: call model_fn, call judge_fn(expected, actual), append an EvalResult.",
+  "aggregate_score() is just sum(r.score for r in self.results) / len(self.results). Raise ValueError when the list is empty — don't return 0 or NaN silently.",
+  "passes_threshold() is a one-liner: return self.aggregate_score() >= self.threshold. failing_cases() is a list comprehension over self.results filtering for score < self.threshold."
+]

@@ -1,0 +1,5 @@
+[
+  "Load the contract JSON into a list of column specs (a dataclass or dict per column). Iterate over specs, check if the column exists first — if not, record a 'schema' violation and `continue` (skips the rest of the checks for that column).",
+  "Check order within a column: schema → non_null → unique → dtype → range → allowed_values. For non_null: `series.isnull().sum() > 0`. For unique: `series.dropna().duplicated().sum() > 0`. Freshness is after the column loop: compare `pd.to_datetime(df[fcol]).max().date()` against `reference_date - timedelta(days=max_age_days)`.",
+  "Inject `reference_date` as a parameter — never use `date.today()` inside validate(). The verifier feeds a fixed date so results are deterministic. `run_pipeline` is one-liner: call `validate`, raise `DataQualityError` if `not report.passed`, else return `df`."
+]

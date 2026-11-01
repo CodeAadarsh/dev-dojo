@@ -1,0 +1,12 @@
+{
+  "id": "course-26-data-engineering",
+  "slug": "data-engineering",
+  "title": "Data Engineering",
+  "order": 26,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "20–28 h",
+  "prereqs": ["Python + SQL", "pip install pytest pandas pyarrow", "Docker optional for Kafka demos"],
+  "tags": ["data-engineering", "etl", "kafka", "airflow", "spark", "streaming", "lakehouse"],
+  "description": "Build the pipelines that feed everything: ETL vs ELT, batch vs stream, ingestion & change-data-capture, streaming (Kafka topics/partitions/consumer-groups, windowed aggregation), batch processing & Spark concepts, orchestration (DAGs, scheduling, backfills, idempotency), storage & modeling (data lake/warehouse/lakehouse, Parquet partitioning, star schema), and data quality / contracts / lineage — each a runnable, pytest-judged exercise."
+}

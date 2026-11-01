@@ -1,0 +1,11 @@
+{
+  "slug": "02-incremental-upsert",
+  "title": "Incremental Upsert: Idempotent CDC Merge",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["cdc", "idempotency"],
+  "objective": "Implement an idempotent merge that applies a CDC feed (inserts, updates, deletes) to a base table and produces a consistent final state regardless of how many times the feed is re-applied."
+}

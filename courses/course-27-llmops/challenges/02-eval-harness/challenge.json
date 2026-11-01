@@ -1,0 +1,11 @@
+{
+  "slug": "02-eval-harness",
+  "title": "Eval Harness",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["llmops", "evaluation"],
+  "objective": "Build an eval harness that runs a mock model over a golden dataset, scores outputs with a deterministic judge, aggregates to a pass/fail verdict, and surfaces per-case failures."
+}

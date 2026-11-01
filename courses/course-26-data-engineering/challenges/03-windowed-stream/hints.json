@@ -1,0 +1,5 @@
+[
+  "Window assignment is deterministic: `window_start = (ts // window_size_s) * window_size_s`. Integer floor division. `ts=129 // 60 = 2`, `2 * 60 = 120` — so the late event belongs in window [120,180).",
+  "The watermark is a running maximum, not the current event's ts: `max_seen_ts = max(max_seen_ts, ts); watermark = max_seen_ts - max_lateness_s`. When `(sensor-B, 129, 7)` arrives, `max_seen_ts` is already 130 (from the previous event), so `watermark = 120`. Check `129 >= 120` → accept.",
+  "The drop condition is `if ts < watermark: continue` (strict less-than). Events with `ts == watermark` are accepted. Accumulate into a plain dict: `windows[(key, window_start)] = windows.get((key, window_start), 0) + value`."
+]

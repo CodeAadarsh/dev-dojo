@@ -1,0 +1,5 @@
+[
+  "The verifier checks exact column names and order. Your output frame must have exactly these columns in this order: id, user_name, amount_usd, event_date, category. Any extra column (like _junk or status) is a test failure.",
+  "For the amount column: strip the dollar sign and commas before casting. `pd.Series.str.replace(r'[$,\\s]', '', regex=True).astype('float64')` handles all the variants in the CSV in one pass.",
+  "For the date column: the CSV mixes ISO 8601 and DD/MM/YYYY formats. In pandas 2+ you must pass `format='mixed'` to allow per-element format inference. Add `dayfirst=True` to handle the DD/MM/YYYY rows: `pd.to_datetime(col, format='mixed', dayfirst=True)`."
+]

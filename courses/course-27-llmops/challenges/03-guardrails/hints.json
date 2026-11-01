@@ -1,0 +1,5 @@
+[
+  "SchemaGuardrail.enforce has two distinct phases: (1) json.loads() wrapped in a try/except that raises SchemaViolation, and (2) a loop over self.schema.items() that checks presence then type, coercing with expected_type(value) when needed — raise SchemaViolation if the coercion throws.",
+  "For coercion: if isinstance(value, expected_type) is already True, store it directly. Otherwise call expected_type(value) inside a try/except (ValueError, TypeError) and raise SchemaViolation on failure. Return only the keys present in self.schema — drop extras.",
+  "PIIRedactor.redact applies three regex substitutions in order: email (user@domain.tld → [EMAIL]), phone (\\(?\\d{3}\\)?[\\s.\\-]?\\d{3}[\\s.\\-]\\d{4} → [PHONE]), card (\\b\\d{13,19}\\b → [CARD]). Apply email first, then phone, then card — ordering prevents interference between patterns."
+]

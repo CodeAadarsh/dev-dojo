@@ -1,0 +1,5 @@
+[
+  "The vulnerability is about *where* content lands. Retrieved documents have no business in the system prompt — they belong in the user turn. Ask: what trust level does the model assign to each message role?",
+  "`detect_injection()` only needs a phrase list and `any(phrase in text.lower() for phrase in INJECTION_PHRASES)`. Seed it with at least: 'ignore all previous instructions', 'ignore previous instructions', 'disregard your', 'forget your instructions', 'you are now'. Case-insensitive substring match is enough for this challenge.",
+  "In `build_prompt()`: iterate over chunks, call `detect_injection()` on each, replace flagged chunks with `'[REDACTED: detected injection attempt]'`. Wrap every chunk (safe or redacted) in an XML-like delimiter (`<document index=\"N\">...</document>`). Put ONLY operator instructions in `'system'`; put the delimited documents + question in `'user'`."
+]

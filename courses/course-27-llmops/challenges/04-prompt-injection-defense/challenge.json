@@ -1,0 +1,11 @@
+{
+  "slug": "04-prompt-injection-defense",
+  "title": "Prompt Injection Defense",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 40,
+  "tags": ["llmops", "security", "prompt-injection"],
+  "objective": "Implement a RAG prompt builder that enforces trust boundaries — separating operator instructions from retrieved data — so injected directives embedded in documents are detected and neutralized before they reach the model."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "01-prompt-registry",
+  "title": "Prompt Registry",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["llmops", "prompts", "versioning"],
+  "objective": "Implement a versioned prompt registry: register templates, render with variables, promote a version to production, and record output provenance."
+}

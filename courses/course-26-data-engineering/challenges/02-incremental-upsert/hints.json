@@ -1,0 +1,5 @@
+[
+  "The key insight is to treat every CDC operation as an upsert keyed by id, not as a sequential mutation log. Collapse the feed to the last operation per id first: `feed.drop_duplicates(subset='id', keep='last')`. Then split into deletes vs upsert-rows and apply both sets to the base in one pass.",
+  "For idempotency: remove the affected ids from the base *before* appending the upsert rows — not after. `base_keep = base_df[~base_df['id'].isin(deletes) & ~base_df['id'].isin(upsert_ids)]`. This way a second application of the feed finds the same absent/present ids and produces an identical result.",
+  "The final concat is: `pd.concat([base_keep, upsert_rows[['id','name','amount','updated_at']]], ignore_index=True).sort_values('id').reset_index(drop=True)`. Drop the `op` column from the upsert rows before concatenating or the schema won't match the base."
+]

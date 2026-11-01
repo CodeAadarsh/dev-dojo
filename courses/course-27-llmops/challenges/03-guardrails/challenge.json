@@ -1,0 +1,11 @@
+{
+  "slug": "03-guardrails",
+  "title": "Output Guardrails",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["llmops", "guardrails", "safety"],
+  "objective": "Implement LLM output guardrails: enforce a flat JSON schema with coercion, and redact PII (email, phone, card numbers) from free-text responses."
+}

@@ -1,0 +1,5 @@
+[
+  "The dimension tables are just the relevant columns from the flat CSV, deduplicated on the primary key. `df[cols].drop_duplicates(subset=['customer_id'])` is the one-liner for `dim_customers`.",
+  "The fact table keeps only the foreign keys and measures — strip every attribute column. `order_date` must be `datetime64`, not a string: `pd.to_datetime(fact['order_date'])` before returning.",
+  "For partitioned Parquet: `import pyarrow.parquet as pq; pq.write_to_dataset(pa.Table.from_pandas(fact_df), root_path='<output_dir>/fact_orders', partition_cols=['order_date'])`. The Hive-style directories are created automatically."
+]

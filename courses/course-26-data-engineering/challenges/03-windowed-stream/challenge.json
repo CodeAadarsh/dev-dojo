@@ -1,0 +1,11 @@
+{
+  "slug": "03-windowed-stream",
+  "title": "Windowed Stream: Tumbling Windows with Late Events",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 50,
+  "tags": ["streaming", "windowing"],
+  "objective": "Implement a tumbling-window aggregation over a deterministic in-process event stream, handling out-of-order events within an allowed lateness and emitting correct per-window sums per key."
+}

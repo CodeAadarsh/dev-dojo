@@ -1,0 +1,5 @@
+[
+  "Topological order = Kahn's algorithm. Build an in-degree map (count how many deps each task has), start with all zero-in-degree tasks, process them, decrement their children's in-degrees, enqueue children when their in-degree hits zero.",
+  "Cycle detection needs DFS with three colours: WHITE (unvisited), GREY (on the current path), BLACK (done). If you visit a GREY node you found a cycle — raise CycleError immediately. The GREY colour is what distinguishes a back-edge from a cross-edge.",
+  "Failure propagation: keep a `failed` set. When a task raises, add it. Before executing a task, check `any(dep in failed for dep in task.deps)` — if true, mark it SKIPPED and add it to `failed` too. Store 'SKIPPED' in the context under that task's name."
+]

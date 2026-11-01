@@ -1,0 +1,11 @@
+{
+  "slug": "01-etl-transform",
+  "title": "ETL Transform: Parse, Clean, Derive",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["etl", "pandas"],
+  "objective": "Implement a pandas ETL transform that cleans a messy CSV — normalising types, deriving columns, and dropping bad rows — until the output frame matches a target schema exactly."
+}

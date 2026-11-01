@@ -1,0 +1,11 @@
+{
+  "slug": "04-dag-orchestrator",
+  "title": "Mini DAG Orchestrator",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["orchestration", "dag"],
+  "objective": "Implement a mini DAG orchestrator: topological execution, cycle detection, and per-task retry with downstream failure propagation — no Airflow required."
+}

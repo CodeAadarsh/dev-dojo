@@ -1,0 +1,11 @@
+{
+  "slug": "06-data-quality-gate",
+  "title": "Data Quality Gate",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["data-quality", "contracts"],
+  "objective": "Implement a data-contract validator that checks schema, non-null, uniqueness, value range, and freshness — returning a structured report and raising on violation."
+}
