@@ -1,0 +1,11 @@
+{
+  "slug": "06-automated-gameday",
+  "title": "Automated GameDay Runner",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 50,
+  "tags": ["chaos", "automation", "slo"],
+  "objective": "Implement an automated experiment runner that records steady state, injects chaos, monitors the SLO, auto-aborts and rolls back on breach, and emits a structured report — all verifiable by a pytest harness."
+}

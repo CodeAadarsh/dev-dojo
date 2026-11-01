@@ -1,0 +1,5 @@
+[
+  "Little's Law: L = λW. For an M/M/c queue, stability requires ρ = λW/c < 1. With a 20% safety headroom, the constraint becomes ρ ≤ 0.80, so c ≥ λW / 0.80.",
+  "The minimum integer pool size is math.ceil(λ * W / (1 - safety_headroom)). Use max(arrival_rate_rps, target_throughput_rps) as λ in case the target exceeds the arrival rate.",
+  "Verify with the simulator: from simulator import simulate; result = simulate(80, 0.025, 3); print(result.actual_throughput_rps, result.max_queue_depth). With c=2 (ρ=1.0) the queue depth blows up; with c=3 (ρ=0.667) it stays near zero."
+]

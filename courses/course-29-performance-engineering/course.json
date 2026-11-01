@@ -1,0 +1,12 @@
+{
+  "id": "course-29-performance-engineering",
+  "slug": "performance-engineering",
+  "title": "Performance Engineering",
+  "order": 29,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "16–22 h",
+  "prereqs": ["Python (challenges use a local load/profile harness)", "pip install pytest", "Course 10 helps"],
+  "tags": ["performance", "load-testing", "profiling", "latency", "capacity", "optimization"],
+  "description": "Make it fast and prove it: performance methodology (measure, don't guess; USE/RED), load testing (open vs closed models, think time), latency & percentiles (why p99, coordinated omission), profiling (CPU/memory hotspots, flamegraphs), concurrency & throughput (Little's Law, queueing), caching & data-path tuning, and capacity planning — each a runnable, measured, pytest-judged exercise."
+}

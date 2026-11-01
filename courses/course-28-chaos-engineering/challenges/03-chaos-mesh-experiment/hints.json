@@ -1,0 +1,5 @@
+[
+  "Verify Chaos Mesh is installed before authoring a CR: `kubectl -n chaos-mesh get pods`. The controller-manager, chaos-daemon (DaemonSet), and dashboard must all be Running. If the namespace doesn't exist, run the Helm install from brief.md.",
+  "The CRD name is `podchaos.chaos-mesh.org` (hyphenated, lowercase). Check it exists: `kubectl get crd podchaos.chaos-mesh.org`. If missing, Chaos Mesh is not installed. Generate a skeleton with: `kubectl explain podchaos.spec --api-version=chaos-mesh.org/v1alpha1`",
+  "The verify checks `spec.selector.namespaces[0] == 'dojo-chaos'`. In YAML this field is an array: `spec.selector.namespaces: [dojo-chaos]` — not a string. This is the most common mistake. Double-check by running: `kubectl -n dojo-chaos get podchaos -o jsonpath='{.items[0].spec.selector.namespaces[0]}'`"
+]

@@ -1,0 +1,5 @@
+[
+  "Create the PodDisruptionBudget *before* running `kubectl drain`. The PDB must already exist when the eviction requests fire, or they proceed unrestricted. Use `kubectl -n dojo-chaos get pdb` to confirm it's in place.",
+  "Find worker node names with `kubectl get nodes`. The drain command is: `kubectl drain <worker-name> --ignore-daemonsets --delete-emptydir-data`. The `--ignore-daemonsets` flag is required on kind because kindnet and kube-proxy run as DaemonSet pods on every node.",
+  "If drain hangs showing 'waiting for eviction to be approved' or 'Cannot evict pod', the PDB is working correctly — it's blocking until a replacement pod becomes Ready. Watch pod movement in another terminal: `kubectl -n dojo-chaos get pods -o wide -w`. If it never unblocks, check that the replacement pod isn't stuck (ImagePullBackOff, resource pressure, etc.)."
+]

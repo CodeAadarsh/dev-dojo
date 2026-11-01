@@ -1,0 +1,12 @@
+{
+  "id": "course-28-chaos-engineering",
+  "slug": "chaos-engineering",
+  "title": "Chaos Engineering",
+  "order": 28,
+  "status": "available",
+  "difficulty": "Advanced",
+  "estHours": "14–20 h",
+  "prereqs": ["Courses 1 & 2 (SRE)", "Docker + kind", "Optional: Chaos Mesh for the experiment-CR challenge"],
+  "tags": ["chaos-engineering", "resilience", "sre", "fault-injection", "gamedays"],
+  "description": "Break your system on purpose, safely: steady-state hypotheses & blast-radius control, failure injection (pods, processes), network chaos (latency/loss/partition), resource chaos, GameDays & experiment tooling (Chaos Mesh/Litmus), and the resilience patterns chaos validates — each a hands-on experiment against a local kind cluster."
+}

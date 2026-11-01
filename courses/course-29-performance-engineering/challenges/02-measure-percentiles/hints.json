@@ -1,0 +1,5 @@
+[
+  "The formula is in the module docstring: `rank = p/100 * (n-1)`. Sort the data first, compute `lower = int(rank)` and `upper = lower + 1` (clamped to n-1), then return `data[lower] + (rank - lower) * (data[upper] - data[lower])`. Single-element and p=100 are edge cases you need to handle explicitly.",
+  "For `check_slo`: call `compute_percentile(latencies, 99)` and compare to `p99_threshold_ms`. The SLO is _breached_ (return `True`) when p99 **strictly exceeds** the threshold — not when it equals it.",
+  "The most common mistake is forgetting to sort the input. Use `sorted(data)` (returns a new list) rather than `data.sort()` (mutates in-place). For the boundary: `upper = min(lower + 1, n - 1)` prevents an IndexError at p=100 where `rank` is exactly `n-1`."
+]

@@ -18,7 +18,7 @@ dev-dojo/
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (27 live)
+### Courses (29 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -49,6 +49,8 @@ dev-dojo/
 | 25 | CI/CD Pipelines | GitHub Actions, gates, progressive delivery | local + kind |
 | 26 | Data Engineering | ETL/CDC → Kafka → Airflow → lakehouse | local |
 | 27 | LLMOps & Agentic Systems | prompts, eval, guardrails, agents, serving | local + kind |
+| 28 | Chaos Engineering | fault injection, GameDays, resilience | local + kind |
+| 29 | Performance Engineering | load testing, profiling, capacity | local |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

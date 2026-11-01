@@ -1,0 +1,11 @@
+{
+  "slug": "03-chaos-mesh-experiment",
+  "title": "Chaos Mesh Experiment",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["chaos", "chaos-mesh"],
+  "objective": "Author a Chaos Mesh PodChaos or NetworkChaos CR targeting dojo-chaos and verify the CR is correctly structured."
+}

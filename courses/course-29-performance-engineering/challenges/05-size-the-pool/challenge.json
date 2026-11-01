@@ -1,0 +1,11 @@
+{
+  "slug": "05-size-the-pool",
+  "title": "Size the Pool",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["performance", "concurrency", "littles-law"],
+  "objective": "Apply Little's Law to compute the minimum worker-pool size that sustains a throughput target without the queue growing unbounded."
+}

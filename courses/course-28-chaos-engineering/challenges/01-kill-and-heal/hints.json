@@ -1,0 +1,5 @@
+[
+  "The controller responds automatically — no manual action needed beyond deleting the pod. Run `kubectl -n dojo-chaos get pods -w` after deletion to watch the reconciliation in real time.",
+  "The verifier checks that pods are owned by a ReplicaSet, not just that the count is 3. Check ownership yourself: `kubectl -n dojo-chaos get pods -o jsonpath='{range .items[*]}{.metadata.name}{\"\\t\"}{.metadata.ownerReferences[0].kind}{\"\\n\"}{end}'`",
+  "If the verifier says 'Healing incomplete', the new pods haven't passed their readinessProbe yet. Run `kubectl -n dojo-chaos rollout status deploy/web` and wait for '3 of 3 updated replicas are available', then retry."
+]

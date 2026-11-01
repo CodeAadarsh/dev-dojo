@@ -1,0 +1,5 @@
+[
+  "The max requests per instance per second is 1000 / p99_service_time_ms. With 25% headroom, each instance can only use 75% of that capacity: effective_rps = max_rps * (1 - slo_headroom_fraction).",
+  "Required instances = math.ceil(target_qps / effective_rps). Do not forget ceil — 12.8 instances rounds up to 13, not down to 12.",
+  "MAX_SUSTAINABLE_QPS = required_instances * effective_rps (not target_qps). This is the fleet ceiling — the number that goes in the runbook as the point where you breach SLO."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "01-optimize-the-hotspot",
+  "title": "Optimize the Hotspot",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["performance", "optimization", "complexity"],
+  "objective": "Replace an O(n²) log-intersection function with an O(n) implementation — verified by a complexity proxy that catches any nested-loop solution."
+}

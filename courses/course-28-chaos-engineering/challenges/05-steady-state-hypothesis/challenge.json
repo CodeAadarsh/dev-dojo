@@ -1,0 +1,11 @@
+{
+  "slug": "05-steady-state-hypothesis",
+  "title": "Steady-State Hypothesis",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 40,
+  "tags": ["chaos", "hypothesis", "sli"],
+  "objective": "Implement a steady-state SLI check and a chaos experiment runner that correctly validates a hypothesis, aborts when the pre-condition fails, and detects when a fault violates the SLI threshold."
+}

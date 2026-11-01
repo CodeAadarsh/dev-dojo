@@ -1,0 +1,11 @@
+{
+  "slug": "01-kill-and-heal",
+  "title": "Kill and Heal",
+  "order": 1,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["chaos", "self-heal", "pods"],
+  "objective": "Delete a pod from a 3-replica Deployment and prove the ReplicaSet controller heals the cluster back to steady state."
+}

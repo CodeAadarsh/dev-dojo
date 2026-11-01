@@ -1,0 +1,11 @@
+{
+  "slug": "02-survive-a-drain",
+  "title": "Survive a Drain",
+  "order": 2,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["chaos", "drain", "pdb"],
+  "objective": "Add a PodDisruptionBudget, drain a worker node, and prove the Deployment stayed available throughout."
+}

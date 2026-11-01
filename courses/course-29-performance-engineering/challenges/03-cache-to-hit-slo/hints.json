@@ -1,0 +1,5 @@
+[
+  "Part 1 (unbounded): a plain Python `dict` is all you need. Iterate the trace; for each key, check `if key not in results` before calling `expensive_fn`. Store the result and return the dict. Every unique key is computed exactly once.",
+  "Part 2 (LRU): use `collections.OrderedDict`. On a cache hit: call `cache.move_to_end(key)` to mark it MRU. On a cache miss: compute, insert, then evict with `cache.popitem(last=False)` if `len(cache) > max_cache_size`. Keep a separate `results` dict so evicted keys still appear in the return value.",
+  "The verifier also checks that LRU _actually_ evicts. With trace `[a,b,c,a]` and cache_size=2: inserting `c` must evict `a` (the LRU), so when `a` appears again it's a miss and `expensive_fn` is called a 4th time. If your implementation grows beyond the size limit or never evicts, this test will fail."
+]

@@ -1,0 +1,5 @@
+[
+  "`check_steady_state` is three lines: call `simulator.measure_success_rate(n_samples)`, compare the result to `sli_threshold`, and raise `SteadyStateError(rate, sli_threshold)` if below. Return the rate otherwise. `SteadyStateError` already has `measured_rate` and `threshold` attributes — set them in `__init__` via the existing signature.",
+  "In `run_chaos_experiment`, call `check_steady_state` inside a `try/except SteadyStateError` block. If it raises, set `result['aborted'] = True`, store the rate from `e.measured_rate` into `result['pre_rate']`, and return early — do NOT call `simulator.inject_fault()`. A broken baseline makes the experiment invalid.",
+  "After a successful pre-check, call `simulator.inject_fault()`, then measure with `simulator.measure_success_rate(fault_duration_calls)` inside a `try/finally`. The `finally` block must call `simulator.remove_fault()` unconditionally. Set `result['hypothesis_held'] = (during_rate >= sli_threshold)` — a `False` result is still a valid experiment outcome, not an error."
+]

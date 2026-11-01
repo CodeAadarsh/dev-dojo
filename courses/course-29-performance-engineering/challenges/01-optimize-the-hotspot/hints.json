@@ -1,0 +1,5 @@
+[
+  "The inner loop `for other in log_b: if endpoint == other` is doing a linear scan of log_b for every element of log_a. The fix doesn't require any algorithm knowledge — just ask: what data structure makes `if x in container` cost O(1) instead of O(n)?",
+  "Convert log_b to a `set` before the outer loop. Then `endpoint in log_b_set` is an O(1) hash lookup. You can also use Python's built-in set intersection: `set(log_a) & set(log_b)` does everything in one expression.",
+  "The verifier wraps log_b in a counting proxy — it measures how many elements your implementation accesses across all iterations. O(n) iterates log_b once (n accesses). Remove the inner `for` loop entirely: `return set(log_a) & set(log_b)`."
+]

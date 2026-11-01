@@ -1,0 +1,11 @@
+{
+  "slug": "06-capacity-estimate",
+  "title": "Capacity Estimate",
+  "order": 6,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["performance", "capacity"],
+  "objective": "Given a QPS target, per-request service time, and SLO headroom, compute required instance count and max sustainable QPS using the standard capacity formula."
+}

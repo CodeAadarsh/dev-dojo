@@ -1,0 +1,11 @@
+{
+  "slug": "02-measure-percentiles",
+  "title": "Measure Percentiles",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 30,
+  "tags": ["performance", "latency", "percentiles"],
+  "objective": "Implement correct p50/p95/p99 percentile computation with linear interpolation and an SLO-breach detector — verified against known reference values including edge cases."
+}

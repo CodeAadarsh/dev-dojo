@@ -1,0 +1,5 @@
+[
+  "The concurrency cap is enforced by a capacity token. Look into threading.Semaphore: acquire one before each call, release it when the call returns.",
+  "Python's concurrent.futures.ThreadPoolExecutor(max_workers=N) is a single-liner that handles the Semaphore internally. pool.map(task, range(n_requests)) submits all tasks and blocks until done — but map is lazy, so wrap it in list().",
+  "Record latency per request with time.perf_counter() (monotonic, nanosecond resolution) — start before the call, stop after, difference in milliseconds. Store in a list protected by a threading.Lock, then sort and index at int(0.95 * n) - 1 for p95."
+]

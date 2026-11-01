@@ -1,0 +1,11 @@
+{
+  "slug": "03-cache-to-hit-slo",
+  "title": "Cache to Hit SLO",
+  "order": 3,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 45,
+  "tags": ["performance", "caching"],
+  "objective": "Add an unbounded cache and an LRU-bounded cache to a request processor so the expensive-compute call count stays below the target — verified by measuring actual calls, not timing."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "04-dependency-failure",
+  "title": "Dependency Failure: Graceful Degradation",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 35,
+  "tags": ["chaos", "degradation"],
+  "objective": "Fix a cascading readiness failure caused by a probe that calls a downstream service, then prove the app stays Ready when the backend is scaled to zero."
+}

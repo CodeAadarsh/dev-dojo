@@ -14,7 +14,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ## Status snapshot (2026-11-01)
 
-**27 courses live · 179 modules · 186 challenges — all complete.**
+**29 courses live · 193 modules · 198 challenges — all complete.**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -45,6 +45,8 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 25 | CI/CD Pipelines | 7 | 6 | ✅ |
 | 26 | Data Engineering | 7 | 6 | ✅ |
 | 27 | LLMOps & Agentic Systems | 7 | 6 | ✅ |
+| 28 | Chaos Engineering | 7 | 6 | ✅ |
+| 29 | Performance Engineering | 7 | 6 | ✅ |
 
 ---
 
