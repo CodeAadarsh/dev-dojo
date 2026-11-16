@@ -1,0 +1,11 @@
+{
+  "slug": "06-property-based",
+  "title": "Properties Outlast Examples",
+  "order": 6,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 40,
+  "estMinutes": 55,
+  "tags": ["pytest", "hypothesis", "property-based", "round-trip"],
+  "objective": "Use Hypothesis to property-test a run-length encode/decode pair so that generated inputs — not hand-picked examples — expose every planted bug via the round-trip and length properties."
+}

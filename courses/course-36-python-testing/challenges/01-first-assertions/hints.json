@@ -1,0 +1,5 @@
+[
+  "Start by listing the 7 rules from the spec and writing one test per rule. A test that fails to catch a bug is usually a test you didn't write at all — coverage of rules comes first.",
+  "For the return-value rules, assert on BOTH the state and the return separately: `returned = account.withdraw(30)` then `assert account.balance == 70` AND `assert returned == 70`. Withdraw 30 from 100 so the new balance (70) differs from the amount (30) — that gap is what catches the 'returns the amount' bug.",
+  "Every 'must reject' rule needs `with pytest.raises(ValueError): ...`. You need one for: negative starting balance, deposit of 0, deposit of a negative, withdraw of 0, withdraw of a negative, and withdraw larger than the balance. Miss any one and the matching planted bug survives."
+]

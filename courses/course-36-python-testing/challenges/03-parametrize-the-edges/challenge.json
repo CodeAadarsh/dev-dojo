@@ -1,0 +1,11 @@
+{
+  "slug": "03-parametrize-the-edges",
+  "title": "Parametrize the Edges",
+  "order": 3,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["pytest", "parametrize", "edge-cases", "pytest.raises"],
+  "objective": "Use @pytest.mark.parametrize to test an integer-to-Roman-numeral converter across enough edge cases that every planted bug — subtractive notation, both range boundaries, off-by-one — is caught."
+}

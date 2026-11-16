@@ -1,0 +1,11 @@
+{
+  "slug": "04-mock-the-boundary",
+  "title": "Mock the Boundary",
+  "order": 4,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 40,
+  "estMinutes": 55,
+  "tags": ["pytest", "mocking", "unittest.mock", "monkeypatch", "patch-where-used"],
+  "objective": "Test a module that calls an external weather API without ever touching the network — the verifier blocks sockets, so you MUST mock the boundary — while your assertions still catch every bug in the parsing and classification logic."
+}

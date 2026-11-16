@@ -12,9 +12,9 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 
 ---
 
-## Status snapshot (2026-11-01)
+## Status snapshot (2026-11-17)
 
-**35 courses live · 235 modules · 234 challenges — the entire roadmap is COMPLETE. 🎉**
+**36 courses live · 243 modules · 241 challenges — the full roadmap plus a Python testing track. 🎉**
 
 | # | Course | Modules | Challenges | State |
 |---|--------|:---:|:---:|-------|
@@ -53,6 +53,7 @@ lands under `courses/`. See [CONTENT_SPEC.md](./CONTENT_SPEC.md) for the contrac
 | 33 | TypeScript/Node Backend at Scale | 7 | 6 | ✅ |
 | 34 | Managed Kubernetes (EKS·GKE·AKS) | 7 | 6 | ✅ |
 | 35 | The SDE-2 Interview Loop | 7 | 6 | ✅ |
+| 36 | Testing in Python (zero→advanced) | 8 | 7 | ✅ |
 
 ---
 

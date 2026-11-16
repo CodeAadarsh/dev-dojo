@@ -1,0 +1,11 @@
+{
+  "slug": "02-fixtures-and-teardown",
+  "title": "Fixtures & Teardown",
+  "order": 2,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 30,
+  "estMinutes": 45,
+  "tags": ["pytest", "fixtures", "tmp_path", "yield", "isolation"],
+  "objective": "Test a file-backed key-value store using a pytest fixture (with tmp_path) that gives each test a fresh, isolated store — and whose assertions catch every planted bug."
+}

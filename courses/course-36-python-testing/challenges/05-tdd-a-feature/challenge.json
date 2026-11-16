@@ -1,0 +1,11 @@
+{
+  "slug": "05-tdd-a-feature",
+  "title": "TDD a Feature",
+  "order": 5,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 40,
+  "estMinutes": 60,
+  "tags": ["pytest", "tdd", "coverage", "pytest-cov", "branch-coverage"],
+  "objective": "Build a pricing/discount function test-first: implement it to a precise spec, and write your own tests thorough enough to hit a 90% branch-coverage gate while a hidden suite confirms the implementation is correct."
+}

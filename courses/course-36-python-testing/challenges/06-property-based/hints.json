@@ -1,0 +1,5 @@
+[
+  "Your core test is the round-trip: `@given(st.text(alphabet='abcdefghij'))` then `assert rle.decode(rle.encode(s)) == s`. Use a SMALL digit-free alphabet so Hypothesis naturally produces repeated runs (that's where the count bugs live).",
+  "If Hypothesis fails your test against the correct code with an example like '2' or '0', that's the digit ambiguity from the brief — your alphabet is too wide. Restrict it to non-digit characters (letters only). Don't weaken the assertion; fix the domain.",
+  "Add a second property for extra strength: the run counts must sum to the length. `counts = [int(n) for n in re.findall(r'\\d+', rle.encode(s))]; assert sum(counts) == len(s)`. And pin `@example('')` and `@example('a')` so the empty and single-char cases (where off-by-one bugs surface) are always checked."
+]

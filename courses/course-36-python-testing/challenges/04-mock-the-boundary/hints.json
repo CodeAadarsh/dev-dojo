@@ -1,0 +1,5 @@
+[
+  "Patch the name where it is USED. `weather.py` does `import requests`, so inside that module the name is `weather.requests` — patch `\"weather.requests\"`, never `\"requests\"` or `\"requests.get\"`. To fake the response chain: `mock_requests.get.return_value.json.return_value = {\"temp_c\": 21}`.",
+  "For `classify` and `to_fahrenheit`, the simplest mock is to patch the inner call: `with patch(\"weather.get_temp_c\", return_value=15):`. Parametrize the boundary temps -5, 0, 14, 15, 27, 28, 35 so you hit every `<` comparison — 0, 15 and 28 are the values the boundary bugs get wrong.",
+  "You CANNOT catch the 'wrong JSON field' bug by patching `weather.get_temp_c` — that skips its real body. Write at least one test that patches `weather.requests` and asserts `get_temp_c(...)` returns the value from the `temp_c` field. And use `pytest.approx` for the Fahrenheit numbers (37°C → 98.6 isn't exact in floating point)."
+]

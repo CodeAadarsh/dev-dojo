@@ -1,0 +1,5 @@
+[
+  "Use the provided `client` fixture and assert on BOTH status code and body. For create: `resp.status_code == 201` AND `resp.json() == {'id': 1, 'title': ..., 'body': ...}`. The reset fixture makes ids deterministic (first note is always id 1), so you can assert exact bodies.",
+  "Error paths are where the mutants hide: blank title -> 422 (parametrize '', '   ', '\\t'), GET missing id -> 404, DELETE then GET the same id -> 404 (this catches the 'delete did nothing' bug — a 204 alone doesn't prove the note is gone). Deleting a missing id -> 404 too.",
+  "For enrich, the network is blocked so you MUST mock: `with patch('api.requests') as m: m.get.return_value.json.return_value = {'count': 3}` then call the endpoint inside the `with`. Assert the response is `{'id': nid, 'word_count': 3}` — asserting the value (not just status 200) is what catches the 'reads the wrong field' bug."
+]

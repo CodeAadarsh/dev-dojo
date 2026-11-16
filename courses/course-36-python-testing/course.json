@@ -1,0 +1,12 @@
+{
+  "id": "course-36-python-testing",
+  "slug": "python-testing",
+  "title": "Testing in Python — From Zero to Confident",
+  "order": 36,
+  "status": "available",
+  "difficulty": "Beginner → Advanced",
+  "estHours": "18–26 h",
+  "prereqs": ["Comfortable reading & writing basic Python (functions, classes, imports)", "python3.10+ with pip", "pip install pytest pytest-cov hypothesis pytest-asyncio httpx fastapi"],
+  "tags": ["python", "testing", "pytest", "tdd", "mocking", "fixtures", "hypothesis", "coverage", "ci"],
+  "description": "Learn to test Python code from absolute zero — what a test even is — and ramp to the depth a senior engineer is expected to have. Covers the pytest model end to end: assertions, fixtures and dependency injection, parametrization and markers, mocking and test doubles (and when NOT to mock), test-driven development, coverage as a tool (not a goal), property-based testing with Hypothesis, async tests, and testing real systems — APIs, databases, and pytest in CI. Every challenge grades the one thing that matters: can your tests pass on correct code AND catch the bugs? Verifiers mutate the code behind your back and your suite has to notice."
+}

@@ -1,0 +1,5 @@
+[
+  "Go rule by rule, test-first. Start with the empty cart (already red in the starter), implement just enough to pass, then add the next test: a single item, then the bulk discount, then each coupon, then the error cases. Don't write the whole function then one test — you'll miss branches.",
+  "Use integer math so money stays exact: `amount -= (amount * 5) // 100` for the 5% bulk discount and `(amount * 10) // 100` for SAVE10. Apply bulk first, then the coupon, then clamp negatives to 0. Validate the coupon before looping over items.",
+  "Branch coverage needs BOTH sides of every `if`. The one people miss: test `total_qty == 10` (bulk applies) AND `total_qty == 9` (it doesn't). Also cover all three coupon arms, both validation errors (qty<1, price<0), the unknown-coupon raise, and the FLAT500 clamp-to-zero case. That's ~12 tests and lands you well past 90%."
+]

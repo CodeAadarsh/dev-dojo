@@ -1,6 +1,6 @@
 # ⛩ DevDojo
 
-A local-first, **hands-on engineering dojo**: 21 courses spanning Kubernetes,
+A local-first, **hands-on engineering dojo**: 36 courses spanning Kubernetes,
 databases, backend, security and AI. Browse courses in a web UI, read the guide,
 then do the real work in **your own terminal** — against a disposable `kind`
 cluster, a throwaway Docker Postgres/Redis, or a plain Python project — and
@@ -14,11 +14,11 @@ The platform is a pure content **reader**, so courses span any domain — see
 dev-dojo/
 ├── platform/        the web app (Next.js) — courses, guides, flag submission, progress
 ├── labs/bootstrap/  scripts: kind, ArgoCD, ingress, metrics-server, monitoring, local registry
-├── courses/         21 self-contained courses (K8s · backend · data · AI · security · interview)
+├── courses/         36 self-contained courses (K8s · backend · data · AI · security · interview)
 └── CONTENT_SPEC.md  authoring contract   ·   ROADMAP.md  the course plan
 ```
 
-### Courses (35 live)
+### Courses (36 live)
 
 | # | Course | Focus | Verifier |
 |---|--------|-------|----------|
@@ -57,6 +57,7 @@ dev-dojo/
 | 33 | TypeScript/Node Backend at Scale | type-safe APIs, queues, streams, deploy | local + kind |
 | 34 | Managed Kubernetes (EKS·GKE·AKS) | cloud K8s, IAM, autoscaling, cost | local (config) |
 | 35 | The SDE-2 Interview Loop | coding, design, behavioral, negotiation | local |
+| 36 | Testing in Python | pytest, fixtures, mocking, TDD, Hypothesis, CI | local |
 
 More courses (DSA, System Design, Terraform, Go, MLOps, …) are planned — see
 [ROADMAP.md](./ROADMAP.md).

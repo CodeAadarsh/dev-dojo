@@ -1,0 +1,5 @@
+[
+  "Three tables, three contracts: one `(n, expected)` table of valid conversions, one of values that must raise `ValueError`, one of values that must raise `TypeError`. Don't try to cram raising and non-raising cases into one table.",
+  "The subtractive numbers are where the bugs hide: include 4→'IV', 9→'IX', 40→'XL', 90→'XC', 400→'CD', 900→'CM'. Also include 3→'III' and the exact boundaries 1 and 3999, and in the error table put 0, 4000, and a negative.",
+  "Two sneaky ones: `True` must raise `TypeError` (it's an int subclass, so a weak check turns it into 'I') — put it in your TypeError table. And test a small number like 3→'III' to catch the off-by-one where the greedy loop uses `>` instead of `>=`."
+]

@@ -1,0 +1,11 @@
+{
+  "slug": "07-test-a-real-api",
+  "title": "Test a Real API End-to-End",
+  "order": 7,
+  "difficulty": "Insane",
+  "flagType": "verifier",
+  "points": 60,
+  "estMinutes": 90,
+  "tags": ["pytest", "fastapi", "testclient", "integration", "mocking", "isolation"],
+  "objective": "Test a FastAPI notes service with TestClient: CRUD happy paths, status codes, 404/422 error paths, per-test isolation of shared state, and a mocked external enrichment call — catching every planted bug with the network blocked."
+}

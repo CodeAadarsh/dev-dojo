@@ -1,0 +1,5 @@
+[
+  "Build two fixtures that compose: one returning a path under `tmp_path`, and one returning `KeyValueStore(that_path)`. Most tests request the store; the persistence test requests the path so it can build two stores on it.",
+  "To catch the 'keys() unsorted' bug, you must insert keys OUT of sorted order (e.g. set 'c', then 'a', then 'b') and assert `keys() == ['a','b','c']`. If you insert them already sorted, insertion order equals sorted order and the bug slips through.",
+  "Map each rule to an assertion that a bug could break: `get('missing') is None` (not a raise), `with pytest.raises(KeyError): store.delete('ghost')`, and after `delete`, `get` must return None (checks the removal was actually written to disk). Setting two keys and checking BOTH survive catches the 'set replaces everything' bug."
+]

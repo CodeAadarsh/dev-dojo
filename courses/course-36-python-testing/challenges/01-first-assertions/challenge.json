@@ -1,0 +1,11 @@
+{
+  "slug": "01-first-assertions",
+  "title": "First Assertions",
+  "order": 1,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 35,
+  "tags": ["pytest", "assertions", "pytest.raises", "arrange-act-assert"],
+  "objective": "Write a pytest suite for a small Account class that passes on the correct code AND fails on every planted bug — proving your assertions actually pin the behavior."
+}
