@@ -1,0 +1,1 @@
+{"slug":"07-spiffe-attestation","title":"SPIFFE Workload Attestation","order":7,"difficulty":"Hard","flagType":"verifier","points":100,"estMinutes":55,"tags":["spiffe","spire","zero-trust","workload-identity","mtls"],"objective":"Configure SPIRE to issue an SVID to a workload pod — prove the cryptographic identity was attested and the SVID was delivered."}

@@ -1,0 +1,1 @@
+{"slug":"02-audit-log-forensics","title":"Audit Log Forensics","order":2,"difficulty":"Medium","flagType":"discovery","points":50,"estMinutes":35,"tags":["blue-team","audit","forensics","kubectl"],"objective":"An attacker already compromised the cluster. Find what they did and where they hid the flag — it's buried in the Kubernetes audit log trail."}

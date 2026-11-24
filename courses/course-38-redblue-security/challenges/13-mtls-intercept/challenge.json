@@ -1,0 +1,1 @@
+{"slug":"13-mtls-intercept","title":"mTLS Intercept","order":13,"difficulty":"Hard","flagType":"verifier","points":100,"estMinutes":55,"tags":["mtls","istio","cilium","zero-trust","network"],"objective":"Intercept plaintext service-to-service traffic as a rogue pod — then enforce mTLS so the same intercept becomes impossible."}

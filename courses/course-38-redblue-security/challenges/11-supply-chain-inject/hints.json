@@ -1,0 +1,5 @@
+[
+  "Use syft to generate SBOMs: syft dojo/app-clean:1.0 -o spdx-json > clean.json && syft dojo/app-infected:1.1 -o spdx-json > infected.json",
+  "Diff the package lists: grep '\"name\"' infected.json | sort -u > i.txt; grep '\"name\"' clean.json | sort -u > c.txt; comm -13 c.txt i.txt — the extra package name is your answer",
+  "kubectl create configmap sbom-diff-result -n dojo-sec-supplychain --from-literal=malicious_package=<found-package>; then kubectl set image deployment/app web=dojo/app-clean:1.0 -n dojo-sec-supplychain; then kubectl annotate namespace dojo-sec-supplychain dojo.supply-chain/status=remediated"
+]

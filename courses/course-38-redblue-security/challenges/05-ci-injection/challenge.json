@@ -1,0 +1,1 @@
+{"slug":"05-ci-injection","title":"CI/CD Injection","order":5,"difficulty":"Hard","flagType":"verifier","points":100,"estMinutes":50,"tags":["devsecops","github-actions","injection","pipeline","supply-chain"],"objective":"Exploit a GitHub Actions expression injection vulnerability to exfiltrate a secret — then patch the workflow to prevent it."}

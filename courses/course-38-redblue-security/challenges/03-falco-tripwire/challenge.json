@@ -1,0 +1,1 @@
+{"slug":"03-falco-tripwire","title":"Falco Tripwire","order":3,"difficulty":"Medium","flagType":"verifier","points":50,"estMinutes":40,"tags":["falco","runtime-security","blue-team","detection"],"objective":"Trigger 3 specific Falco rules as the attacker — then write the custom rule that would have caught you even earlier."}

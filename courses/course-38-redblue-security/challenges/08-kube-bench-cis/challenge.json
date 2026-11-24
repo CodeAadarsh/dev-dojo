@@ -1,0 +1,1 @@
+{"slug":"08-kube-bench-cis","title":"kube-bench CIS Hardening","order":8,"difficulty":"Hard","flagType":"verifier","points":100,"estMinutes":60,"tags":["cis","kube-bench","hardening","blue-team","compliance"],"objective":"Run kube-bench CIS Level 1 on the control plane — fix every FAIL item until the benchmark passes."}

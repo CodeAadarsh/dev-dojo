@@ -1,0 +1,12 @@
+{
+  "id": "course-38-redblue-security",
+  "slug": "redblue-security",
+  "title": "Red Team / Blue Team: Cloud-Native Security Mastery",
+  "order": 38,
+  "status": "available",
+  "difficulty": "Advanced → Insane",
+  "estHours": "25–35 h",
+  "prereqs": ["Courses 01, 03, 30, 37", "Linux internals (namespaces, capabilities)", "K8s RBAC and admission controllers", "Comfort reading and writing YAML, Bash, Go"],
+  "tags": ["security", "red-team", "blue-team", "falco", "vault", "spiffe", "opa", "kyverno", "devsecops", "supply-chain", "incident-response", "cloud-iam", "mitre-attack"],
+  "description": "Full kill chain, full defense. Attack a Kubernetes cluster using the MITRE ATT&CK framework — IMDS credential theft, lateral movement, container escape, data exfiltration — then flip to blue team: Falco runtime detection, SPIFFE/SPIRE zero trust, Vault dynamic secrets, OPA/Kyverno policy, CIS hardening, and incident response. Ends with a Red Team Lab: a deliberately misconfigured cluster you attack end-to-end then harden from scratch."
+}

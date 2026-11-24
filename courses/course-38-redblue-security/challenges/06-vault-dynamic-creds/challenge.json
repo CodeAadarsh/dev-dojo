@@ -1,0 +1,1 @@
+{"slug":"06-vault-dynamic-creds","title":"Vault Dynamic Credentials","order":6,"difficulty":"Hard","flagType":"verifier","points":100,"estMinutes":55,"tags":["vault","secrets","dynamic-creds","blue-team","devsecops"],"objective":"Replace a hardcoded database password with Vault dynamic secrets — prove the lease expires and a new credential is issued automatically."}

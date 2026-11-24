@@ -1,0 +1,1 @@
+{"slug":"04-opa-policy-escape","title":"OPA Policy Escape","order":4,"difficulty":"Hard","flagType":"verifier","points":100,"estMinutes":50,"tags":["opa","gatekeeper","policy","red-team","blue-team"],"objective":"Bypass a deliberately weak OPA ConstraintTemplate to deploy a privileged pod — then write the corrected constraint that blocks it."}

@@ -1,0 +1,1 @@
+{"slug":"01-imds-credential-theft","title":"IMDS Credential Theft","order":1,"difficulty":"Medium","flagType":"discovery","points":50,"estMinutes":35,"tags":["cloud","imds","iam","red-team","aws"],"objective":"Steal cloud IAM credentials from the Instance Metadata Service (169.254.169.254) from inside a running pod."}

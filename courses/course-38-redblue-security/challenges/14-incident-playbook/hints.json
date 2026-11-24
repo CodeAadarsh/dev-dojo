@@ -1,0 +1,5 @@
+[
+  "Follow PICERL in order. First: kubectl create configmap incident-identified -n dojo-sec-incident --from-literal=compromised_resource=processor",
+  "Contain: apply a NetworkPolicy named 'isolate-processor' that selects app=processor with empty ingress and egress (denies all traffic to/from the pod)",
+  "Eradicate: kubectl annotate secret payment-db-creds dojo.incident/rotated=true -n dojo-sec-incident; Recover: kubectl rollout restart deployment processor -n dojo-sec-incident; Lessons: kubectl create configmap incident-rca -n dojo-sec-incident --from-literal=root_cause=compromised_sa_token"
+]

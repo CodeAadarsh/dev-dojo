@@ -1,0 +1,5 @@
+[
+  "Istio approach: apply a PeerAuthentication with mtls.mode: STRICT to namespace dojo-sec-mtls — this forces all traffic between Istio-injected pods to use mTLS automatically",
+  "If no Istio: use cert-manager to issue TLS certificates for both services, configure nginx with ssl_verify_client on, mount the CA cert — both sides must present a valid certificate to connect",
+  "After enforcing mTLS: kubectl annotate deployment frontend backend dojo.mtls/status=mtls-enforced -n dojo-sec-mtls --overwrite; kubectl create configmap mtls-config -n dojo-sec-mtls --from-literal=method=istio-peer-authentication --from-literal=mode=STRICT"
+]

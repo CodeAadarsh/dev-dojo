@@ -1,0 +1,1 @@
+{"slug":"09-runtime-evasion","title":"Runtime Evasion","order":9,"difficulty":"Insane","flagType":"discovery","points":200,"estMinutes":75,"tags":["falco","evasion","red-team","runtime","stealth"],"objective":"Achieve a container escape while evading all default Falco rules — no alert must fire in the Falco log while you retrieve the flag."}
