@@ -1,63 +1,51 @@
 # Vault Dynamic Credentials
 
-Static secrets are a liability. If a database password is hardcoded in a Kubernetes Secret, it lives forever — until someone rotates it, which almost never happens. HashiCorp Vault solves this with **dynamic secrets**: short-lived credentials generated on demand, automatically expired.
+Your team just discovered that all 12 of your production services are sharing the same hardcoded database password — a password that hasn't been rotated in 18 months. If any one of those services is compromised, the attacker has permanent database access.
 
-In this challenge, you'll work with a Vault instance to generate a dynamic PostgreSQL credential, use it, and understand why the TTL model is fundamentally better than static secrets.
+This challenge sets up HashiCorp Vault in dev mode with a simulated database backend. You'll:
+1. Connect to Vault and generate a dynamic credential
+2. Watch it expire (or revoke it early)
+3. Generate a second credential — it's completely different
+4. Prove you understand the model by reading the flag from a Vault path
 
-## Background
-
-```
-Traditional approach (dangerous):
-  DB_PASSWORD=hunter2  →  Kubernetes Secret  →  Pod mounts it  →  Never rotated
-  If hunter2 leaks: attacker has access FOREVER
-
-Vault dynamic secrets approach (secure):
-  App needs DB access
-       ↓
-  App calls Vault: GET /v1/database/creds/app-role
-       ↓
-  Vault generates: username=v-app-xyz123, password=A1b2C3d4...
-  TTL: 1 hour (auto-expires)
-       ↓
-  App uses credentials for 1 hour
-       ↓
-  Credentials expire (Vault revokes them in the DB)
-  If leaked: expired after 1 hour, automatically
-```
-
-## The Vault Token Flow
+## Why Dynamic Secrets Win
 
 ```
-                 ┌───────────────────────────────┐
-                 │          HashiCorp Vault        │
-                 │                                 │
-  App Pod        │  Auth: Kubernetes JWT Auth      │
-  ───────────    │  ┌──────────────────────────┐   │
-  SA Token  ────►│  │  Token from k8s SA JWT   │   │
-                 │  └──────────────┬───────────┘   │
-                 │                 │ authenticates  │
-                 │                 ▼               │
-                 │  Policy: allow db/creds/app-role │
-                 │                 │               │
-                 │                 ▼               │
-                 │  DB Secrets Engine              │
-                 │  → generates username+password  │
-                 │  → TTL: 1h                      │
-                 └───────────────────────────────-─┘
+Static secret:              Dynamic secret (Vault):
+  password: supersecret       Generated at request time
+  valid: forever              Valid for 1 hour
+  shared by all pods          Unique per pod per request
+  no audit trail              Full audit log
+  manual rotation             Auto-revoked at TTL
+```
+
+## Setup
+
+Vault is deployed as a Pod in `dojo-sec-vault`. It runs in dev mode with the root token `root`.
+
+```bash
+# Port-forward to Vault
+kubectl port-forward -n dojo-sec-vault svc/vault 8200:8200 &
+export VAULT_ADDR=http://127.0.0.1:8200
+export VAULT_TOKEN=root
+
+# Verify it's running
+vault status
 ```
 
 ## Mission
 
-1. Connect to the dev Vault instance running in namespace `dojo-sec-vault`
-2. Authenticate using the root token (dev mode — in production you'd use K8s auth)
-3. Enable the KV secrets engine
-4. Write a secret at `secret/dojo/challenge`
-5. Read the secret — it contains the flag
+1. Port-forward to Vault
+2. Generate a dynamic credential: `vault read database/creds/app-role`
+3. Note the `lease_id`
+4. Revoke it: `vault lease revoke <lease_id>`
+5. Generate a new credential — verify it's different
+6. Read the flag: `vault kv get secret/dojo/flag`
 
-## Production Context
+## Rules of Engagement
 
-This challenge uses Vault in dev mode (no persistence, root token pre-set) to focus on the workflow. In production:
-- Vault runs in HA mode with Raft storage
-- Authentication is via Kubernetes JWT auth (pod SA token → Vault token → secrets)
-- Dynamic database secrets are generated per-request with 1h TTL
-- All access is audited to a log
+- Namespace: `dojo-sec-vault`
+- Vault root token: `root`
+- Port-forward: `kubectl port-forward -n dojo-sec-vault svc/vault 8200:8200`
+- Flag location: `vault kv get secret/dojo/flag`
+- Run verify.sh when done to confirm the setup worked

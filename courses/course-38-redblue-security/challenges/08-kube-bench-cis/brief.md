@@ -1,59 +1,41 @@
 # kube-bench CIS Hardening
 
-The CIS Kubernetes Benchmark is the gold standard for K8s security hardening. It defines 200+ controls across the API server, etcd, kubelet, scheduler, and controller manager. `kube-bench` automates checking these controls.
+You've heard about CIS Kubernetes Benchmarks but you've never actually run them against a live cluster. This challenge makes you do it properly.
 
-In production, an unaudited cluster almost certainly has critical findings — anonymous API access, insecure defaults, missing audit logging, kubelet authorization disabled. This challenge teaches you to run `kube-bench`, interpret its output, and fix the highest-severity findings.
+kube-bench checks your cluster against the CIS Kubernetes Benchmark — the gold standard for K8s security configuration. It tests 100+ controls across the API server, etcd, kubelet, and node configuration.
 
-## CIS Benchmark Categories
+In this challenge:
+1. Run kube-bench against the cluster
+2. Read its output from a ConfigMap
+3. The verifier checks specific test IDs that should PASS on a kind cluster
 
-```
-┌─────────────────────────────────────────────────────────┐
-│               CIS Kubernetes Benchmark v1.9             │
-├─────────────────────────────────────────────────────────┤
-│  Section 1: Control Plane Components                    │
-│    1.1  API Server         ← 20+ checks                 │
-│    1.2  Scheduler          ← 2 checks                   │
-│    1.3  Controller Manager ← 7 checks                   │
-│    1.4  etcd               ← 7 checks                   │
-│                                                          │
-│  Section 2: etcd           ← TLS, auth, permissions     │
-│                                                          │
-│  Section 3: Control Plane Config                        │
-│                                                          │
-│  Section 4: Worker Nodes                                │
-│    4.1  Worker Node Config Files                        │
-│    4.2  Kubelet            ← 13 checks                  │
-│                                                          │
-│  Section 5: Kubernetes Policies                         │
-│    5.1  RBAC               ← 9 checks                   │
-│    5.2  Pod Security       ← 9 checks                   │
-│    5.3  Network Policies   ← 2 checks                   │
-│    5.4  Secrets Management ← 2 checks                   │
-│    5.5  Extensible Admission Control                    │
-│    5.7  General Policies   ← 4 checks                   │
-└─────────────────────────────────────────────────────────┘
-```
+## What kube-bench Tests
 
-## Common FAIL Findings and What They Mean
+kube-bench organizes checks into sections:
+- **1.x** — Control Plane components (API server, controller manager, scheduler)
+- **2.x** — etcd
+- **3.x** — Control Plane configuration
+- **4.x** — Worker Nodes (kubelet)
+- **5.x** — Kubernetes Policies (RBAC, pod security, network policies)
 
-| ID | Finding | Risk |
-|----|---------|------|
-| 1.2.1 | `--anonymous-auth=true` on API server | Unauthenticated access to the API |
-| 1.2.6 | No AlwaysPullImages admission controller | Pods can use cached images bypassing registry auth |
-| 4.2.2 | `--authorization-mode=AlwaysAllow` on kubelet | Any caller can execute anything on the node |
-| 5.1.1 | Cluster-admin bindings exist | Over-privileged accounts |
-| 5.2.1 | Privileged pods allowed | Containers can escape to host |
+Each check: `[PASS]`, `[FAIL]`, `[WARN]`, or `[INFO]`.
 
 ## Mission
 
-1. Run `kube-bench` in namespace `dojo-sec-bench` against the cluster
-2. Find the failing checks in the simulated bench output
-3. For each FAIL, write the remediation command or config change
-4. Apply the fix for one specific finding (5.1.1 — cluster-admin binding to a non-system account)
-5. The flag is in a ConfigMap that only unlocks once you delete the offending ClusterRoleBinding
+1. The setup job has already run kube-bench and stored the output
+2. Read the results: `kubectl get configmap kube-bench-results -n dojo-sec-cis -o jsonpath='{.data.output}'`
+3. Find which checks PASS and which FAIL
+4. Understand the remediation for the FAIL checks
+5. Run the verifier to confirm specific basic checks pass
 
-## Target State
+## Rules of Engagement
 
-- Delete the `overprivileged-binding` ClusterRoleBinding from namespace `dojo-sec-bench`
-- Once deleted, a watcher pod creates the flag ConfigMap
-- Retrieve the flag
+- Namespace: `dojo-sec-cis`
+- Results ConfigMap: `kube-bench-results`
+- Checklist ConfigMap: `cis-checklist` (shows which checks you need to understand)
+- Run the verifier: `bash verify.sh`
+- Note: some checks always fail in kind clusters (they require production-only features) — that's expected
+
+## Why This Matters
+
+The CIS Benchmark is what auditors and compliance frameworks (SOC2, ISO 27001, PCI-DSS) reference when checking Kubernetes security posture. Passing Level 1 is the minimum bar for production clusters handling sensitive data.

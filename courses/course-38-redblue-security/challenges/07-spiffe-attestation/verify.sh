@@ -1,34 +1,47 @@
 #!/usr/bin/env bash
-# verify.sh — SPIFFE/SPIRE Attestation
 set -uo pipefail
 
 NAMESPACE="dojo-sec-spiffe"
-EXPECTED_HASH="$(cat "$(dirname "$0")/flag.sha256")"
+TARGET_SPIFFE_ID="spiffe://cluster.local/ns/dojo-sec-spiffe/sa/spiffe-sa"
+fail() { echo "FAIL: $*"; exit 1; }
 
-fail() { echo "FAIL: $1" >&2; exit 1; }
+echo "==> Verifying: SPIFFE Attestation"
 
-# Check secret exists
-kubectl get secret workload-svid -n "$NAMESPACE" >/dev/null 2>&1 \
-  || fail "workload-svid secret not found — wait for setup job to complete (kubectl get job spiffe-cert-generator -n $NAMESPACE)"
+# Check namespace
+kubectl get namespace "$NAMESPACE" > /dev/null 2>&1 || fail "Namespace $NAMESPACE not found — run setup.sh first"
 
-# Extract the spiffe-id field
-SPIFFE_ID=$(kubectl get secret workload-svid -n "$NAMESPACE" \
-  -o jsonpath='{.data.spiffe-id}' 2>/dev/null | base64 -d 2>/dev/null)
+# Check SPIRE server pod exists and is running
+SPIRE_POD=$(kubectl get pod spire-server-0 -n "$NAMESPACE" -o jsonpath='{.metadata.name}' 2>/dev/null || echo "")
+[ -n "$SPIRE_POD" ] || fail "spire-server-0 not found in $NAMESPACE — run setup.sh first"
 
-[ -n "$SPIFFE_ID" ] || fail "spiffe-id field missing from workload-svid secret"
+SPIRE_STATUS=$(kubectl get pod spire-server-0 -n "$NAMESPACE" -o jsonpath='{.status.phase}' 2>/dev/null)
+[ "$SPIRE_STATUS" = "Running" ] || fail "SPIRE server pod is not Running (status: $SPIRE_STATUS)"
 
-# Extract the flag from the service account name part of the SPIFFE ID
-# SPIFFE ID format: spiffe://trust-domain/ns/namespace/sa/<service-account>
-# The service-account contains the flag text with underscores
-SA_PART=$(printf '%s' "$SPIFFE_ID" | sed 's|.*/sa/||')
+echo "    SPIRE server: $SPIRE_STATUS"
 
-[ -n "$SA_PART" ] || fail "could not parse service account from SPIFFE ID"
+# Check if the workload entry exists
+ENTRY_OUTPUT=$(kubectl exec -n "$NAMESPACE" spire-server-0 -- \
+  /opt/spire/bin/spire-server entry show 2>/dev/null || echo "")
 
-# Reconstruct the flag: KUBE_prefix → KUBE{...}
-FLAG=$(printf '%s' "$SA_PART" | sed 's/KUBE_/KUBE{/' | sed 's/$/_/' | sed 's/_$/}/')
+if echo "$ENTRY_OUTPUT" | grep -q "$TARGET_SPIFFE_ID"; then
+  echo "    Workload entry found: $TARGET_SPIFFE_ID"
+else
+  fail "Workload entry not found. Register it first:
+  kubectl exec -n $NAMESPACE spire-server-0 -- \\
+    /opt/spire/bin/spire-server entry create \\
+    -spiffeID $TARGET_SPIFFE_ID \\
+    -parentID spiffe://cluster.local/spire/agent/k8s_psat/kube-dojo/\$(kubectl get node -o jsonpath='{.items[0].metadata.uid}') \\
+    -selector k8s:ns:dojo-sec-spiffe \\
+    -selector k8s:sa:spiffe-sa"
+fi
 
-ACTUAL_HASH=$(printf '%s' "$FLAG" | shasum -a 256 | awk '{print $1}')
+# Read the flag
+FLAG_B64=$(kubectl get configmap spiffe-reward -n "$NAMESPACE" -o jsonpath='{.data.flag_b64}' 2>/dev/null)
+[ -n "$FLAG_B64" ] || fail "Reward ConfigMap not found — run setup.sh first"
+FLAG=$(printf '%s' "$FLAG_B64" | base64 -d)
 
-[ "$ACTUAL_HASH" = "$EXPECTED_HASH" ] || fail "wrong flag — SPIFFE ID was: $SPIFFE_ID"
-
-echo "PASS"
+echo ""
+echo "==> SPIFFE workload entry registered successfully."
+echo "    SVID will be issued to pods matching: ns=$NAMESPACE, sa=spiffe-sa"
+echo ""
+echo "$FLAG"

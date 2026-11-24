@@ -3,139 +3,184 @@ set -euo pipefail
 
 NAMESPACE="dojo-sec-spiffe"
 
-echo "==> Setting up: SPIFFE/SPIRE Attestation"
+echo "==> Setting up: SPIFFE Attestation"
 
 kubectl create namespace "$NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
 
-# Generate a self-signed cert with a SPIFFE SAN that embeds the flag
-# We use openssl via a Job to generate the cert inside the cluster
+# Deploy SPIRE using official quickstart manifests
+# SPIRE Server
 kubectl apply -f - << 'EOF'
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: cert-generator
+  name: spire-server
   namespace: dojo-sec-spiffe
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: cert-generator-role
-  namespace: dojo-sec-spiffe
+  name: spire-server-role
 rules:
 - apiGroups: [""]
-  resources: ["secrets"]
-  verbs: ["create", "patch", "get"]
+  resources: [nodes, pods]
+  verbs: [get, list, watch]
+- apiGroups: [authentication.k8s.io]
+  resources: [tokenreviews]
+  verbs: [create]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: cert-generator-rb
-  namespace: dojo-sec-spiffe
+  name: spire-server-binding
 subjects:
 - kind: ServiceAccount
-  name: cert-generator
+  name: spire-server
   namespace: dojo-sec-spiffe
 roleRef:
-  kind: Role
-  name: cert-generator-role
+  kind: ClusterRole
+  name: spire-server-role
   apiGroup: rbac.authorization.k8s.io
-EOF
-
-# Job that generates a cert with SPIFFE SAN containing the flag
-kubectl apply -f - << 'EOF'
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: spiffe-cert-generator
-  namespace: dojo-sec-spiffe
-spec:
-  template:
-    spec:
-      serviceAccountName: cert-generator
-      restartPolicy: OnFailure
-      containers:
-      - name: generator
-        image: alpine/openssl:3.1
-        command: [sh, -c]
-        args:
-        - |
-          set -e
-          # Generate CA key and cert
-          openssl genrsa -out /tmp/ca.key 2048 2>/dev/null
-          openssl req -new -x509 -key /tmp/ca.key -out /tmp/ca.crt \
-            -days 1 -subj "/CN=SPIRE CA/O=dojo-cluster.local" 2>/dev/null
-
-          # Generate workload key
-          openssl genrsa -out /tmp/workload.key 2048 2>/dev/null
-
-          # Create a CSR with SPIFFE SAN containing the flag path
-          cat > /tmp/san.cnf << 'SANCNF'
-          [req]
-          req_extensions = v3_req
-          distinguished_name = req_distinguished_name
-          [req_distinguished_name]
-          [v3_req]
-          subjectAltName = URI:spiffe://dojo-cluster.local/ns/dojo-sec-spiffe/sa/KUBE_spiffe_svid_proves_workload_id
-          SANCNF
-
-          openssl req -new -key /tmp/workload.key \
-            -out /tmp/workload.csr \
-            -subj "/CN=workload/O=dojo-sec-spiffe" \
-            -config /tmp/san.cnf 2>/dev/null
-
-          # Sign with CA, include the SAN
-          openssl x509 -req -in /tmp/workload.csr \
-            -CA /tmp/ca.crt -CAkey /tmp/ca.key -CAcreateserial \
-            -out /tmp/workload.crt -days 1 \
-            -extensions v3_req -extfile /tmp/san.cnf 2>/dev/null
-
-          # Store as secret
-          CERT_B64=$(base64 < /tmp/workload.crt | tr -d '\n')
-          KEY_B64=$(base64 < /tmp/workload.key | tr -d '\n')
-          CA_B64=$(base64 < /tmp/ca.crt | tr -d '\n')
-
-          kubectl create secret generic workload-svid \
-            -n dojo-sec-spiffe \
-            --from-literal=svid.crt="$(cat /tmp/workload.crt)" \
-            --from-literal=svid.key="$(cat /tmp/workload.key)" \
-            --from-literal=bundle.crt="$(cat /tmp/ca.crt)" \
-            --from-literal=spiffe-id="spiffe://dojo-cluster.local/ns/dojo-sec-spiffe/sa/KUBE_spiffe_svid_proves_workload_id" \
-            --dry-run=client -o yaml | kubectl apply -f -
-
-          echo "SVID generated and stored in secret workload-svid"
-EOF
-
-kubectl apply -f - << 'EOF'
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: spiffe-reference
+  name: spire-server-conf
   namespace: dojo-sec-spiffe
 data:
-  how-to-decode: |
-    # The SVID (certificate) is stored in secret workload-svid
-    # Field: svid.crt
+  server.conf: |
+    server {
+      bind_address = "0.0.0.0"
+      bind_port = "8081"
+      trust_domain = "cluster.local"
+      data_dir = "/run/spire/data"
+      log_level = "INFO"
+      ca_ttl = "24h"
+      default_svid_ttl = "1h"
+    }
+    plugins {
+      DataStore "sql" {
+        plugin_data {
+          database_type = "sqlite3"
+          connection_string = "/run/spire/data/datastore.sqlite3"
+        }
+      }
+      NodeAttestor "k8s_psat" {
+        plugin_data {
+          clusters = {
+            "kube-dojo" = {
+              service_account_whitelist = ["dojo-sec-spiffe:spire-agent"]
+              kube_config_file = ""
+              use_token_review_api_validation = true
+            }
+          }
+        }
+      }
+      KeyManager "memory" {
+        plugin_data {}
+      }
+      Notifier "k8sbundle" {
+        plugin_data {
+          namespace = "dojo-sec-spiffe"
+        }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: spire-server
+  namespace: dojo-sec-spiffe
+  labels:
+    app: spire-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spire-server
+  serviceName: spire-server
+  template:
+    metadata:
+      labels:
+        app: spire-server
+    spec:
+      serviceAccountName: spire-server
+      shareProcessNamespace: true
+      containers:
+      - name: spire-server
+        image: ghcr.io/spiffe/spire-server:1.9.6
+        args: ["-config", "/run/spire/config/server.conf"]
+        ports:
+        - containerPort: 8081
+        volumeMounts:
+        - name: spire-config
+          mountPath: /run/spire/config
+          readOnly: true
+        - name: spire-data
+          mountPath: /run/spire/data
+      volumes:
+      - name: spire-config
+        configMap:
+          name: spire-server-conf
+      - name: spire-data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spire-server
+  namespace: dojo-sec-spiffe
+spec:
+  selector:
+    app: spire-server
+  ports:
+  - name: grpc
+    port: 8081
+    targetPort: 8081
+EOF
 
-    # Step 1: Extract the certificate
-    kubectl get secret workload-svid -n dojo-sec-spiffe \
-      -o jsonpath='{.data.svid\.crt}' | base64 -d > /tmp/svid.crt
+# Target workload SA and pod
+kubectl apply -f - << 'EOF'
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: spiffe-sa
+  namespace: dojo-sec-spiffe
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: spiffe-workload
+  namespace: dojo-sec-spiffe
+  labels:
+    app: spiffe-workload
+spec:
+  serviceAccountName: spiffe-sa
+  containers:
+  - name: workload
+    image: busybox
+    command: [sleep, "3600"]
+EOF
 
-    # Step 2: Parse the certificate and find the SPIFFE SAN
-    openssl x509 -in /tmp/svid.crt -noout -text | grep -A1 "Subject Alternative Name"
+echo "[*] Waiting for SPIRE server..."
+kubectl wait --for=condition=Ready pod -l app=spire-server -n "$NAMESPACE" --timeout=120s 2>/dev/null || \
+  echo "[!] SPIRE server may still be starting..."
 
-    # The SPIFFE ID looks like:
-    # URI:spiffe://dojo-cluster.local/ns/dojo-sec-spiffe/sa/<service-name>
-    # The flag is the <service-name> with underscores replaced by hyphens:
-    # KUBE{spiffe_svid_proves_workload_id}
-
-    # Step 3: Or read the pre-decoded spiffe-id field directly
-    kubectl get secret workload-svid -n dojo-sec-spiffe \
-      -o jsonpath='{.data.spiffe-id}' | base64 -d
+# Plant the flag in a ConfigMap (revealed by verify.sh)
+FLAG_B64=$(printf '%s' 'KUBE{spiffe_svid_proves_workload_identity}' | base64)
+kubectl apply -f - << EOF
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: spiffe-reward
+  namespace: $NAMESPACE
+data:
+  flag_b64: $FLAG_B64
+  hint: "Register the workload entry in SPIRE, then run verify.sh"
 EOF
 
 echo ""
-echo "==> Setup complete. Job generating the SVID..."
+echo "==> Setup complete."
 echo ""
-echo "    Wait 30s for the cert generator job to complete, then:"
-echo "    kubectl get secret workload-svid -n $NAMESPACE"
-echo "    kubectl get secret workload-svid -n $NAMESPACE -o jsonpath='{.data.spiffe-id}' | base64 -d"
+echo "    SPIRE server: kubectl get pod -n $NAMESPACE -l app=spire-server"
+echo "    Register workload: see brief.md for the spire-server entry create command"
+echo "    Then run: bash verify.sh"

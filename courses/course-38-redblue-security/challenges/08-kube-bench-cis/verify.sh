@@ -1,27 +1,48 @@
 #!/usr/bin/env bash
-# verify.sh — kube-bench CIS Hardening
 set -uo pipefail
 
-NAMESPACE="dojo-sec-bench"
-EXPECTED_HASH="$(cat "$(dirname "$0")/flag.sha256")"
+NAMESPACE="dojo-sec-cis"
+fail() { echo "FAIL: $*"; exit 1; }
 
-fail() { echo "FAIL: $1" >&2; exit 1; }
+echo "==> Verifying: kube-bench CIS Hardening"
 
-# Confirm the offending CRB was actually deleted
-kubectl get clusterrolebinding overprivileged-binding >/dev/null 2>&1 \
-  && fail "ClusterRoleBinding 'overprivileged-binding' still exists — delete it: kubectl delete clusterrolebinding overprivileged-binding"
+# Check namespace
+kubectl get namespace "$NAMESPACE" > /dev/null 2>&1 || fail "Namespace $NAMESPACE not found — run setup.sh first"
 
-# Check the flag configmap was written by the watcher
-kubectl get configmap cis-hardening-flag -n "$NAMESPACE" >/dev/null 2>&1 \
-  || fail "cis-hardening-flag configmap not found — did the watcher pod detect the deletion? Check: kubectl logs bench-watcher -n $NAMESPACE"
+# Check kube-bench results ConfigMap exists
+kubectl get configmap kube-bench-results -n "$NAMESPACE" > /dev/null 2>&1 || \
+  fail "kube-bench-results ConfigMap not found — run setup.sh first"
 
-FLAG=$(kubectl get configmap cis-hardening-flag -n "$NAMESPACE" \
-  -o jsonpath='{.data.flag}' 2>/dev/null)
+echo "    Checking CIS results..."
 
-[ -n "$FLAG" ] || fail "flag key missing from cis-hardening-flag configmap"
+# Read the output
+OUTPUT=$(kubectl get configmap kube-bench-results -n "$NAMESPACE" -o jsonpath='{.data.output}' 2>/dev/null)
+[ -n "$OUTPUT" ] || fail "kube-bench-results ConfigMap has no 'output' key"
 
-ACTUAL_HASH=$(printf '%s' "$FLAG" | shasum -a 256 | awk '{print $1}')
+# Check the 5 required PASS checks are present
+check_pass() {
+  local id="$1"
+  local desc="$2"
+  if echo "$OUTPUT" | grep -q "^\[PASS\] $id"; then
+    echo "    [PASS] $id — $desc"
+  else
+    fail "Check $id not passing in kube-bench results — '$desc' must PASS"
+  fi
+}
 
-[ "$ACTUAL_HASH" = "$EXPECTED_HASH" ] || fail "wrong flag"
+check_pass "1.2.1" "API server anonymous-auth=false"
+check_pass "1.2.7" "API server authorization-mode includes RBAC"
+check_pass "1.2.16" "API server insecure-port=0"
+check_pass "4.2.1" "Kubelet anonymous-auth=false"
+check_pass "4.2.2" "Kubelet authorization-mode not AlwaysAllow"
 
-echo "PASS"
+# Read the flag
+FLAG_B64=$(kubectl get secret cis-reward -n "$NAMESPACE" -o jsonpath='{.data.flag}' 2>/dev/null)
+[ -n "$FLAG_B64" ] || fail "Reward secret not found — run setup.sh first"
+FLAG=$(printf '%s' "$FLAG_B64" | base64 -d)
+
+echo ""
+echo "==> 5 CIS Level 1 checks confirmed PASS."
+echo "    kube-bench output understood. Cluster hardening baseline verified."
+echo ""
+echo "$FLAG"

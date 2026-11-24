@@ -1,120 +1,98 @@
 # Vault Dynamic Credentials — Solution
 
-## Steps
-
-### Step 1: Exec into the Vault client pod
+## Step 1: Port-Forward to Vault
 
 ```bash
-kubectl exec -it vault-client -n dojo-sec-vault -- sh
-```
+kubectl port-forward -n dojo-sec-vault svc/vault 8200:8200 &
+export VAULT_ADDR=http://127.0.0.1:8200
+export VAULT_TOKEN=root
 
-### Step 2: Check Vault status
-
-```bash
 vault status
 ```
 
-Expected output:
+Output:
 ```
 Key             Value
 ---             -----
 Seal Type       shamir
 Initialized     true
 Sealed          false
-Total Shares    1
-Threshold       1
-Version         1.15.x
-Dev Mode        true
-...
+Version         1.16.x
 ```
 
-### Step 3: Write the challenge secret
+## Step 2: Read the Flag Directly
 
 ```bash
-vault kv put secret/dojo/challenge flag="KUBE{vault_dynamic_ttl_beats_static_secrets}"
+vault kv get secret/dojo/flag
 ```
 
 Output:
 ```
-== Secret Path ==
-secret/data/dojo/challenge
+=== Secret Path ===
+secret/data/dojo/flag
 
-======= Metadata =======
-Key                Value
----                -----
-created_time       2026-11-25T17:45:00Z
-custom_metadata    <nil>
-deletion_time      n/a
-destroyed          false
-version            1
+====== Metadata ======
+Key              Value
+---              -----
+created_time     2026-11-25T10:00:00Z
+version          1
+
+====== Data ======
+Key      Value
+---      -----
+value    KUBE{vault_leases_expire_creds_dont}
+hint     Dynamic credentials rotate automatically. Static ones do not.
 ```
 
-### Step 4: Read the flag back
+**Flag: `KUBE{vault_leases_expire_creds_dont}`**
+
+---
+
+## Bonus: Understanding Dynamic Credentials
 
 ```bash
-vault kv get -field=flag secret/dojo/challenge
+# Try to generate a dynamic DB credential
+# (Will fail if no real PostgreSQL, but shows the concept)
+vault read database/creds/app-role
 ```
 
-**Flag:** `KUBE{vault_dynamic_ttl_beats_static_secrets}`
+If a real database were connected, you'd see:
+
+```
+Key                Value
+---                -----
+lease_id           database/creds/app-role/abc123XYZ
+lease_duration     1m
+lease_renewable    true
+password           A1b2C3d4-random-pass
+username           v-root-app-role-xK9pQ2mR4b-1234567890
+```
+
+```bash
+# Record the lease_id
+LEASE_ID=$(vault read -field=lease_id database/creds/app-role)
+
+# Revoke it immediately (or wait 60 seconds for auto-expiry)
+vault lease revoke $LEASE_ID
+# Success! Revoked lease: database/creds/app-role/abc123XYZ
+
+# Generate a new one — completely different username and password
+vault read database/creds/app-role
+# username: v-root-app-role-tP7cXj2nW8-9876543210  ← different!
+# password: X9y8Z7w6-completely-different           ← different!
+```
+
+The key insight: if the first credential was stolen, it's already revoked. The attacker has nothing.
 
 ---
 
-## Why Dynamic Secrets Are Better
+## Why This Matters
 
-| Dimension | Static Secrets | Vault Dynamic |
-|-----------|---------------|---------------|
-| Rotation | Manual, often never | Automatic (TTL-based) |
-| Blast radius if leaked | Permanent access | Access limited to TTL (1h default) |
-| Audit trail | None | Full: who requested, when, which lease |
-| Revocation | Manual DB password change | `vault lease revoke <lease-id>` |
-| Uniqueness | Shared credential | Per-request username, unique password |
+With static secrets:
+- Attacker steals password → has permanent access until someone notices and rotates
+- No way to know if the password was used by an attacker or a legitimate service
 
----
-
-## Production Architecture
-
-```
-                           ┌────────────────────────────────┐
-   App Pod                 │       HashiCorp Vault (HA)      │
-   ─────────               │                                  │
-   SA token ─────────────► │  K8s Auth: verify JWT signature  │
-                           │       ↓                          │
-                           │  Policy: allow db/creds/app      │
-                           │       ↓                          │
-                           │  Database Secrets Engine          │
-                           │  CREATE USER v-app-xyz123         │
-                           │  GRANT SELECT ON ... TO user      │
-                           │  VALID UNTIL now + 1h             │
-                           │       ↓                          │
-                           │  Returns: username, password,     │
-                           │           lease_id, ttl           │
-                           └────────────────────────────────-─┘
-                                        │
-                                        ▼
-                              App connects to PostgreSQL
-                              with dynamic creds
-                                        │
-                              1 hour later: Vault revokes
-                              DB user is DROPPED automatically
-```
-
----
-
-## Vault Agent Sidecar (Kubernetes-Native Integration)
-
-Instead of calling Vault's HTTP API, inject credentials as files via the Vault Agent sidecar:
-
-```yaml
-# Pod annotation — Vault Agent Injector handles the rest
-annotations:
-  vault.hashicorp.com/agent-inject: "true"
-  vault.hashicorp.com/role: "app-role"
-  vault.hashicorp.com/agent-inject-secret-db-creds: "database/creds/app-role"
-  vault.hashicorp.com/agent-inject-template-db-creds: |
-    {{- with secret "database/creds/app-role" -}}
-    username={{ .Data.username }}
-    password={{ .Data.password }}
-    {{- end }}
-```
-
-Vault Agent injects the secret at `/vault/secrets/db-creds` and renews it automatically before expiry. Zero application code changes needed.
+With Vault dynamic secrets:
+- Attacker steals credential → it expires in 60 seconds to 1 hour
+- Every credential use is logged (which pod, which SA, what time)
+- Rotation is automatic — no human needed

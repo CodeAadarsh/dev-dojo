@@ -1,140 +1,182 @@
 #!/usr/bin/env bash
-# Lab 12: Red Team Lab — full vulnerable cluster setup (capstone)
-# This is the same as labs/bootstrap/install-vulnerable-lab.sh
-# Delegates to it for the full setup
+# Module 12 — The Red Team Lab
+# Full vulnerable cluster — same architecture as challenge 15 setup
+# Namespaces: dojo-sec-vuln, dojo-sec-data, dojo-sec-infra
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
-BOOTSTRAP="$REPO_ROOT/labs/bootstrap/install-vulnerable-lab.sh"
+NS_VULN="dojo-sec-vuln"
+NS_DATA="dojo-sec-data"
+NS_INFRA="dojo-sec-infra"
 
-if [ -f "$BOOTSTRAP" ]; then
-  echo "Running full Red Team Lab bootstrap..."
-  bash "$BOOTSTRAP"
-else
-  echo "Bootstrap script not found at: $BOOTSTRAP"
-  echo "Running inline setup..."
+echo "Deploying full vulnerable cluster for Module 12 — Red Team Lab"
+echo ""
 
-  # Inline fallback setup
-  for NS in dojo-sec-redteam-app dojo-sec-redteam-data dojo-sec-redteam-ops; do
-    kubectl create namespace "$NS" --dry-run=client -o yaml | kubectl apply -f -
-  done
+for ns in "$NS_VULN" "$NS_DATA" "$NS_INFRA"; do
+  kubectl create namespace "$ns" --dry-run=client -o yaml | kubectl apply -f -
+done
 
-  kubectl apply -f - <<'EOF'
-# Overpermissive CI SA
+# ── dojo-sec-vuln: Entry point ───────────────────────────────────────────────
+
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: ci-runner-sa
-  namespace: dojo-sec-redteam-ops
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: dojo-sec-redteam-ci-admin
-subjects:
-- kind: ServiceAccount
-  name: ci-runner-sa
-  namespace: dojo-sec-redteam-ops
-roleRef:
-  kind: ClusterRole
-  name: cluster-admin
-  apiGroup: rbac.authorization.k8s.io
----
-# Frontend SA with cluster-wide pod/exec access
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: frontend-sa
-  namespace: dojo-sec-redteam-app
+  name: vuln-web-sa
+  namespace: $NS_VULN
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: dojo-sec-redteam-pod-exec
+  name: vuln-secret-reader
 rules:
 - apiGroups: [""]
-  resources: ["pods", "pods/exec"]
-  verbs: ["get", "list", "create"]
+  resources: ["secrets", "pods", "configmaps", "serviceaccounts"]
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: dojo-sec-redteam-frontend-crb
+  name: vuln-web-sa-cluster-reader
 subjects:
 - kind: ServiceAccount
-  name: frontend-sa
-  namespace: dojo-sec-redteam-app
+  name: vuln-web-sa
+  namespace: $NS_VULN
 roleRef:
   kind: ClusterRole
-  name: dojo-sec-redteam-pod-exec
+  name: vuln-secret-reader
   apiGroup: rbac.authorization.k8s.io
 ---
-# Frontend pod (simulates vulnerable web app — entry point)
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: frontend
-  namespace: dojo-sec-redteam-app
+  name: vuln-web
+  namespace: $NS_VULN
+  labels:
+    app: vuln-web
 spec:
-  serviceAccountName: frontend-sa
-  containers:
-  - name: app
-    image: alpine:3.20
-    command: [sleep, "86400"]
-    securityContext:
-      runAsUser: 0
-    env:
-    - name: DATABASE_HOST
-      value: postgres.dojo-sec-redteam-data.svc.cluster.local
-    - name: DATABASE_PASSWORD
-      value: password123
----
-# CI runner pod (high-value target)
-apiVersion: v1
-kind: Pod
-metadata:
-  name: ci-runner
-  namespace: dojo-sec-redteam-ops
-spec:
-  serviceAccountName: ci-runner-sa
-  containers:
-  - name: runner
-    image: alpine:3.20
-    command: [sleep, "86400"]
----
-# Secret with database credentials in data namespace
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vuln-web
+  template:
+    metadata:
+      labels:
+        app: vuln-web
+    spec:
+      serviceAccountName: vuln-web-sa
+      containers:
+      - name: web
+        image: nginx:1.27-alpine
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "64Mi"
+EOF
+
+# ── dojo-sec-data: Data tier ─────────────────────────────────────────────────
+
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: postgres-creds
-  namespace: dojo-sec-redteam-data
+  name: db-creds
+  namespace: $NS_DATA
 type: Opaque
-data:
-  password: cGFzc3dvcmQxMjM=
-  username: YWRtaW4=
+stringData:
+  db-password: "prod-hunter2"
+  db-host: "payments-db.internal:5432"
+  db-user: "app_prod"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  namespace: $NS_DATA
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: alpine:3.20
+        command: ["sh", "-c", "sleep 86400"]
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-creds
+              key: db-password
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "64Mi"
 EOF
 
-  kubectl wait --for=condition=ready pod/frontend -n dojo-sec-redteam-app --timeout=90s
-  kubectl wait --for=condition=ready pod/ci-runner -n dojo-sec-redteam-ops --timeout=90s
-fi
+# ── dojo-sec-infra: Privileged tier ──────────────────────────────────────────
+
+kubectl apply -f - <<EOF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: infra-pod
+  namespace: $NS_INFRA
+  labels:
+    app: infra
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: infra
+  template:
+    metadata:
+      labels:
+        app: infra
+    spec:
+      containers:
+      - name: infra
+        image: alpine:3.20
+        command: ["sh", "-c", "sleep 86400"]
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: host-root
+          mountPath: /host
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "128Mi"
+      volumes:
+      - name: host-root
+        hostPath:
+          path: /
+EOF
 
 echo ""
-echo "Red Team Lab ready!"
+echo "Vulnerable cluster ready."
 echo ""
-echo "Attack surface map:"
-echo "  Entry: kubectl exec -n dojo-sec-redteam-app frontend -it -- sh"
+printf "%-30s %s\n" "Namespace" "Misconfiguration"
+printf "%-30s %s\n" "─────────────────────────────" "──────────────────────────────────────"
+printf "%-30s %s\n" "$NS_VULN" "SA with cluster-wide secrets:list"
+printf "%-30s %s\n" "$NS_DATA" "DB secret exposed as env var"
+printf "%-30s %s\n" "$NS_INFRA" "privileged=true + hostPath=/"
 echo ""
-echo "Vulnerability checklist (find all 12):"
-echo "  [ ] 1. API server anonymous auth"
-echo "  [ ] 2. Debug endpoint env var leak"
-echo "  [ ] 3. Frontend pod running as root"
-echo "  [ ] 4. Auto-mounted SA token"
-echo "  [ ] 5. Frontend SA cluster-wide pod list"
-echo "  [ ] 6. Frontend SA pods/exec cluster-wide"
-echo "  [ ] 7. CI runner SA is cluster-admin"
-echo "  [ ] 8. No admission controller"
-echo "  [ ] 9. No PodSecurity admission"
-echo "  [ ] 10. Redis/Postgres weak credentials"
-echo "  [ ] 11. Monitoring SA secrets:list"
-echo "  [ ] 12. No audit alerting on DaemonSet creation"
+echo "Attack path:"
+echo "  1. kubectl exec -n $NS_VULN deploy/vuln-web -- cat /var/run/secrets/.../token"
+echo "  2. Use token to list secrets in $NS_DATA → find db-password"
+echo "  3. Create privileged pod → chroot /host → host compromise"
+echo "  4. Use cluster-wide RBAC to pivot to $NS_INFRA"
+echo ""
+echo "Harden after attacking:"
+echo "  kubectl delete clusterrolebinding vuln-web-sa-cluster-reader"
+echo "  kubectl label namespace $NS_VULN pod-security.kubernetes.io/enforce=restricted"

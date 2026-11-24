@@ -1,104 +1,73 @@
-# SPIFFE/SPIRE Attestation — Solution
+# SPIFFE Attestation — Solution
 
-## Approach
-
-The flag is embedded in the SPIFFE ID of the workload's X.509 SVID (certificate), stored in the `workload-svid` Secret.
-
----
-
-## Steps
-
-### Step 1: Check the cert generator job completed
+## Step 1: Verify SPIRE is Running
 
 ```bash
-kubectl get job spiffe-cert-generator -n dojo-sec-spiffe
-# Should show: COMPLETIONS 1/1
+kubectl get pods -n dojo-sec-spiffe
+# NAME              READY   STATUS    RESTARTS
+# spire-server-0    1/1     Running   0
+# spiffe-workload   1/1     Running   0
 ```
 
-### Step 2: Get the SPIFFE ID directly from the secret field
+## Step 2: Get the Node UID
+
+The parent ID for the workload entry must reference the SPIRE agent on a specific node:
 
 ```bash
-kubectl get secret workload-svid -n dojo-sec-spiffe \
-  -o jsonpath='{.data.spiffe-id}' | base64 -d
+NODE_UID=$(kubectl get node -o jsonpath='{.items[0].metadata.uid}')
+echo "Node UID: $NODE_UID"
+```
+
+## Step 3: Register the Workload Entry
+
+```bash
+kubectl exec -n dojo-sec-spiffe spire-server-0 -- \
+  /opt/spire/bin/spire-server entry create \
+  -spiffeID spiffe://cluster.local/ns/dojo-sec-spiffe/sa/spiffe-sa \
+  -parentID spiffe://cluster.local/spire/agent/k8s_psat/kube-dojo/$(kubectl get node -o jsonpath='{.items[0].metadata.uid}') \
+  -selector k8s:ns:dojo-sec-spiffe \
+  -selector k8s:sa:spiffe-sa
 ```
 
 Output:
 ```
-spiffe://dojo-cluster.local/ns/dojo-sec-spiffe/sa/KUBE_spiffe_svid_proves_workload_id
+Entry ID         : abc123...
+SPIFFE ID        : spiffe://cluster.local/ns/dojo-sec-spiffe/sa/spiffe-sa
+Parent ID        : spiffe://cluster.local/spire/agent/k8s_psat/kube-dojo/<node-uid>
+Revision         : 0
+X509-SVID TTL    : default
+JWT-SVID TTL     : default
+Selector         : k8s:ns:dojo-sec-spiffe
+Selector         : k8s:sa:spiffe-sa
 ```
 
-The service account name is `KUBE_spiffe_svid_proves_workload_id`. Translate to flag format: `KUBE{spiffe_svid_proves_workload_id}`.
-
-**Flag:** `KUBE{spiffe_svid_proves_workload_id}`
-
----
-
-### Alternative: Decode the X.509 Certificate Directly
+## Step 4: Verify the Entry
 
 ```bash
-# Extract the cert PEM
-kubectl get secret workload-svid -n dojo-sec-spiffe \
-  -o jsonpath='{.data.svid\.crt}' | base64 -d > /tmp/svid.crt
-
-# Parse it and find the SPIFFE SAN
-openssl x509 -in /tmp/svid.crt -noout -text | grep "URI:"
+kubectl exec -n dojo-sec-spiffe spire-server-0 -- \
+  /opt/spire/bin/spire-server entry show
 ```
 
-Output:
+You should see the entry with SPIFFE ID `spiffe://cluster.local/ns/dojo-sec-spiffe/sa/spiffe-sa`.
+
+## Step 5: Run the Verifier
+
+```bash
+bash verify.sh
 ```
-URI:spiffe://dojo-cluster.local/ns/dojo-sec-spiffe/sa/KUBE_spiffe_svid_proves_workload_id
-```
+
+**Flag: `KUBE{spiffe_svid_proves_workload_identity}`**
 
 ---
 
-## Understanding SPIFFE in Production
+## What Happens After Registration
 
-### SPIRE Architecture
+Once the entry exists:
+1. The SPIRE Agent on the node polls the SPIRE Server and learns about the new entry
+2. When `spiffe-workload` pod calls the Workload API socket (`/run/spire/sockets/agent.sock`), the agent:
+   - Checks the pod's namespace (`dojo-sec-spiffe`) ✓ matches selector
+   - Checks the pod's service account (`spiffe-sa`) ✓ matches selector
+   - Issues an X.509-SVID for `spiffe://cluster.local/ns/dojo-sec-spiffe/sa/spiffe-sa`
+3. The pod can now use that SVID for mTLS — proving its identity to other services
 
-```
-┌─────────────────── Kubernetes Cluster ─────────────────────┐
-│                                                              │
-│  ┌────────────────┐           ┌────────────────────────┐   │
-│  │  SPIRE Server  │           │  Pod A                  │   │
-│  │  (StatefulSet) │           │  ┌──────────────────┐   │   │
-│  │                │           │  │  Workload         │   │   │
-│  │  - Trust bundle│◄──────────│  │  SVID: 1h TTL     │   │   │
-│  │  - Issue SVIDs │  attest   │  │  spiffe://id/a    │   │   │
-│  │  - Rotate certs│           │  └──────────────────┘   │   │
-│  └───────▲────────┘           └────────────────────────┘   │
-│          │                                                    │
-│  ┌───────┴────────┐           ┌────────────────────────┐   │
-│  │  SPIRE Agent   │           │  Pod B                  │   │
-│  │  (DaemonSet)   │           │  ┌──────────────────┐   │   │
-│  │                │           │  │  Workload         │   │   │
-│  │  - K8s node    │           │  │  SVID: 1h TTL     │   │   │
-│  │    attestation │           │  │  spiffe://id/b    │   │   │
-│  │  - Pod workload│           │  └──────────────────┘   │   │
-│  │    attestation │           └────────────────────────┘   │
-│  └────────────────┘                                          │
-└──────────────────────────────────────────────────────────────┘
-```
-
-### How Service A authenticates to Service B
-
-1. Service A presents its SVID (X.509 cert) in a mTLS handshake
-2. Service B validates: cert signed by SPIRE CA, SPIFFE ID matches expected caller
-3. No IP-based trust, no network-level assumptions
-
-### Istio + SPIFFE
-
-Istio's service mesh uses SPIFFE identities under the hood. Every sidecar gets an SVID from Istio's internal CA (Citadel/istiod). mTLS between all pods is automatic. `AuthorizationPolicy` rules can reference `principals` using SPIFFE IDs:
-
-```yaml
-apiVersion: security.istio.io/v1beta1
-kind: AuthorizationPolicy
-metadata:
-  name: payments-access
-spec:
-  rules:
-  - from:
-    - source:
-        principals:
-        - "cluster.local/ns/frontend/sa/checkout-api"
-        # Only the checkout-api service can call payments
-```
+A rogue pod with a different SA or namespace will NOT match the selectors and will NOT receive this SVID.

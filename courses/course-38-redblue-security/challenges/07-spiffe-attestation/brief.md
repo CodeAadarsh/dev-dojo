@@ -1,39 +1,39 @@
-# SPIFFE/SPIRE Attestation
+# SPIFFE Attestation — Cryptographic Workload Identity
 
-You've heard it before: "never trust the network." But what does that actually mean for service-to-service communication inside Kubernetes? Even inside your cluster, a compromised pod could impersonate another service if authentication is based on IP addresses or namespace names alone.
+Two services talk to each other over TLS. The TLS is encrypted. But `payments-api` has no way to verify that the caller is actually `frontend` and not a rogue pod the attacker deployed.
 
-SPIFFE (Secure Production Identity Framework For Everyone) and SPIRE (the reference implementation) solve this with **cryptographic workload identity**. Every pod gets a short-lived X.509 certificate bound to its identity — `spiffe://cluster.local/ns/payments/sa/payments-api`. Services verify these certificates, not network location.
+SPIFFE/SPIRE gives every workload a cryptographic identity — an SVID (SPIFFE Verifiable Identity Document). The SVID is a short-lived X.509 certificate containing the workload's SPIFFE ID (`spiffe://cluster.local/ns/app/sa/frontend-sa`). No pod can fake another pod's SPIFFE ID — the SVID is issued by the SPIRE Server after verifying the pod's actual namespace and service account.
 
-## The SVID (SPIFFE Verifiable Identity Document)
-
-```
-SPIFFE ID:  spiffe://cluster.local/ns/payments/sa/payments-api
-            ┌──────────────────────────────────────────────────┐
-            │  X.509 certificate (SVID)                        │
-            │  Subject: spiffe://cluster.local/ns/pay../sa/api │
-            │  Issued by: SPIRE Intermediate CA                │
-            │  Valid for: 1 hour (auto-renewed)                │
-            │  Bound to: pod UID, node attestation             │
-            └──────────────────────────────────────────────────┘
-```
-
-A service receiving a request validates:
-1. The TLS certificate is signed by our SPIRE CA
-2. The SPIFFE ID in the certificate matches the caller's expected identity
-3. The certificate hasn't expired
-
-No IP-based trust. No "if request comes from this namespace, allow it."
+In this challenge, SPIRE is deployed. You'll register a workload and verify it gets the correct SVID.
 
 ## Mission
 
-1. The SPIRE agent is running as a DaemonSet in `dojo-sec-spiffe`
-2. A simulated workload pod has been issued an SVID
-3. Find the SVID stored in the namespace and decode the SPIFFE ID from it
-4. The flag is embedded in the SPIFFE ID's service name field — decode the certificate to find it
+1. Check that SPIRE server and agent are running in namespace `dojo-sec-spiffe`
+2. Register a workload entry for pod `spiffe-workload` in namespace `dojo-sec-spiffe`:
+   - SPIFFE ID: `spiffe://cluster.local/ns/dojo-sec-spiffe/sa/spiffe-sa`
+   - Selector: `k8s:ns:dojo-sec-spiffe` and `k8s:sa:spiffe-sa`
+3. Verify the SVID is issued correctly
+4. Run the verifier — it checks the registration entry exists and outputs the flag
 
-## Target State
+## Commands
 
-- Read the SVID from the `workload-svid` Secret in namespace `dojo-sec-spiffe`
-- Decode the base64-encoded certificate
-- Parse the Subject Alternative Name to find the SPIFFE ID
-- The flag is part of the SPIFFE ID path
+```bash
+# Register the workload
+kubectl exec -n dojo-sec-spiffe spire-server-0 -- \
+  /opt/spire/bin/spire-server entry create \
+  -spiffeID spiffe://cluster.local/ns/dojo-sec-spiffe/sa/spiffe-sa \
+  -parentID spiffe://cluster.local/spire/agent/k8s_psat/kube-dojo/$(kubectl get node -o jsonpath='{.items[0].metadata.uid}') \
+  -selector k8s:ns:dojo-sec-spiffe \
+  -selector k8s:sa:spiffe-sa
+
+# Verify entries
+kubectl exec -n dojo-sec-spiffe spire-server-0 -- \
+  /opt/spire/bin/spire-server entry show
+```
+
+## Rules of Engagement
+
+- Namespace: `dojo-sec-spiffe`
+- SPIRE server: `spire-server-0` (StatefulSet pod)
+- SPIRE agent: runs as DaemonSet
+- After registering, run: `bash verify.sh`
