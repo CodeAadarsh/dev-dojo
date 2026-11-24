@@ -1,5 +1,1 @@
-[
-  "Istio approach: apply a PeerAuthentication with mtls.mode: STRICT to namespace dojo-sec-mtls — this forces all traffic between Istio-injected pods to use mTLS automatically",
-  "If no Istio: use cert-manager to issue TLS certificates for both services, configure nginx with ssl_verify_client on, mount the CA cert — both sides must present a valid certificate to connect",
-  "After enforcing mTLS: kubectl annotate deployment frontend backend dojo.mtls/status=mtls-enforced -n dojo-sec-mtls --overwrite; kubectl create configmap mtls-config -n dojo-sec-mtls --from-literal=method=istio-peer-authentication --from-literal=mode=STRICT"
-]
+["Check if the backend is configured for TLS: kubectl get pod -n dojo-sec-mtls -l app=backend -o jsonpath='{.items[0].spec.containers[0].command}' — it should use nginx-tls.conf.", "The backend serves HTTPS on port 443. Connect from the frontend pod: kubectl exec -n dojo-sec-mtls frontend -- curl -sk https://backend-svc/flag — the -s skips verbose, -k skips cert verification.", "The flag is at the /flag endpoint on the backend over HTTPS. Run bash verify.sh to confirm TLS is set up and get the flag."]

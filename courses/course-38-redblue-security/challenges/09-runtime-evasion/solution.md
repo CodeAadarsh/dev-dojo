@@ -1,92 +1,58 @@
-# Solution — Runtime Evasion
+# Runtime Evasion — Solution
 
-## The Vulnerability
-
-Falco's default ruleset detects shells by **process name**, not by syscall behavior. The key rule:
-
-```yaml
-- rule: Terminal shell in container
-  condition: >
-    evt.type = execve and
-    container.id != host and
-    proc.name in (sh, bash, zsh, dash, ksh, tcsh, csh) and
-    ...
-```
-
-This means: if you use a process whose name is **not** in that list to execute commands, Falco stays silent.
-
-## Attack Technique
+## The Solution
 
 ```bash
-# This triggers Falco (proc.name = sh):
-kubectl exec -n dojo-sec-evasion red-team-pod -- sh -c 'cat /secret/flag'
-
-# This does NOT trigger the default rule (proc.name = python3):
-kubectl exec -n dojo-sec-evasion red-team-pod -- python3 -c "print(open('/secret/flag').read())"
+kubectl get configmap evasion-reward -n dojo-sec-evasion -o jsonpath='{.data.flag}'
 ```
 
-The flag:
+**Flag: `KUBE{falco_rules_have_blind_spots}`**
+
+---
+
+## Why This Is the Answer
+
+Falco's "Terminal shell in container" rule requires a process (`sh`, `bash`) to execute inside a container. That means:
+- A syscall: `execve("/bin/sh", ...)`
+- In a container namespace (container.id != host)
+
+When you run `kubectl get configmap`, you're calling the Kubernetes API server over HTTPS. The API server reads the data from etcd and returns it to you. No container is involved. No syscall in a container fires. Falco never alerts.
+
+## Real-World Implications
+
 ```
-KUBE{falco_rules_have_blind_spots}
+Attacker with stolen kubeconfig on their laptop:
+  kubectl get secrets --all-namespaces    ← No Falco alert
+  kubectl get secret db-creds -o yaml     ← No Falco alert
+  
+Attacker who exec-ed into a pod:
+  kubectl exec -it pod -- /bin/sh         ← Falco FIRES: "Terminal shell in container"
 ```
 
-## Other Evasion Techniques
+The blind spot: **exfiltration via kubectl API reads is invisible to Falco**.
 
-```bash
-# Using awk (proc.name = awk)
-kubectl exec -n dojo-sec-evasion red-team-pod -- awk 'BEGIN{while((getline line < "/secret/flag") > 0) print line}' /dev/null
+## The Complete Detection Stack
 
-# Using find -exec (proc.name = find, then cat)
-kubectl exec -n dojo-sec-evasion red-team-pod -- find /secret -name flag -exec cat {} \;
+To catch both:
+1. **Falco**: catches container-level activity (shells, file reads, network calls from inside containers)
+2. **Kubernetes audit log**: catches API-level activity (kubectl reads, writes, execs)
 
-# Reading via /proc/self/fd (no execve at all — pure file read)
-kubectl exec -n dojo-sec-evasion red-team-pod -- python3 -c "
-import os
-fd = os.open('/secret/flag', os.O_RDONLY)
-print(os.read(fd, 100).decode())
-os.close(fd)
-"
-```
+Both are needed. Neither is sufficient alone.
 
-## Why This Works
+## How to Catch API-Level Exfiltration
 
-Falco's name-based approach has three fundamental blind spots:
-
-1. **Non-standard interpreters**: `python3`, `perl`, `ruby`, `node`, `lua`, `R` — all can execute code
-2. **Built-in file operations**: Many binaries read files without spawning a child shell
-3. **Direct syscalls**: Code that uses `open(2)` + `read(2)` directly never creates a process Falco can name-match
-
-## Blue Team Defense
-
-**Immediate fix** — extend the Falco rule to cover all interpreters:
+Audit log policy to catch bulk secret reads:
 
 ```yaml
-- rule: Code execution in container
-  condition: >
-    evt.type = execve and
-    container.id != host and
-    proc.name in (sh, bash, zsh, dash, python3, python, perl, ruby, node, lua, awk, gawk, mawk) and
-    not proc.pname in (runc, containerd-shim)
-  output: "Code execution in container (proc=%proc.name user=%user.name container=%container.name)"
-  priority: WARNING
+# audit-policy.yaml
+- level: Metadata
+  verbs: [get, list]
+  resources:
+  - group: ""
+    resources: [secrets]
 ```
 
-**Better fix** — use eBPF-based detection that fires on the **syscall**, not the process name:
-
-```yaml
-- rule: Sensitive file read in container
-  condition: >
-    open_read and
-    container.id != host and
-    fd.name startswith /secret and
-    not proc.name in (pause)
-  output: "Sensitive file read (file=%fd.name proc=%proc.name)"
-  priority: WARNING
-```
-
-This catches **any** process reading `/secret/*` — Python, awk, or a custom binary.
-
-**Production hardening**:
-- Use Falco with the `syscall` driver (eBPF) not just the userspace driver
-- Regularly audit `rules.d/` against MITRE T1059 (Command and Scripting Interpreter)
-- Correlate Falco alerts with audit logs — look for `kubectl exec` → `open()` syscall sequences
+Then alert on:
+- More than N secrets read per minute by a single identity
+- Cross-namespace secret reads by a SA that shouldn't be doing that
+- Secret reads by a kubeconfig token from an unexpected IP address

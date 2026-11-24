@@ -1,111 +1,85 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NAMESPACE="dojo-sec-supplychain"
+NAMESPACE="dojo-sec-supply"
+
+echo "==> Setting up: Supply Chain Inject"
 
 kubectl create namespace "$NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
 
-echo "Building dojo/app-clean:1.0 ..."
-CLEAN_DIR=$(mktemp -d)
-cat > "$CLEAN_DIR/package.json" <<'PKGJSON'
-{
-  "name": "app",
-  "version": "1.0.0",
-  "dependencies": {
-    "express": "^4.21.0"
-  }
-}
-PKGJSON
-cat > "$CLEAN_DIR/Dockerfile" <<'DOCKERFILE'
-FROM node:20-slim
-WORKDIR /app
-COPY package.json .
-RUN npm install --omit=dev
-COPY . .
-CMD ["node", "-e", "require('http').createServer((req,res)=>res.end('ok')).listen(3000)"]
-DOCKERFILE
-docker build -t dojo/app-clean:1.0 "$CLEAN_DIR" -q
-rm -rf "$CLEAN_DIR"
-
-echo "Building dojo/app-infected:1.1 ..."
-INFECTED_DIR=$(mktemp -d)
-cat > "$INFECTED_DIR/package.json" <<'PKGJSON'
-{
-  "name": "app",
-  "version": "1.1.0",
-  "dependencies": {
-    "express": "^4.21.0",
-    "lodash-dev-proxy": "^1.0.0"
-  }
-}
-PKGJSON
-cat > "$INFECTED_DIR/Dockerfile" <<'DOCKERFILE'
-FROM node:20-slim
-WORKDIR /app
-COPY package.json .
-RUN npm install --omit=dev --ignore-scripts || true
-COPY . .
-CMD ["node", "-e", "require('http').createServer((req,res)=>res.end('ok')).listen(3000)"]
-DOCKERFILE
-docker build -t dojo/app-infected:1.1 "$INFECTED_DIR" -q
-rm -rf "$INFECTED_DIR"
-
-# Deploy the infected version
-kubectl apply -f - <<EOF
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app
-  namespace: $NAMESPACE
-  labels:
-    app: web
-    dojo.challenge: "11-supply-chain-inject"
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: web
-  template:
-    metadata:
-      labels:
-        app: web
-    spec:
-      containers:
-      - name: web
-        image: dojo/app-infected:1.1
-        imagePullPolicy: Never
-        ports:
-        - containerPort: 3000
-        resources:
-          limits:
-            cpu: "200m"
-            memory: "128Mi"
-EOF
-
-# Task instructions ConfigMap
-kubectl apply -f - <<EOF
+# SBOM v1.2.3 — clean build
+kubectl apply -f - << 'EOF'
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: sbom-task
-  namespace: $NAMESPACE
+  name: sbom-v1-2-3
+  namespace: dojo-sec-supply
+  annotations:
+    dojo.challenge/image: "company/webapp:v1.2.3"
+    dojo.challenge/note: "Clean SBOM — no injected packages"
 data:
-  task: |
-    1. Generate SBOMs: syft dojo/app-clean:1.0 -o spdx-json > clean.json && syft dojo/app-infected:1.1 -o spdx-json > infected.json
-    2. Find the extra package in infected.json
-    3. kubectl create configmap sbom-diff-result -n dojo-sec-supplychain --from-literal=malicious_package=<package-name>
-    4. kubectl set image deployment/app web=dojo/app-clean:1.0 -n dojo-sec-supplychain
-    5. kubectl annotate namespace dojo-sec-supplychain dojo.supply-chain/status=remediated
-  attack_vector: "Dependency confusion / package injection — attackers publish a malicious package with a name that shadows an internal one, or inject it into a compromised registry."
+  alpine-3.19.1: "source=alpine-linux,license=MIT,hash=sha256:abc123"
+  curl-8.5.0-r0: "source=alpine-linux,license=MIT,hash=sha256:def456"
+  libssl3-3.1.4-r5: "source=alpine-linux,license=OpenSSL,hash=sha256:ghi789"
+  ca-certificates-20240226-r0: "source=alpine-linux,license=MPL-2.0,hash=sha256:jkl012"
+  nodejs-20.11.0-r0: "source=alpine-linux,license=MIT,hash=sha256:mno345"
+  npm-10.2.4-r0: "source=alpine-linux,license=MIT,hash=sha256:pqr678"
+  python3-3.11.9-r0: "source=alpine-linux,license=PSF,hash=sha256:stu901"
+  musl-1.2.4-r4: "source=alpine-linux,license=MIT,hash=sha256:vwx234"
 EOF
 
-# Mark namespace as compromised initially
-kubectl annotate namespace "$NAMESPACE" dojo.supply-chain/status=compromised --overwrite
+# SBOM v1.2.4 — tampered build with injected package
+kubectl apply -f - << 'EOF'
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sbom-v1-2-4
+  namespace: dojo-sec-supply
+  annotations:
+    dojo.challenge/image: "company/webapp:v1.2.4"
+    dojo.challenge/note: "TAMPERED — contains an injected package"
+data:
+  alpine-3.19.1: "source=alpine-linux,license=MIT,hash=sha256:abc123"
+  curl-8.5.0-r0: "source=alpine-linux,license=MIT,hash=sha256:def456"
+  libssl3-3.1.4-r5: "source=alpine-linux,license=OpenSSL,hash=sha256:ghi789"
+  ca-certificates-20240226-r0: "source=alpine-linux,license=MPL-2.0,hash=sha256:jkl012"
+  nodejs-20.11.0-r0: "source=alpine-linux,license=MIT,hash=sha256:mno345"
+  npm-10.2.4-r0: "source=alpine-linux,license=MIT,hash=sha256:pqr678"
+  python3-3.11.9-r0: "source=alpine-linux,license=PSF,hash=sha256:stu901"
+  musl-1.2.4-r4: "source=alpine-linux,license=MIT,hash=sha256:vwx234"
+  audit-logger-1.2.3: "KUBE{sbom_diff_reveals_injected_package}"
+EOF
+
+kubectl apply -f - << 'EOF'
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: investigation-notes
+  namespace: dojo-sec-supply
+data:
+  method: |
+    To find the injected package:
+    1. List all keys in sbom-v1-2-3
+    2. List all keys in sbom-v1-2-4
+    3. The key that's in v1.2.4 but NOT in v1.2.3 is the injected package
+    4. Its value is the flag
+
+    With kubectl:
+    kubectl get configmap sbom-v1-2-3 -n dojo-sec-supply -o jsonpath='{.data}' | tr ',' '\n' | grep -o '"[^"]*":'
+    kubectl get configmap sbom-v1-2-4 -n dojo-sec-supply -o jsonpath='{.data}' | tr ',' '\n' | grep -o '"[^"]*":'
+  note: |
+    The package name 'audit-logger-1.2.3' should raise red flags:
+    - Not from alpine-linux (the base image)
+    - Unusual name that mimics a legitimate-sounding package
+    - Was NOT in the previous build's SBOM
+    Real attackers inject packages that sound legitimate: 'util-lib', 'crypto-helper', etc.
+EOF
 
 echo ""
-echo "Setup complete. Namespace: $NAMESPACE"
-echo "Two images built: dojo/app-clean:1.0 and dojo/app-infected:1.1"
-echo "The infected image has an extra package injected."
+echo "==> Setup complete."
 echo ""
-echo "Tools needed: syft (brew install syft)"
-echo "Start: syft dojo/app-clean:1.0 -o spdx-json > clean.json"
+echo "    Read SBOMs and find the difference:"
+echo "    kubectl get configmap sbom-v1-2-3 -n $NAMESPACE -o jsonpath='{.data}'"
+echo "    kubectl get configmap sbom-v1-2-4 -n $NAMESPACE -o jsonpath='{.data}'"
+echo ""
+echo "    The flag is the VALUE of the injected package's key in sbom-v1-2-4"

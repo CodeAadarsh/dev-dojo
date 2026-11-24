@@ -1,81 +1,48 @@
-# Challenge 15 — Red Team Lab Boss
+# Red Team Lab Boss — Full Kill Chain, Full Hardening
 
-**Difficulty:** Insane | **Type:** Verifier | **Est. Time:** 3–4 hours
+This is the final challenge. No hints, no handholding.
 
----
+A deliberately misconfigured cluster is running in namespace `dojo-sec-boss`. You'll attack it through the full kill chain, then harden it completely. Both attack and hardening must succeed.
 
-## Situation
+## The Setup
 
-This is the final exam. No guided steps. No hints until you ask.
+A vulnerable application is deployed:
+- Pod `exposed-app` runs with the default SA and automounted token
+- The default SA in `dojo-sec-boss` has a ClusterRoleBinding granting `cluster-admin`
+- Namespace `dojo-sec-boss-vault` contains secret `crown-jewels`
+- ClusterRoleBinding `dangerous-crb` exists and must be removed
 
-A fully vulnerable cluster is live in `dojo-sec-boss`. It has 5 attack surfaces and 5 hardening requirements. You must complete both phases to unlock the flag.
+## Attack Phase
 
-**ACT 1 — RED TEAM**: Exploit each attack surface. Each proof token goes into a ConfigMap.
+You'll prove you completed the attack by creating a ConfigMap `attack-progress` in `dojo-sec-boss` with the following data:
 
-**ACT 2 — BLUE TEAM**: Harden what you just broke. The verifier checks both phases.
-
----
-
-## Lab Setup
-
-```bash
-bash courses/course-38-redblue-security/challenges/15-redteam-lab-boss/setup.sh
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: attack-progress
+  namespace: dojo-sec-boss
+data:
+  step1: "read-sa-token"       # Read the SA token from exposed-app
+  step2: "found-cluster-admin" # Discovered the token is cluster-admin
+  step3: "read-crown-jewels"   # Read the crown-jewels secret
 ```
 
-This creates namespace `dojo-sec-boss` with:
-- `attack-pod` — your foothold (overprivileged SA, DB creds in env var)
-- `fake-imds-svc` — a simulated AWS IMDS endpoint
-- `db-creds` Secret — plaintext credentials
-- `overprivileged-sa` → ClusterRoleBinding (cluster-admin)
+## Hardening Phase
 
----
+After proving the attack, harden the cluster:
 
-## ACT 1 — Attack (5 Surfaces)
+1. Delete `dangerous-crb` ClusterRoleBinding
+2. Set `automountServiceAccountToken: false` on the default SA in `dojo-sec-boss`
+3. Apply a default-deny NetworkPolicy to `dojo-sec-boss`
+4. Delete and recreate `crown-jewels` secret in `dojo-sec-boss-vault` (rotation)
 
-```bash
-kubectl exec -it attack-pod -n dojo-sec-boss -- sh
-```
+## Rules of Engagement
 
-| # | Surface | Action |
-|---|---------|--------|
-| 1 | IMDS credential theft | `curl http://fake-imds-svc/latest/meta-data/iam/security-credentials/node-role` |
-| 2 | SA token abuse | `cat /var/run/secrets/kubernetes.io/serviceaccount/token` |
-| 3 | Secret enumeration | `kubectl get secret db-creds -n dojo-sec-boss -o jsonpath='{.data.flag}' | base64 -d` |
-| 4 | Privileged pod escape | `kubectl run pwned --image=busybox:1.36 --restart=Never --privileged=true -n dojo-sec-boss -- sleep 60` |
-| 5 | Lateral movement | `kubectl get cm -A` (enumerate cluster-wide) |
+- Namespace: `dojo-sec-boss` and `dojo-sec-boss-vault`
+- Run verify.sh when both attack and hardening are complete
+- The flag is only revealed when ALL checks pass
 
-For each attack, store a proof token:
-```bash
-kubectl create configmap attack-token-N -n dojo-sec-boss --from-literal=token=<value>
-```
+## This Is It
 
----
-
-## ACT 2 — Harden (5 Steps)
-
-| # | Fix | Command |
-|---|-----|---------|
-| 1 | Delete overprivileged CRB | `kubectl delete clusterrolebinding boss-overprivileged-binding` |
-| 2 | Add NetworkPolicy blocking IMDS egress | `kubectl apply -f networkpolicy.yaml` |
-| 3 | Remove DB_PASSWORD from pod env | Delete + recreate attack-pod without env var |
-| 4 | Set PSA on namespace | `kubectl label namespace dojo-sec-boss pod-security.kubernetes.io/enforce=restricted` |
-| 5 | Confirm Falco active | `kubectl create configmap falco-active -n dojo-sec-boss --from-literal=status=enabled` |
-
----
-
-## Verifier
-
-```bash
-bash courses/course-38-redblue-security/challenges/15-redteam-lab-boss/verify.sh
-```
-
-Both phases must pass.
-
----
-
-## What You'll Learn
-
-- Full cloud-native kill chain: IMDS → SA token → secret exfil → privileged escape → lateral movement
-- Why each misconfiguration is catastrophic when chained
-- Hardening sequence: RBAC → network controls → secrets management → pod security → runtime detection
-- **Defense in depth**: any single fix stops the chain
+You've studied the kill chain. You've practiced the defenses. This challenge puts it all together. Good luck.

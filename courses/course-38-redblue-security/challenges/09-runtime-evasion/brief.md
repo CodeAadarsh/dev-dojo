@@ -1,58 +1,44 @@
-# Challenge 09 — Runtime Evasion
+# Runtime Evasion
 
-**Difficulty:** Hard | **Type:** Discovery | **Est. Time:** 45 min
+Falco is running. Falco is watching. Every shell spawn, every sensitive file read, every package install — Falco sees it.
 
----
+Except when it doesn't.
 
-## Situation
+Falco monitors syscalls inside containers. But Kubernetes has an API. And kubectl calls that API from OUTSIDE the containers — over HTTPS to the API server. No container process, no syscall in a container, no Falco alert.
 
-Falco is watching. Every shell spawn, every suspicious file read, every privilege escalation attempt — Falco sees it.
+Your mission is to retrieve the flag from a ConfigMap in this namespace **without execing into any container** — because exec WOULD trigger Falco's "Terminal shell in container" rule. Use Kubernetes API calls only.
 
-You're on the red team. Your objective is to read the flag from the `evasion-flag` Secret in namespace `dojo-sec-evasion` **without triggering a Falco shell detection alert**.
+## Why This Is a Real Attack Technique
 
-The catch: the pod `red-team-pod` is running `python3` as its entrypoint. There's no `sh` or `bash` in the image. And Falco's default rules fire on `proc.name in (sh, bash, zsh, dash, ksh, tcsh, csh)`.
+A sophisticated attacker who knows Falco is deployed will avoid `kubectl exec` entirely. Instead:
+- `kubectl cp` to copy files in/out of containers without spawning a shell
+- Direct Kubernetes API calls to read resources (ConfigMaps, Secrets) without touching a container
+- Creating a new Job that does the work and exits (Job's container runs briefly, Falco fires, but the data is already in the Job's log which the attacker reads via `kubectl logs` from outside)
 
-What other ways can you read a file without spawning a *named* shell?
+This technique exfiltrates data from the cluster without ever spawning a persistent shell — greatly limiting Falco's ability to alert in time.
 
----
+## Mission
 
-## Lab Setup
+1. Find the flag in the ConfigMap `evasion-reward` in namespace `dojo-sec-evasion`
+2. Retrieve it using ONLY kubectl API calls — no `kubectl exec`, no `kubectl attach`
+3. The flag is directly readable via the Kubernetes API — no container interaction needed
+
+## Why This Matters
+
+Falco is powerful but it has scope limitations:
+- It sees: syscalls INSIDE running containers
+- It doesn't see: `kubectl get secret`, `kubectl logs`, `kubectl cp` FROM outside the cluster
+- These API calls are recorded in the **Kubernetes audit log** instead (not Falco's domain)
+
+## Rules of Engagement
+
+- Namespace: `dojo-sec-evasion`
+- Do NOT use `kubectl exec` or `kubectl attach`
+- The flag is in a ConfigMap — readable directly via kubectl API
+- No verify.sh needed — read it and submit
+
+## Hint
 
 ```bash
-kubectl apply -f - <<'EOF'
-# Run setup.sh first
-EOF
-bash setup.sh
+kubectl get configmap evasion-reward -n dojo-sec-evasion -o jsonpath='{.data.flag}'
 ```
-
-Or:
-```bash
-bash courses/course-38-redblue-security/challenges/09-runtime-evasion/setup.sh
-```
-
----
-
-## Your Goal
-
-Read the flag from the Secret `evasion-flag` in namespace `dojo-sec-evasion`, key `flag`.
-
-The flag is the value of that secret. Access it using a technique Falco's default ruleset **does not** detect.
-
-**Proof of learning:** understand *why* the technique evades Falco, then read `evasion-hints` ConfigMap to verify your understanding matches.
-
----
-
-## What You'll Learn
-
-- Falco's default detection rules and their blind spots
-- Non-shell code execution (Python, Perl, `awk`, `find -exec`)
-- Why syscall-level detection (eBPF) catches what name-based detection misses
-- How blue teams tune Falco rules to close these gaps
-
----
-
-## Rules
-
-- Do not modify or delete Falco rules
-- Do not delete the `evasion-flag` Secret
-- Do not use `kubectl get secret` directly — `exec` into the pod and read it from the mounted volume

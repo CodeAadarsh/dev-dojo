@@ -3,123 +3,89 @@ set -euo pipefail
 
 NAMESPACE="dojo-sec-incident"
 
+echo "==> Setting up: Incident Playbook"
+
 kubectl create namespace "$NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
 
-kubectl apply -f - <<EOF
+# Plant the "malicious" pod
+kubectl apply -f - << 'EOF'
 apiVersion: v1
-kind: ServiceAccount
+kind: Pod
 metadata:
-  name: processor-sa
-  namespace: $NAMESPACE
----
+  name: malicious-pod
+  namespace: dojo-sec-incident
+  labels:
+    app: malicious
+    dojo.attack/status: active
+  annotations:
+    dojo.attack/technique: "T1059 - Command and Scripting Interpreter"
+    dojo.attack/timestamp: "2026-11-25T10:30:00Z"
+    dojo.challenge/note: "This simulates a compromised pod. Follow PICERL to handle it."
+spec:
+  containers:
+  - name: malicious
+    image: busybox
+    command: [sleep, "3600"]
+EOF
+
+# Plant suspicious ClusterRoleBinding (gives default SA cluster-admin)
+kubectl apply -f - << 'EOF'
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRoleBinding
 metadata:
-  name: secret-lister
-  namespace: $NAMESPACE
-rules:
-- apiGroups: [""]
-  resources: ["secrets"]
-  verbs: ["get", "list"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: processor-secret-access
-  namespace: $NAMESPACE
+  name: suspicious-crb
+  annotations:
+    dojo.attack/note: "Attacker planted this CRB to maintain persistent cluster-admin access"
 subjects:
 - kind: ServiceAccount
-  name: processor-sa
-  namespace: $NAMESPACE
+  name: default
+  namespace: dojo-sec-incident
 roleRef:
-  kind: Role
-  name: secret-lister
+  kind: ClusterRole
+  name: cluster-admin
   apiGroup: rbac.authorization.k8s.io
----
+EOF
+
+# Plant leaked credentials secret
+kubectl apply -f - << 'EOF'
 apiVersion: v1
 kind: Secret
 metadata:
-  name: payment-db-creds
-  namespace: $NAMESPACE
+  name: leaked-creds
+  namespace: dojo-sec-incident
+  annotations:
+    dojo.attack/note: "Attacker left this after exfiltrating credentials"
 type: Opaque
-stringData:
-  password: "prod-payment-db-hunter2"
-  host: "payments-db.internal:5432"
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: processor
-  namespace: $NAMESPACE
-  labels:
-    app: processor
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: processor
-  template:
-    metadata:
-      labels:
-        app: processor
-    spec:
-      serviceAccountName: processor-sa
-      containers:
-      - name: processor
-        image: alpine:3.20
-        command: ["sh", "-c", "echo 'attacker backdoor installed' > /tmp/attacker-backdoor; sleep 86400"]
-        env:
-        - name: DB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: payment-db-creds
-              key: password
-        resources:
-          limits:
-            cpu: "100m"
-            memory: "64Mi"
----
+data:
+  password: c3VwZXJTZWNyZXRQYXNzd29yZDEyMw==
+  api-key: ZXhmaWx0cmF0ZWQtYXBpLWtleS0xMjM0NQ==
+EOF
+
+# Plant the flag for the verifier to retrieve
+FLAG_B64=$(printf '%s' 'KUBE{detect_contain_recover_in_order}' | base64)
+kubectl apply -f - << EOF
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: falco-alert
+  name: incident-reward
   namespace: $NAMESPACE
 data:
-  alert: |
-    {
-      "time": "2024-01-15T02:34:00.000000000Z",
-      "rule": "Terminal shell in container",
-      "priority": "NOTICE",
-      "output": "A shell was spawned in a container with an attached terminal",
-      "output_fields": {
-        "container.id": "a8f3b2c1d4e5",
-        "container.name": "processor",
-        "k8s.ns.name": "dojo-sec-incident",
-        "k8s.pod.name": "processor-7d9b4c6f8-xkm2p",
-        "proc.cmdline": "sh -i",
-        "user.name": "root"
-      }
-    }
-  note: "This is the Falco alert that triggered your pager. The attacker spawned an interactive shell and used the SA token to list secrets."
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: audit-trail
-  namespace: $NAMESPACE
-data:
-  audit_entries: |
-    {"timestamp":"2024-01-15T02:33:41Z","verb":"list","resource":"secrets","namespace":"dojo-sec-incident","user":"system:serviceaccount:dojo-sec-incident:processor-sa","responseStatus":{"code":200}}
-    {"timestamp":"2024-01-15T02:33:42Z","verb":"get","resource":"secrets","name":"payment-db-creds","namespace":"dojo-sec-incident","user":"system:serviceaccount:dojo-sec-incident:processor-sa","responseStatus":{"code":200}}
-  note: "The SA token was used to read payment-db-creds. Rotate immediately."
+  flag_b64: $FLAG_B64
+  hint: "Complete all 4 PICERL steps: Identify, Contain, Eradicate, Recover — then run verify.sh"
 EOF
 
 echo ""
-echo "Setup complete. Namespace: $NAMESPACE"
+echo "==> Setup complete. Incident simulation is active."
 echo ""
-echo "Simulated incident:"
-echo "  - Falco alert: shell spawned in processor pod"
-echo "  - Audit log: processor-sa listed and read secrets"
-echo "  - Backdoor file: /tmp/attacker-backdoor in the processor pod"
+echo "    Attack artifacts planted:"
+echo "    - Pod: malicious-pod (label: dojo.attack/status=active)"
+echo "    - ClusterRoleBinding: suspicious-crb (gives default SA cluster-admin)"
+echo "    - Secret: leaked-creds (contains 'stolen' credentials)"
 echo ""
-echo "Follow PICERL. Run verify.sh when done."
+echo "    Your PICERL steps:"
+echo "    1. IDENTIFY: kubectl label pod malicious-pod -n $NAMESPACE dojo.incident/identified=true"
+echo "    2. CONTAIN:  kubectl label pod malicious-pod -n $NAMESPACE dojo.incident/contained=true"
+echo "    3. ERADICATE: kubectl delete clusterrolebinding suspicious-crb"
+echo "    4. RECOVER:  kubectl delete secret leaked-creds -n $NAMESPACE && kubectl create secret generic rotated-creds --from-literal=password=new-pass -n $NAMESPACE"
+echo ""
+echo "    Then run: bash verify.sh"

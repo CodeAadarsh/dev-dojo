@@ -1,66 +1,36 @@
-# Challenge 10 — Lateral Movement Chain
+# Lateral Movement Chain — Three Hops to the Treasure
 
-**Difficulty:** Hard | **Type:** Discovery | **Est. Time:** 60 min
+Real attackers don't stop at their initial foothold. They pivot. Each compromised component becomes a stepping stone to the next.
 
----
+This challenge plants a 3-hop lateral movement chain. You start with limited access, discover and steal a ServiceAccount token, use it to pivot to another namespace, discover and steal another token, and finally reach the secret that holds the flag.
 
-## Situation
+Each hop simulates a real lateral movement technique: discovering SA tokens, using stolen tokens with kubectl, pivoting across namespace boundaries.
 
-You have a foothold. Pod `entry-point` in namespace `dojo-sec-lateral-a` is compromised. Its service account token is in your hands.
-
-But the flag isn't here. It's three hops away.
-
-Execute the full lateral movement chain:
+## The Chain
 
 ```
-dojo-sec-lateral-a (entry-point)
-         │  steal SA token
-         ▼
-dojo-sec-lateral-b  (pivot: use stolen token to list secrets)
-         │  steal hop-two-token
-         ▼
-dojo-sec-lateral-c  (final: read the flag ConfigMap)
+START                     HOP 1                     HOP 2                    GOAL
+─────                     ─────                     ─────                    ────
+dojo-sec-lateral          dojo-sec-lateral          dojo-sec-lateral-hop2    dojo-sec-lateral-hop3
+Your SA: minimal-sa       hop1-sa token             hop2-sa token            secret: final-treasure
+Can: list pods            Can: get pods in hop2 ns  Can: get secrets in hop3  flag: KUBE{...}
 ```
 
-Each namespace has its own RBAC scope. You'll need to chain stolen service account tokens across namespaces to reach the prize.
+## Mission
 
----
-
-## Lab Setup
-
-```bash
-bash courses/course-38-redblue-security/challenges/10-lateral-movement-chain/setup.sh
-```
-
----
-
-## Your Goal
-
-Read the flag from ConfigMap `final-flag` in namespace `dojo-sec-lateral-c`.
-
-```bash
-kubectl get configmap final-flag -n dojo-sec-lateral-c -o jsonpath='{.data.flag}'
-```
-
-The flag value is `KUBE{three_hops_to_node_compromise}`.
-
----
+1. Start: you have a kubeconfig as `minimal-sa` in `dojo-sec-lateral` — can only list pods in that namespace
+2. Find the pod that has a hop1-sa token mounted
+3. That token can discover pods in `dojo-sec-lateral-hop2`
+4. Find the pod in hop2 that has the hop2-sa token
+5. That token can read secrets in `dojo-sec-lateral-hop3`
+6. Read the `final-treasure` secret in `dojo-sec-lateral-hop3`
+7. The flag is in the `flag` data field
 
 ## Rules of Engagement
 
-You must traverse all three hops — do not use cluster-admin or your default kubeconfig to skip to namespace C. The point is to understand the token-chaining technique.
-
-Start from inside the pod:
-
-```bash
-kubectl exec -n dojo-sec-lateral-a entry-point -- cat /var/run/secrets/kubernetes.io/serviceaccount/token
-```
-
----
-
-## What You'll Learn
-
-- How compromised service account tokens can be used cross-namespace
-- Using `kubectl --token` and `--server` flags with stolen credentials
-- Why RBAC scope matters: least privilege across namespaces
-- Audit log patterns that detect cross-namespace token pivoting
+- Starting namespace: `dojo-sec-lateral`
+- Starting SA: `minimal-sa` (can list pods in `dojo-sec-lateral` only)
+- Three namespaces: `dojo-sec-lateral`, `dojo-sec-lateral-hop2`, `dojo-sec-lateral-hop3`
+- Use `kubectl --token=<stolen-token>` to operate as a different SA
+- Tokens are mounted as secrets in pods — read them with `kubectl exec`
+- Run verify.sh when you've retrieved the flag

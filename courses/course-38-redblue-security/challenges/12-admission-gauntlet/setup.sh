@@ -3,111 +3,55 @@ set -euo pipefail
 
 NAMESPACE="dojo-sec-gauntlet"
 
+echo "==> Setting up: Admission Gauntlet"
+
 kubectl create namespace "$NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
 
-# Install Kyverno if not present
-if ! kubectl get deployment kyverno -n kyverno >/dev/null 2>&1; then
-  echo "Installing Kyverno..."
-  helm repo add kyverno https://kyverno.github.io/kyverno/ --force-update
-  helm repo update
-  helm install kyverno kyverno/kyverno \
-    --namespace kyverno --create-namespace \
-    --set admissionController.replicas=1 \
-    --wait --timeout=5m
-  echo "Kyverno installed."
-fi
-
-# Store the 5 attack pod specs for reference
-kubectl apply -f - <<EOF
+# Create the high-priv SA that attack #5 targets (it will exist, but pods using it should be blocked)
+kubectl apply -f - << EOF
 apiVersion: v1
-kind: ConfigMap
+kind: ServiceAccount
 metadata:
-  name: gauntlet-attacks
+  name: dojo-sec-gauntlet-admin
   namespace: $NAMESPACE
-  annotations:
-    dojo.policy/gauntlet: "active"
-data:
-  attack1_privileged: |
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: attack1-privileged
-      namespace: $NAMESPACE
-    spec:
-      containers:
-      - name: c
-        image: alpine:3.20
-        securityContext:
-          privileged: true
-        command: ["sleep", "3600"]
-  attack2_hostpath: |
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: attack2-hostpath
-      namespace: $NAMESPACE
-    spec:
-      containers:
-      - name: c
-        image: alpine:3.20
-        command: ["sleep", "3600"]
-        volumeMounts:
-        - name: host
-          mountPath: /host
-      volumes:
-      - name: host
-        hostPath:
-          path: /etc
-  attack3_root: |
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: attack3-root
-      namespace: $NAMESPACE
-    spec:
-      containers:
-      - name: c
-        image: alpine:3.20
-        command: ["sleep", "3600"]
-        securityContext:
-          runAsUser: 0
-          runAsNonRoot: false
-  attack4_nolimits: |
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: attack4-nolimits
-      namespace: $NAMESPACE
-    spec:
-      containers:
-      - name: c
-        image: alpine:3.20
-        command: ["sleep", "3600"]
-  attack5_latest: |
-    apiVersion: v1
-    kind: Pod
-    metadata:
-      name: attack5-latest
-      namespace: $NAMESPACE
-    spec:
-      containers:
-      - name: c
-        image: alpine:latest
-        command: ["sleep", "3600"]
-        resources:
-          limits:
-            cpu: "100m"
-            memory: "64Mi"
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 1000
 EOF
 
-kubectl annotate namespace "$NAMESPACE" dojo.policy/gauntlet=active --overwrite
+# Check if Gatekeeper is installed
+if ! kubectl get crd constrainttemplates.templates.gatekeeper.sh > /dev/null 2>&1; then
+  echo "[!] Installing Gatekeeper..."
+  kubectl apply -f https://raw.githubusercontent.com/open-policy-agent/gatekeeper/v3.16.0/deploy/gatekeeper.yaml
+  echo "[*] Waiting for Gatekeeper..."
+  kubectl wait --for=condition=Ready pod -l control-plane=controller-manager -n gatekeeper-system --timeout=180s
+fi
+
+# Check if Kyverno is installed
+if ! kubectl get crd clusterpolicies.kyverno.io > /dev/null 2>&1; then
+  echo "[!] Installing Kyverno..."
+  kubectl apply -f https://github.com/kyverno/kyverno/releases/download/v1.12.0/install.yaml
+  echo "[*] Waiting for Kyverno..."
+  kubectl wait --for=condition=Ready pod -l app.kubernetes.io/component=admission-controller -n kyverno --timeout=180s
+fi
+
+# Plant the flag
+FLAG_B64=$(printf '%s' 'KUBE{five_policies_block_five_attacks}' | base64)
+kubectl apply -f - << EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gauntlet-reward
+  namespace: $NAMESPACE
+type: Opaque
+data:
+  flag: $FLAG_B64
+EOF
 
 echo ""
-echo "Setup complete. Namespace: $NAMESPACE"
-echo "Kyverno is running. No policies applied yet — that's your job."
+echo "==> Setup complete. Gatekeeper and Kyverno are installed."
 echo ""
-echo "Attack specs are in ConfigMap 'gauntlet-attacks'."
-echo "Write a Kyverno ClusterPolicy for each of the 5 attacks, then create the evidence ConfigMap."
+echo "    Namespace: $NAMESPACE"
+echo "    Your task: write and apply 5 policies (see brief.md)"
+echo "    Then run: bash verify.sh"
+echo ""
+echo "    Policy deployment guide:"
+echo "    1. OPA ConstraintTemplate + Constraint for privileged and hostPath"
+echo "    2. Kyverno ClusterPolicy for resource limits, no-latest-tag, and banned SA"

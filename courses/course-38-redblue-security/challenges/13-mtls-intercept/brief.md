@@ -1,101 +1,25 @@
-# Challenge 13 — mTLS Intercept
+# mTLS Intercept — Prove the Lateral Path Is Encrypted
 
-**Difficulty:** Hard | **Type:** Verifier | **Est. Time:** 60 min
+Two services are talking. `frontend` calls `backend`. Right now, that traffic is plaintext HTTP. An attacker who can intercept the network traffic (by being on the same node, via ARP spoofing, or by compromising a network component) can read every request.
 
----
+This challenge asks you to configure TLS between `frontend` and `backend`, then prove that a rogue pod cannot see the plaintext payload — it only sees encrypted bytes.
 
-## Situation
+## Setup
 
-Service `frontend` is talking to service `backend` over **plaintext HTTP**. No encryption. No mutual authentication.
+Both services are deployed in `dojo-sec-mtls`. Currently they communicate over HTTP. A test Secret with TLS credentials is pre-generated.
 
-You placed a rogue pod `interceptor` on the same network. You can read the traffic.
+## Mission
 
-The `intercept-proof` ConfigMap shows what the interceptor captured — real credentials, tokens, plaintext request bodies.
+1. Mount the TLS cert and key into the `backend` pod
+2. Configure `backend` to serve HTTPS instead of HTTP
+3. Configure `frontend` to call `backend` with `--cacert` (verify the server cert)
+4. Prove it works: `frontend` can reach `backend` over HTTPS
+5. Prove it's encrypted: a rogue pod using plain `curl http://backend...` gets a TLS error
+6. Run the verifier
 
-Your job: enforce **mutual TLS (mTLS)** between frontend and backend so the same attack is impossible. Both sides must present certificates and verify each other.
+## Rules of Engagement
 
----
-
-## Lab Setup
-
-```bash
-bash courses/course-38-redblue-security/challenges/13-mtls-intercept/setup.sh
-```
-
----
-
-## Your Goal
-
-1. Enforce mTLS between `frontend` and `backend` in namespace `dojo-sec-mtls`
-2. Annotate both Deployments as mTLS-enforced:
-   ```bash
-   kubectl annotate deployment frontend backend \
-     dojo.mtls/status=mtls-enforced \
-     -n dojo-sec-mtls
-   ```
-3. Create a ConfigMap `mtls-config` documenting your approach:
-   ```bash
-   kubectl create configmap mtls-config \
-     -n dojo-sec-mtls \
-     --from-literal=method=istio-peer-authentication \
-     --from-literal=mode=STRICT
-   ```
-
----
-
-## Verifier
-
-```bash
-bash courses/course-38-redblue-security/challenges/13-mtls-intercept/verify.sh
-```
-
----
-
-## Approaches
-
-**Option A — Istio** (if the cluster has Istio):
-```bash
-kubectl apply -f - <<EOF
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata:
-  name: enforce-mtls
-  namespace: dojo-sec-mtls
-spec:
-  mtls:
-    mode: STRICT
-EOF
-```
-
-**Option B — Cert-manager + manual sidecar** (no service mesh):
-Create a CA using cert-manager, issue certificates for both services, configure nginx sidecars to require client certificates.
-
-**Option C — Cilium** (if the cluster uses Cilium CNI):
-```bash
-kubectl apply -f - <<EOF
-apiVersion: cilium.io/v2
-kind: CiliumNetworkPolicy
-metadata:
-  name: mtls-required
-  namespace: dojo-sec-mtls
-spec:
-  endpointSelector:
-    matchLabels:
-      app: backend
-  ingressDeny:
-  - fromEndpoints:
-    - matchLabels:
-        app: frontend
-    authentication:
-      mode: "required"
-EOF
-```
-
----
-
-## What You'll Learn
-
-- Why plaintext east-west traffic is a lateral movement enabler
-- mTLS: not just encryption, but mutual authentication (both sides prove identity)
-- Service mesh PeerAuthentication vs CNI-level enforcement
-- Zero trust networking: never trust, always verify — even inside the cluster
+- Namespace: `dojo-sec-mtls`
+- Backend service: `backend-svc`
+- TLS credentials pre-generated in Secret `tls-creds` in `dojo-sec-mtls`
+- Run the verifier: `bash verify.sh`

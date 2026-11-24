@@ -1,114 +1,68 @@
-# Solution — mTLS Intercept
+# mTLS Intercept — Solution
 
-## The Problem
+## Understanding the Setup
 
-Plaintext east-west traffic inside a cluster is a real attack surface. If an attacker can exec into any pod in the same namespace (or on the same node with network access), they can intercept HTTP traffic — tokens, passwords, session data.
+The backend nginx is already configured to serve TLS using `nginx-tls.conf`. The TLS cert is in secret `tls-creds`.
 
-mTLS solves two problems at once:
-1. **Encryption**: traffic is TLS-encrypted, intercept = ciphertext
-2. **Mutual authentication**: both client and server present certificates — a rogue `interceptor` pod can't participate even if it can reach the socket
-
-## Solution A — Istio PeerAuthentication (Recommended)
-
-If the cluster has Istio installed (check: `kubectl get pods -n istio-system`):
+## Step 1: Verify TLS is Working
 
 ```bash
-kubectl apply -f - <<EOF
-apiVersion: security.istio.io/v1beta1
-kind: PeerAuthentication
-metadata:
-  name: enforce-mtls
-  namespace: dojo-sec-mtls
-spec:
-  mtls:
-    mode: STRICT
-EOF
+# From the frontend pod — ignore cert validation with -k
+kubectl exec -n dojo-sec-mtls frontend -- \
+  curl -sk https://backend-svc/flag
 ```
 
-`STRICT` mode means: Istio's Envoy sidecar requires a valid mTLS handshake before forwarding any traffic. The interceptor pod would need a valid SPIFFE identity signed by Istio's trust domain to participate.
+Output: `KUBE{mtls_encrypts_the_lateral_path}`
 
-Annotate and create ConfigMap:
+**Flag: `KUBE{mtls_encrypts_the_lateral_path}`**
+
+## Step 2: Prove Plaintext Fails
+
 ```bash
-kubectl annotate deployment frontend backend \
-  dojo.mtls/status=mtls-enforced \
-  -n dojo-sec-mtls --overwrite
-
-kubectl create configmap mtls-config \
-  -n dojo-sec-mtls \
-  --from-literal=method=istio-peer-authentication \
-  --from-literal=mode=STRICT
+# From the rogue pod — try HTTP (should fail or return TLS error)
+kubectl exec -n dojo-sec-mtls rogue-pod -- \
+  curl -s http://backend-svc/flag
+# Returns empty or connection refused — backend only listens on HTTPS
 ```
 
-## Solution B — cert-manager + nginx mTLS (No Service Mesh)
+## Step 3: Understand Why This Protects Against Interception
+
+```
+WITHOUT TLS:
+  frontend → HTTP → backend
+  Rogue pod on same node → tcpdump → sees: "GET /flag HTTP/1.1\n...KUBE{...}"
+
+WITH TLS:
+  frontend → HTTPS (TLS encrypted) → backend
+  Rogue pod on same node → tcpdump → sees: "....cryptographic noise...."
+  Can't decrypt without the private key
+```
+
+## Step 4: Run the Verifier
 
 ```bash
-# 1. Install cert-manager
-kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.0/cert-manager.yaml
+bash verify.sh
+```
 
-# 2. Create a self-signed CA
-kubectl apply -f - <<EOF
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: dojo-ca
-spec:
-  selfSigned: {}
 ---
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: dojo-mtls-ca
-  namespace: dojo-sec-mtls
-spec:
-  isCA: true
-  commonName: dojo-mtls-ca
-  secretName: dojo-mtls-ca-secret
-  issuerRef:
-    name: dojo-ca
-    kind: ClusterIssuer
-EOF
 
-# 3. Issue a certificate for backend
-kubectl apply -f - <<EOF
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: backend-cert
-  namespace: dojo-sec-mtls
-spec:
-  secretName: backend-tls
-  commonName: backend-svc.dojo-sec-mtls.svc.cluster.local
-  dnsNames:
-  - backend-svc.dojo-sec-mtls.svc.cluster.local
-  issuerRef:
-    name: dojo-mtls-ca
-    kind: Issuer
-EOF
-```
+## Full mTLS (Both Sides Authenticate)
 
-Then configure nginx in backend to use `ssl_verify_client on` with the CA cert. (More complex than Istio — prefer service mesh for production.)
-
-## Verify mTLS is Working (Istio)
+The setup here shows server-side TLS (client verifies server's cert). Full mutual TLS (mTLS) means BOTH sides present certificates:
 
 ```bash
-# From frontend pod — this should work (fronted has a valid SPIFFE identity)
-kubectl exec -n dojo-sec-mtls deploy/frontend -- \
-  curl -s http://backend-svc/
+# In a real Istio mTLS setup:
+# frontend presents: spiffe://cluster.local/ns/app/sa/frontend-sa (SVID)
+# backend presents:  spiffe://cluster.local/ns/app/sa/backend-sa (SVID)
+# Both verified against the SPIRE trust bundle
 
-# From the interceptor pod — this should fail if mTLS STRICT is enforced
-# (interceptor has no Istio sidecar by default, so it uses plain TCP)
-kubectl exec -n dojo-sec-mtls interceptor -- \
-  curl -s http://backend-svc/
-# → connection reset / upstream connect error
+# PeerAuthentication: STRICT means backend REJECTS any connection
+# that doesn't present a valid SPIFFE SVID
 ```
 
-**Flag:** `KUBE{mtls_encrypts_the_lateral_path}`
+The combination of TLS + mTLS + SPIFFE identity means:
+- Traffic is encrypted (TLS)
+- Caller is authenticated (mTLS SVID)
+- Authorization is enforced (Istio AuthorizationPolicy checks SPIFFE ID)
 
-## Why mTLS Beats Network Policies Alone
-
-NetworkPolicies block TCP connections at the IP level. But they don't prevent an authorized pod (e.g., one the attacker compromised) from intercepting traffic.
-
-mTLS provides **cryptographic identity** — a pod without a valid certificate (signed by the cluster CA) can't complete the TLS handshake, regardless of its IP address. Combined with NetworkPolicies, this is defense in depth:
-
-- NetworkPolicy: IP-level controls who can connect
-- mTLS: TLS-level controls that the connecting party is who it claims to be
+A rogue pod gets none of these — it can't forge an SVID, so the backend rejects the connection entirely.

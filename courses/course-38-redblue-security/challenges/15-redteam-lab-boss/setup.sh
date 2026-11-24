@@ -1,201 +1,108 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NAMESPACE="dojo-sec-boss"
+NS_BOSS="dojo-sec-boss"
+NS_VAULT="dojo-sec-boss-vault"
 
 echo "==> Setting up: Red Team Lab Boss"
-echo "    This is a multi-phase challenge — attack and defend."
-echo ""
 
-kubectl create namespace "$NAMESPACE" --dry-run=client -o yaml | kubectl apply -f -
+kubectl create namespace "$NS_BOSS" --dry-run=client -o yaml | kubectl apply -f -
+kubectl create namespace "$NS_VAULT" --dry-run=client -o yaml | kubectl apply -f -
 
-# --- ServiceAccounts and RBAC ---
-
-# Overprivileged SA (the security mistake)
-kubectl apply -f - << 'EOF'
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: overprivileged-sa
-  namespace: dojo-sec-boss
-  annotations:
-    dojo.boss/note: "This SA has cluster-admin — a critical misconfiguration to find and fix"
----
+# --- The dangerous ClusterRoleBinding ---
+kubectl apply -f - << EOF
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: boss-overprivileged-binding
+  name: dangerous-crb
   annotations:
-    dojo.boss/hardening-target: "1"
-    dojo.boss/delete-to-harden: "true"
+    dojo.attack/note: "Grants cluster-admin to default SA in dojo-sec-boss — DELETE this in hardening phase"
 subjects:
 - kind: ServiceAccount
-  name: overprivileged-sa
-  namespace: dojo-sec-boss
+  name: default
+  namespace: $NS_BOSS
 roleRef:
   kind: ClusterRole
   name: cluster-admin
   apiGroup: rbac.authorization.k8s.io
 EOF
 
-# Writer SA for the attack pod to store tokens
-kubectl apply -f - << 'EOF'
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: writer-sa
-  namespace: dojo-sec-boss
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: writer-role
-  namespace: dojo-sec-boss
-rules:
-- apiGroups: [""]
-  resources: ["configmaps", "secrets"]
-  verbs: ["create", "patch", "get", "list"]
-- apiGroups: ["apps"]
-  resources: ["deployments"]
-  verbs: ["get", "list"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: writer-rb
-  namespace: dojo-sec-boss
-subjects:
-- kind: ServiceAccount
-  name: overprivileged-sa
-  namespace: dojo-sec-boss
-roleRef:
-  kind: Role
-  name: writer-role
-  apiGroup: rbac.authorization.k8s.io
-EOF
-
-# --- Fake IMDS service (attack surface 1) ---
-kubectl apply -f - << 'EOF'
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: boss-imds-nginx
-  namespace: dojo-sec-boss
-data:
-  nginx.conf: |
-    events {}
-    http {
-      server {
-        listen 80;
-        location /latest/meta-data/iam/security-credentials/ {
-          return 200 "node-role\n";
-        }
-        location /latest/meta-data/iam/security-credentials/node-role {
-          return 200 '{"SecretAccessKey":"token1-imds-creds-stolen"}';
-        }
-        location / { return 404; }
-      }
-    }
----
+# --- The exposed app (auto-mounts cluster-admin token) ---
+kubectl apply -f - << EOF
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: boss-imds
-  namespace: dojo-sec-boss
+  name: exposed-app
+  namespace: $NS_BOSS
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: boss-imds
+      app: exposed-app
   template:
     metadata:
       labels:
-        app: boss-imds
+        app: exposed-app
     spec:
+      serviceAccountName: default
       containers:
-      - name: nginx
-        image: nginx:1.27-alpine
-        volumeMounts:
-        - name: conf
-          mountPath: /etc/nginx/nginx.conf
-          subPath: nginx.conf
-      volumes:
-      - name: conf
-        configMap:
-          name: boss-imds-nginx
+      - name: app
+        image: busybox
+        command: [sleep, "3600"]
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: fake-imds-svc
-  namespace: dojo-sec-boss
+  name: exposed-app-svc
+  namespace: $NS_BOSS
 spec:
   selector:
-    app: boss-imds
+    app: exposed-app
   ports:
   - port: 80
-    targetPort: 80
+    targetPort: 8080
 EOF
 
-# --- Secrets (attack surface 3) ---
-kubectl apply -f - << 'EOF'
+# --- The Crown Jewels secret ---
+CROWN_B64=$(printf '%s' 'crown-jewels-value-attack-found-this' | base64)
+kubectl apply -f - << EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: db-creds
-  namespace: dojo-sec-boss
+  name: crown-jewels
+  namespace: $NS_VAULT
   annotations:
-    dojo.boss/hardening-target: "3"
+    dojo.attack/note: "High-value secret — attacker reads this after pivoting with stolen token"
 type: Opaque
 data:
-  flag: dG9rZW4zLXNlY3JldC1lbnVtZXJhdGVk
-  username: cHJvZC1kYi1hZG1pbg==
-  password: c3VwZXItc2VjcmV0LXBhc3M=
+  secret: $CROWN_B64
+  hint: $(printf '%s' 'You found the crown jewels! Now prove it in attack-progress ConfigMap and harden the cluster.' | base64)
 EOF
 
-# --- Attack pod (the attacker foothold) ---
-kubectl apply -f - << 'EOF'
+# --- Reward flag ---
+FLAG_B64=$(printf '%s' 'KUBE{full_kill_chain_owned_then_hardened}' | base64)
+kubectl apply -f - << EOF
 apiVersion: v1
-kind: Pod
+kind: ConfigMap
 metadata:
-  name: attack-pod
-  namespace: dojo-sec-boss
-  annotations:
-    dojo.boss/purpose: "Your foothold — a compromised application pod"
-spec:
-  serviceAccountName: overprivileged-sa
-  containers:
-  - name: attacker
-    image: bitnami/kubectl:1.28
-    command: ["sh", "-c"]
-    args:
-    - |
-      echo "Attack pod ready. Full kill chain exercise."
-      echo ""
-      echo "ATTACK SURFACES:"
-      echo "  1. IMDS: curl http://fake-imds-svc/latest/meta-data/iam/security-credentials/node-role"
-      echo "     → Write token to attack-token-1"
-      echo "  2. SA token abuse: cat /var/run/secrets/kubernetes.io/serviceaccount/token"
-      echo "     → Write token to attack-token-2"
-      echo "  3. Secret enumeration: kubectl get secret db-creds -n dojo-sec-boss -o jsonpath='{.data.flag}' | base64 -d"
-      echo "     → Write token to attack-token-3"
-      echo "  4. Privileged pod: kubectl run pwned --image=busybox:1.36 --restart=Never --privileged=true -n dojo-sec-boss -- sleep 60"
-      echo "     → Write token to attack-token-4"
-      echo "  5. Etcd exploration: kubectl get cm -A | grep -c kube-system"
-      echo "     → Write token to attack-token-5"
-      sleep 7200
-    env:
-    - name: DB_PASSWORD
-      value: "super-secret-pass"
-    - name: DB_HOST
-      value: "prod-postgres.dojo-sec-boss.svc"
-  restartPolicy: Never
+  name: boss-reward
+  namespace: $NS_BOSS
+data:
+  flag_b64: $FLAG_B64
 EOF
 
 echo ""
-echo "==> Setup complete."
+echo "==> Setup complete. The vulnerable lab is ready."
 echo ""
-echo "    Attack pod: kubectl exec -it attack-pod -n $NAMESPACE -- sh"
+echo "    Attack surface:"
+echo "    - Pod 'exposed-app' in $NS_BOSS (runs with default SA + cluster-admin token)"
+echo "    - ClusterRoleBinding 'dangerous-crb' gives default SA cluster-admin"
+echo "    - Secret 'crown-jewels' in $NS_VAULT (accessible via stolen cluster-admin token)"
 echo ""
-echo "    Complete all 5 attack surfaces, then apply all 5 hardenings."
-echo "    Run verify.sh when done."
+echo "    Attack: exec into exposed-app, steal token, use it to read crown-jewels,"
+echo "            then create ConfigMap 'attack-progress' in $NS_BOSS"
+echo ""
+echo "    Harden: delete dangerous-crb, set automountServiceAccountToken=false,"
+echo "            add NetworkPolicy, rotate crown-jewels"
+echo ""
+echo "    Run: bash verify.sh when both attack AND hardening are complete"

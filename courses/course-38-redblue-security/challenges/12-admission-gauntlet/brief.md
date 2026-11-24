@@ -1,66 +1,70 @@
-# Challenge 12 — Admission Gauntlet
+# Admission Gauntlet — Five Policies Block Five Attacks
 
-**Difficulty:** Hard | **Type:** Verifier | **Est. Time:** 75 min
+Five attack patterns. Five policies. All five must pass.
 
----
+This challenge deploys 5 "attack pods" — deliberately misconfigured Kubernetes specs that represent real attack techniques. Your job is to write OPA Gatekeeper and Kyverno policies that BLOCK all five from being created.
 
-## Situation
+The verifier will attempt to create each attack pod and confirm each is rejected.
 
-Five attack patterns. Five policies to write. All five must be blocked.
+## The Five Attacks
 
-Your cluster's admission control is a blank slate. No Kyverno policies exist yet. An attacker will attempt each of these patterns:
+| # | Pod spec | Attack technique | Policy engine |
+|---|----------|-----------------|---------------|
+| 1 | `privileged: true` | Container escape via privileged flag | OPA Gatekeeper |
+| 2 | `hostPath: /` | Node filesystem access | OPA Gatekeeper |
+| 3 | No `resources.limits` | Resource exhaustion / crypto mining | Kyverno |
+| 4 | `image: nginx` (no tag) | Image drift / mutable builds | Kyverno |
+| 5 | `serviceAccountName: dojo-sec-gauntlet-admin` | SA with excessive RBAC | Kyverno |
 
-| # | Pattern | Why it's dangerous |
-|---|---------|-------------------|
-| 1 | `privileged: true` container | Full host access |
-| 2 | `hostPath: /` or `/etc` mount | Read host filesystem |
-| 3 | Container runs as root (UID 0) | Write access to mounted secrets |
-| 4 | No CPU/memory limits | DoS the node |
-| 5 | Image tagged `:latest` | Non-reproducible, can be swapped |
+## Setup
 
-Write Kyverno ClusterPolicies (or OPA Gatekeeper ConstraintTemplates) that block all five. Then create the evidence ConfigMap to record your work.
+Gatekeeper and Kyverno are installed. Namespace `dojo-sec-gauntlet` exists. No policies are applied yet.
 
----
+## Mission
 
-## Lab Setup
+Write and apply:
+1. OPA ConstraintTemplate + Constraint for attacks 1 and 2
+2. Kyverno ClusterPolicy for attacks 3, 4, and 5
 
-```bash
-bash courses/course-38-redblue-security/challenges/12-admission-gauntlet/setup.sh
+Then run verify.sh — it attempts each attack pod and checks rejection.
+
+## Policy Requirements
+
+**OPA — Block Privileged:**
+```yaml
+# ConstraintTemplate: BlockPrivileged
+# Constraint applied to: dojo-sec-gauntlet namespace
+# Reject: pods where any container has securityContext.privileged: true
 ```
 
-This creates the namespace `dojo-sec-gauntlet` and installs Kyverno if not present.
-
----
-
-## Your Goal
-
-1. Write and apply a policy for each of the 5 attack patterns
-2. Verify each policy blocks a dry-run of the corresponding attack pod
-3. Record your results:
-
-```bash
-kubectl create configmap policy-evidence \
-  -n dojo-sec-gauntlet \
-  --from-literal=privileged=blocked \
-  --from-literal=hostpath=blocked \
-  --from-literal=root-user=blocked \
-  --from-literal=no-limits=blocked \
-  --from-literal=latest-tag=blocked
+**OPA — Block HostPath Root:**
+```yaml
+# ConstraintTemplate: BlockHostPathRoot  
+# Constraint applied to: dojo-sec-gauntlet namespace
+# Reject: pods with hostPath.path == "/"
 ```
 
----
-
-## Verifier
-
-```bash
-bash courses/course-38-redblue-security/challenges/12-admission-gauntlet/verify.sh
+**Kyverno — Require Resource Limits:**
+```yaml
+# ClusterPolicy, namespace: dojo-sec-gauntlet
+# Reject: pods where any container lacks resources.limits.cpu or resources.limits.memory
 ```
 
----
+**Kyverno — No Untagged Images:**
+```yaml
+# ClusterPolicy, namespace: dojo-sec-gauntlet
+# Reject: pods where image doesn't have a tag (image == "name" with no colon)
+# Note: "name:latest" should also be rejected
+```
 
-## What You'll Learn
+**Kyverno — Block Specific High-Priv SA:**
+```yaml
+# ClusterPolicy, namespace: dojo-sec-gauntlet
+# Reject: pods with serviceAccountName == "dojo-sec-gauntlet-admin"
+```
 
-- Kyverno ClusterPolicy structure: `match`, `validate`, `deny` rules
-- OPA Rego and ConstraintTemplate basics
-- Policy-as-code principles: shift admission control left
-- Why admission webhooks are the last line of defense before a pod runs
+## Rules of Engagement
+
+- Namespace: `dojo-sec-gauntlet`
+- Apply OPA and Kyverno resources, then run: `bash verify.sh`
+- The verifier creates test pods and expects 403/admission-denied responses

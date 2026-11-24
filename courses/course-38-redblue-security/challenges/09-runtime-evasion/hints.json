@@ -1,5 +1,1 @@
-[
-  "Falco's default shell detection rule triggers on proc.name in (sh, bash, zsh, dash). What other programs can execute code and read files?",
-  "python3 -c \"print(open('/secret/flag').read())\" — Python can read files directly without spawning a named shell. kubectl exec -n dojo-sec-evasion red-team-pod -- python3 -c \"print(open('/secret/flag').read())\"",
-  "Three other approaches that bypass the name-based rule: awk's getline, find -exec cat, or any language interpreter (perl, ruby, node). The defense is to use eBPF syscall-level detection instead of proc.name matching."
-]
+["Falco monitors syscalls INSIDE containers. kubectl API calls do NOT go through container syscalls. Think about how to get data WITHOUT exec-ing into a container.", "The flag is in a ConfigMap called 'evasion-reward' in namespace 'dojo-sec-evasion'. You can read ConfigMaps directly via kubectl — no container exec needed.", "kubectl get configmap evasion-reward -n dojo-sec-evasion -o jsonpath='{.data.flag}'"]

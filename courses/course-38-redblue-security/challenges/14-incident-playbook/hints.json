@@ -1,5 +1,1 @@
-[
-  "Follow PICERL in order. First: kubectl create configmap incident-identified -n dojo-sec-incident --from-literal=compromised_resource=processor",
-  "Contain: apply a NetworkPolicy named 'isolate-processor' that selects app=processor with empty ingress and egress (denies all traffic to/from the pod)",
-  "Eradicate: kubectl annotate secret payment-db-creds dojo.incident/rotated=true -n dojo-sec-incident; Recover: kubectl rollout restart deployment processor -n dojo-sec-incident; Lessons: kubectl create configmap incident-rca -n dojo-sec-incident --from-literal=root_cause=compromised_sa_token"
-]
+["PICERL order: Identify → Contain → Eradicate → Recover. Start with: kubectl label pod malicious-pod -n dojo-sec-incident dojo.incident/identified=true", "Steps 1-2 are labels on the pod. Step 3 deletes the ClusterRoleBinding: kubectl delete clusterrolebinding suspicious-crb. Step 4 deletes leaked-creds and creates rotated-creds.", "Full sequence: (1) kubectl label pod malicious-pod -n dojo-sec-incident dojo.incident/identified=true && (2) dojo.incident/contained=true && (3) kubectl delete clusterrolebinding suspicious-crb && (4) kubectl delete secret leaked-creds -n dojo-sec-incident && kubectl create secret generic rotated-creds --from-literal=password=new -n dojo-sec-incident — then bash verify.sh"]
