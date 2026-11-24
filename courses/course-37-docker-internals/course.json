@@ -1,0 +1,12 @@
+{
+  "id": "course-37-docker-internals",
+  "slug": "docker-internals",
+  "title": "Docker Internals & Mastery",
+  "order": 37,
+  "status": "available",
+  "difficulty": "Intermediate → Advanced",
+  "estHours": "20–25 h",
+  "prereqs": ["Basic Dockerfiles", "Linux command line", "course-01 Module 02 recommended"],
+  "tags": ["docker", "containers", "linux", "internals", "registry", "security"],
+  "description": "Go from Docker user to Docker understander. Linux namespaces, cgroups, OverlayFS, Dockerfile mastery, networking internals, container security, building a container runtime from scratch, and running your own private registry — 11 modules and 15 hands-on challenges."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "05-cross-platform",
+  "title": "Cross-Platform Build",
+  "order": 5,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 50,
+  "estMinutes": 30,
+  "tags": ["buildx", "multi-arch", "amd64", "arm64"],
+  "objective": "A pod fails with exec format error — the image was built for the wrong CPU architecture. Rebuild it for the correct platform."
+}

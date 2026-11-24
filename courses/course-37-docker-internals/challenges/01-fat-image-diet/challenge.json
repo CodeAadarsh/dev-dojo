@@ -1,0 +1,11 @@
+{
+  "slug": "01-fat-image-diet",
+  "title": "Fat Image Diet",
+  "order": 1,
+  "difficulty": "Easy",
+  "flagType": "discovery",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["dockerfile", "layers", "optimization"],
+  "objective": "Find the flag hidden in the labels of a bloated Docker image by diagnosing which layer is wasting space."
+}

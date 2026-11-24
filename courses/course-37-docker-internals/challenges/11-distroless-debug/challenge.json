@@ -1,0 +1,11 @@
+{
+  "slug": "11-distroless-debug",
+  "title": "Distroless Debug",
+  "order": 11,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 100,
+  "estMinutes": 45,
+  "tags": ["distroless", "debug", "ephemeral-containers", "kubernetes"],
+  "objective": "A distroless container is crashlooping — no shell inside. Use kubectl debug ephemeral containers to diagnose and fix it."
+}

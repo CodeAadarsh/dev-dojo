@@ -1,0 +1,1 @@
+["Check what docker history shows you about layer sizes — which layer is the fattest, and what instruction created it?", "docker inspect can show image labels — look at the .Config.Labels field of the image", "docker inspect dojo/fat-image:1.0 --format '{{json .Config.Labels}}'"]

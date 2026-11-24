@@ -1,0 +1,11 @@
+{
+  "slug": "13-image-signing",
+  "title": "Image Signing",
+  "order": 13,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 100,
+  "estMinutes": 45,
+  "tags": ["cosign", "supply-chain", "signing", "registry"],
+  "objective": "Sign a container image with cosign and push the signature to the registry — proving the image hasn't been tampered with."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "10-security-lockdown",
+  "title": "Security Lockdown",
+  "order": 10,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 50,
+  "estMinutes": 30,
+  "tags": ["security", "capabilities", "seccomp", "non-root"],
+  "objective": "Harden a pod running as root with all capabilities — apply non-root, read-only filesystem, drop all caps, and seccomp."
+}

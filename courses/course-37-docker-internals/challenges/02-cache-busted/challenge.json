@@ -1,0 +1,11 @@
+{
+  "slug": "02-cache-busted",
+  "title": "Cache Busted",
+  "order": 2,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 25,
+  "tags": ["dockerfile", "cache", "build"],
+  "objective": "Fix a Dockerfile where every build reinstalls all dependencies from scratch — wrong layer order is the culprit."
+}

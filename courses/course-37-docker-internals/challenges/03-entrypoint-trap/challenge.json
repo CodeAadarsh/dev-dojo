@@ -1,0 +1,11 @@
+{
+  "slug": "03-entrypoint-trap",
+  "title": "Entrypoint Trap",
+  "order": 3,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 20,
+  "estMinutes": 20,
+  "tags": ["dockerfile", "entrypoint", "cmd"],
+  "objective": "A pod exits instantly — wrong ENTRYPOINT/CMD combination. Fix it so the container stays Running."
+}

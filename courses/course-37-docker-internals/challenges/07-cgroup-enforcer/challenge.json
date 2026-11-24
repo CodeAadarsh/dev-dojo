@@ -1,0 +1,11 @@
+{
+  "slug": "07-cgroup-enforcer",
+  "title": "Cgroup Enforcer",
+  "order": 7,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 50,
+  "estMinutes": 30,
+  "tags": ["cgroups", "resources", "limits", "kubernetes"],
+  "objective": "A pod has no resource limits — a production disaster waiting to happen. Add limits and verify via the cgroup filesystem."
+}

@@ -1,0 +1,1 @@
+["The build cache invalidates from the top — which instruction changes most often in this Dockerfile?", "COPY . . copies ALL source files including server.js and README — that's what busts the cache on every edit", "Create a ConfigMap named fixed-dockerfile: kubectl create configmap fixed-dockerfile --from-literal=Dockerfile='...' -n dojo-docker-cache"]

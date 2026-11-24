@@ -1,0 +1,11 @@
+{
+  "slug": "08-network-detective",
+  "title": "Network Detective",
+  "order": 8,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 50,
+  "estMinutes": 40,
+  "tags": ["networking", "iptables", "docker-network", "debug"],
+  "objective": "Two pods cannot communicate — diagnose which network rule is blocking them and fix the network configuration."
+}

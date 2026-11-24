@@ -1,0 +1,1 @@
+["docker inspect dojo-spelunker --format '{{.State.Pid}}' gives you the host PID of the container's main process", "nsenter -t <PID> --mount puts you inside the container's mount namespace — you see its filesystem exactly as the container does", "sudo nsenter -t $CPID --mount cat /secret/flag.txt — replace $CPID with the actual PID you found"]

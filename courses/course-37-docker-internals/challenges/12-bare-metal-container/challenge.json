@@ -1,0 +1,11 @@
+{
+  "slug": "12-bare-metal-container",
+  "title": "Bare Metal Container",
+  "order": 12,
+  "difficulty": "Hard",
+  "flagType": "discovery",
+  "points": 100,
+  "estMinutes": 60,
+  "tags": ["internals", "unshare", "pivot_root", "namespaces", "linux"],
+  "objective": "Create a running container using ONLY Linux primitives — unshare, pivot_root, and cgroups. No Docker, no containerd."
+}

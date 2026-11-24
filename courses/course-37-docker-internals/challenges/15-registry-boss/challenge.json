@@ -1,0 +1,11 @@
+{
+  "slug": "15-registry-boss",
+  "title": "Registry Boss",
+  "order": 15,
+  "difficulty": "Insane",
+  "flagType": "verifier",
+  "points": 200,
+  "estMinutes": 90,
+  "tags": ["registry", "distribution", "auth", "kubernetes", "boss"],
+  "objective": "Deploy a private Docker registry with auth in-cluster, push an image to it, and prove a Pod can pull from your registry."
+}

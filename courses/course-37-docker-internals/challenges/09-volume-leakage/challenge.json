@@ -1,0 +1,11 @@
+{
+  "slug": "09-volume-leakage",
+  "title": "Volume Leakage",
+  "order": 9,
+  "difficulty": "Easy",
+  "flagType": "verifier",
+  "points": 25,
+  "estMinutes": 20,
+  "tags": ["volumes", "storage", "persistence"],
+  "objective": "An app loses its data every time the pod restarts — it's writing to the container layer. Fix it with a proper Volume mount."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "14-custom-bridge",
+  "title": "Custom Bridge Isolation",
+  "order": 14,
+  "difficulty": "Hard",
+  "flagType": "verifier",
+  "points": 100,
+  "estMinutes": 45,
+  "tags": ["networking", "bridge", "isolation", "iptables"],
+  "objective": "Create an isolated custom Docker bridge network, prove containers on it can reach each other but NOT the default bridge."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "04-multi-stage-go",
+  "title": "Multi-Stage Go Build",
+  "order": 4,
+  "difficulty": "Medium",
+  "flagType": "verifier",
+  "points": 50,
+  "estMinutes": 35,
+  "tags": ["dockerfile", "multi-stage", "distroless", "go"],
+  "objective": "Build a Go binary in a build stage and ship only the binary on a distroless base — final image must be under 20 MB."
+}

@@ -1,0 +1,11 @@
+{
+  "slug": "06-namespace-spelunker",
+  "title": "Namespace Spelunker",
+  "order": 6,
+  "difficulty": "Medium",
+  "flagType": "discovery",
+  "points": 50,
+  "estMinutes": 30,
+  "tags": ["namespaces", "nsenter", "linux", "internals"],
+  "objective": "Enter a running container's mount namespace using only nsenter — no docker exec allowed — and retrieve the hidden flag."
+}
